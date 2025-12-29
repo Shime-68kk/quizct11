@@ -1,0 +1,2919 @@
+[
+  {
+    "title": "Đề 1 – Triết học Mác–Lênin",
+    "shuffle": true,
+    "timeLimit": 3000,
+    "questions": [
+      {
+        "id": "q1",
+        "type": "single",
+        "text": "Hạt nhân chủ yếu của thế giới quan là gì? (Chương I)",
+        "choices": [
+          "Các quan điểm chính trị – xã hội",
+          "Các quan điểm kinh tế",
+          "Các quan điểm triết học",
+          "Các quan điểm mỹ học"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "q2",
+        "type": "single",
+        "text": "Triết học ra đời ở đâu? (Chương I)",
+        "choices": [
+          "Chỉ ở phương Đông",
+          "Chỉ ở phương Tây",
+          "Ở cả phương Đông và phương Tây",
+          "Chỉ ở các nước phát triển"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "q3",
+        "type": "single",
+        "text": "Nguồn gốc nhận thức của triết học là gì? (Chương I)",
+        "choices": [
+          "Tri thức khoa học cụ thể",
+          "Tư duy con người đạt trình độ khái quát, trừu tượng",
+          "Vốn hiểu biết rời rạc",
+          "Tư duy khái quát, trừu tượng dựa trên tri thức đã tích lũy"
+        ],
+        "answer": 3
+      },
+      {
+        "id": "q4",
+        "type": "single",
+        "text": "Nguồn gốc xã hội của triết học là gì? (Chương I)",
+        "choices": [
+          "Chế độ tư hữu",
+          "Phân công lao động xã hội",
+          "Sự xuất hiện lao động trí óc",
+          "Chế độ tư hữu, phân công lao động và lao động trí óc"
+        ],
+        "answer": 3
+      },
+      {
+        "id": "q5",
+        "type": "single",
+        "text": "Chức năng cơ bản của triết học là gì? (Chương I)",
+        "choices": [
+          "Giải thích thế giới",
+          "Thế giới quan",
+          "Phương pháp luận",
+          "Thế giới quan và phương pháp luận"
+        ],
+        "answer": 3
+      },
+      {
+        "id": "q6",
+        "type": "single",
+        "text": "Vấn đề cơ bản của triết học là gì? (Chương I)",
+        "choices": [
+          "Quan hệ giữa vật chất và ý thức",
+          "Quan hệ giữa cái chung và cái riêng",
+          "Quan hệ giữa lực lượng sản xuất và quan hệ sản xuất",
+          "Quan hệ giữa tồn tại xã hội và ý thức xã hội"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "q7",
+        "type": "single",
+        "text": "Theo triết học Mác–Lênin, vật chất là gì? (Chương II)",
+        "choices": [
+          "Toàn bộ thế giới",
+          "Thực tại khách quan tồn tại độc lập với ý thức",
+          "Những gì con người nhận thức được",
+          "Những vật thể cụ thể"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q8",
+        "type": "single",
+        "text": "Thuộc tính chung nhất của vật chất là gì? (Chương II)",
+        "choices": [
+          "Khối lượng",
+          "Tự vận động",
+          "Tồn tại khách quan không lệ thuộc vào ý thức",
+          "Có thể nhận thức được"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "q9",
+        "type": "single",
+        "text": "Nguồn gốc xã hội trực tiếp và quan trọng nhất của ý thức là gì? (Chương II)",
+        "choices": [
+          "Lao động",
+          "Ngôn ngữ",
+          "Thực tiễn",
+          "Giáo dục"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "q10",
+        "type": "single",
+        "text": "Ngôn ngữ giữ vai trò gì đối với ý thức? (Chương II)",
+        "choices": [
+          "Nội dung của ý thức",
+          "Vỏ vật chất của ý thức",
+          "Nội dung trung tâm của ý thức",
+          "Sản phẩm của ý thức"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q11",
+        "type": "single",
+        "text": "Nguồn gốc của sự vận động và phát triển của sự vật là gì? (Chương II)",
+        "choices": [
+          "Tác động bên ngoài",
+          "Mâu thuẫn biện chứng",
+          "Ý chí con người",
+          "Ngẫu nhiên"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q12",
+        "type": "single",
+        "text": "Phủ định biện chứng được hiểu như thế nào? (Chương II)",
+        "choices": [
+          "Xóa bỏ hoàn toàn cái cũ",
+          "Kế thừa và phát triển cái cũ",
+          "Phủ định sạch trơn",
+          "Bảo thủ cái cũ"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q13",
+        "type": "single",
+        "text": "Trong quy luật lượng – chất, độ là gì? (Chương II)",
+        "choices": [
+          "Thời điểm thay đổi chất",
+          "Khoảng giới hạn lượng chưa làm thay đổi chất",
+          "Bước nhảy",
+          "Điểm nút"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q14",
+        "type": "single",
+        "text": "Mâu thuẫn chủ yếu là gì? (Chương II)",
+        "choices": [
+          "Mâu thuẫn tồn tại lâu dài nhất",
+          "Mâu thuẫn chi phối các mâu thuẫn khác trong giai đoạn nhất định",
+          "Mâu thuẫn đối kháng",
+          "Mâu thuẫn thứ yếu"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q15",
+        "type": "single",
+        "text": "Theo chủ nghĩa duy vật biện chứng, sự thống nhất của các mặt đối lập thể hiện ở đâu? (Chương II)",
+        "choices": [
+          "Sự cùng tồn tại và nương tựa lẫn nhau",
+          "Sự giống nhau hoàn toàn",
+          "Sự phủ định lẫn nhau",
+          "Sự ngẫu nhiên"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "q16",
+        "type": "single",
+        "text": "Cơ sở hạ tầng của xã hội là gì? (Chương III)",
+        "choices": [
+          "Toàn bộ quan hệ xã hội",
+          "Toàn bộ quan hệ sản xuất hợp thành",
+          "Kiến trúc thượng tầng",
+          "Quan hệ chính trị"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q17",
+        "type": "single",
+        "text": "Kiến trúc thượng tầng bao gồm những yếu tố nào? (Chương III)",
+        "choices": [
+          "Chính trị và pháp luật",
+          "Ý thức xã hội",
+          "Nhà nước và thiết chế xã hội",
+          "Nhà nước, pháp luật, chính trị và tư tưởng xã hội"
+        ],
+        "answer": 3
+      },
+      {
+        "id": "q18",
+        "type": "single",
+        "text": "Nguồn gốc sâu xa của sự xuất hiện giai cấp là gì? (Chương III)",
+        "choices": [
+          "Chế độ tư hữu",
+          "Phân hóa giàu nghèo",
+          "Sự phát triển của lực lượng sản xuất",
+          "Đấu tranh giai cấp"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "q19",
+        "type": "single",
+        "text": "Đỉnh cao của đấu tranh giai cấp là gì? (Chương III)",
+        "choices": [
+          "Cải cách",
+          "Đảo chính",
+          "Cách mạng xã hội",
+          "Tiến hóa xã hội"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "q20",
+        "type": "single",
+        "text": "Bản chất của nhà nước theo triết học Mác–Lênin là gì? (Chương III)",
+        "choices": [
+          "Tổ chức quyền lực của toàn dân",
+          "Công cụ thống trị của giai cấp thống trị",
+          "Thiết chế trung lập",
+          "Công cụ quản lý xã hội"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q21",
+        "type": "single",
+        "text": "Theo chủ nghĩa duy vật biện chứng, vận động là gì? (Chương II)",
+        "choices": [
+          "Sự thay đổi vị trí trong không gian",
+          "Mọi sự biến đổi nói chung",
+          "Sự dịch chuyển cơ học",
+          "Sự thay đổi có ý thức"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q22",
+        "type": "single",
+        "text": "Hình thức vận động cao nhất của vật chất là gì? (Chương II)",
+        "choices": [
+          "Vận động cơ học",
+          "Vận động vật lý",
+          "Vận động sinh học",
+          "Vận động xã hội"
+        ],
+        "answer": 3
+      },
+      {
+        "id": "q23",
+        "type": "single",
+        "text": "Không gian và thời gian theo triết học Mác–Lênin là gì? (Chương II)",
+        "choices": [
+          "Sản phẩm của ý thức con người",
+          "Hình thức tồn tại của vật chất",
+          "Thuộc tính của tư duy",
+          "Phạm trù siêu hình"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q24",
+        "type": "single",
+        "text": "Theo phép biện chứng duy vật, nguyên nhân của sự phát triển là gì? (Chương II)",
+        "choices": [
+          "Tác động bên ngoài",
+          "Ý chí con người",
+          "Mâu thuẫn nội tại của sự vật",
+          "Ngẫu nhiên"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "q25",
+        "type": "single",
+        "text": "Bước nhảy trong quy luật lượng – chất là gì? (Chương II)",
+        "choices": [
+          "Sự thay đổi dần dần",
+          "Sự thay đổi về lượng",
+          "Sự thay đổi căn bản về chất",
+          "Sự thay đổi ngẫu nhiên"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "q26",
+        "type": "single",
+        "text": "Phủ định biện chứng khác phủ định siêu hình ở điểm nào? (Chương II)",
+        "choices": [
+          "Có tính kế thừa",
+          "Có tính chủ quan",
+          "Xóa bỏ hoàn toàn cái cũ",
+          "Không có sự phát triển"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "q27",
+        "type": "single",
+        "text": "Mối liên hệ phổ biến của sự vật mang tính chất gì? (Chương II)",
+        "choices": [
+          "Ngẫu nhiên",
+          "Chủ quan",
+          "Khách quan và phổ biến",
+          "Tạm thời"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "q28",
+        "type": "single",
+        "text": "Theo phép biện chứng duy vật, cái chung tồn tại như thế nào? (Chương II)",
+        "choices": [
+          "Tồn tại độc lập ngoài cái riêng",
+          "Không tồn tại trong hiện thực",
+          "Tồn tại trong cái riêng",
+          "Chỉ tồn tại trong tư duy"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "q29",
+        "type": "single",
+        "text": "Thực tiễn giữ vai trò gì đối với nhận thức? (Chương II)",
+        "choices": [
+          "Nguồn gốc của nhận thức",
+          "Động lực của nhận thức",
+          "Mục đích của nhận thức",
+          "Tiêu chuẩn kiểm tra chân lý"
+        ],
+        "answer": 3
+      },
+      {
+        "id": "q30",
+        "type": "single",
+        "text": "Chân lý theo quan điểm của triết học Mác–Lênin là gì? (Chương II)",
+        "choices": [
+          "Nhận thức đúng đắn, phù hợp với hiện thực khách quan",
+          "Ý kiến được nhiều người thừa nhận",
+          "Nhận thức mang tính chủ quan",
+          "Tri thức kinh nghiệm"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "q31",
+        "type": "single",
+        "text": "Tồn tại xã hội là gì? (Chương III)",
+        "choices": [
+          "Toàn bộ đời sống tinh thần của xã hội",
+          "Phương thức sản xuất vật chất và điều kiện sinh hoạt vật chất",
+          "Hệ tư tưởng xã hội",
+          "Ý thức xã hội"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q32",
+        "type": "single",
+        "text": "Ý thức xã hội là gì? (Chương III)",
+        "choices": [
+          "Toàn bộ tư tưởng, quan điểm xã hội",
+          "Toàn bộ đời sống vật chất xã hội",
+          "Phương thức sản xuất",
+          "Cơ sở hạ tầng"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "q33",
+        "type": "single",
+        "text": "Vai trò quyết định đối với sự phát triển xã hội là yếu tố nào? (Chương III)",
+        "choices": [
+          "Ý thức xã hội",
+          "Tồn tại xã hội",
+          "Nhà nước",
+          "Giai cấp"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q34",
+        "type": "single",
+        "text": "Quan hệ sản xuất bao gồm những mặt nào? (Chương III)",
+        "choices": [
+          "Quan hệ sở hữu, quản lý và phân phối",
+          "Quan hệ kỹ thuật",
+          "Quan hệ trao đổi",
+          "Quan hệ tiêu dùng"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "q35",
+        "type": "single",
+        "text": "Lực lượng sản xuất bao gồm những yếu tố nào? (Chương III)",
+        "choices": [
+          "Người lao động và tư liệu sản xuất",
+          "Quan hệ sở hữu",
+          "Quan hệ phân phối",
+          "Nhà nước và pháp luật"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "q36",
+        "type": "single",
+        "text": "Mâu thuẫn cơ bản của phương thức sản xuất là mâu thuẫn giữa gì với gì? (Chương III)",
+        "choices": [
+          "Các giai cấp",
+          "Lực lượng sản xuất và quan hệ sản xuất",
+          "Nhà nước và nhân dân",
+          "Cơ sở hạ tầng và kiến trúc thượng tầng"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q37",
+        "type": "single",
+        "text": "Hình thái kinh tế – xã hội là gì? (Chương III)",
+        "choices": [
+          "Một giai đoạn lịch sử nhất định của xã hội",
+          "Một chế độ chính trị",
+          "Một nhà nước cụ thể",
+          "Một hệ tư tưởng"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "q38",
+        "type": "single",
+        "text": "Động lực trực tiếp của sự phát triển xã hội là gì? (Chương III)",
+        "choices": [
+          "Đấu tranh giai cấp",
+          "Ý thức xã hội",
+          "Nhà nước",
+          "Tôn giáo"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "q39",
+        "type": "single",
+        "text": "Cách mạng xã hội là gì? (Chương III)",
+        "choices": [
+          "Sự thay đổi dần dần",
+          "Sự thay đổi căn bản hình thái kinh tế – xã hội",
+          "Sự cải cách chính trị",
+          "Sự tiến hóa tự nhiên"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q40",
+        "type": "single",
+        "text": "Quần chúng nhân dân là gì? (Chương III)",
+        "choices": [
+          "Toàn bộ dân cư",
+          "Bộ phận đông đảo nhân dân có lợi ích gắn với tiến bộ xã hội",
+          "Giai cấp công nhân",
+          "Tầng lớp trí thức"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q41",
+        "type": "single",
+        "text": "Vai trò của quần chúng nhân dân trong lịch sử theo triết học Mác–Lênin là gì? (Chương III)",
+        "choices": [
+          "Lực lượng sáng tạo ra lịch sử",
+          "Lực lượng bị chi phối hoàn toàn",
+          "Lực lượng thụ động",
+          "Lực lượng phụ thuộc vào cá nhân"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "q42",
+        "type": "single",
+        "text": "Vai trò của cá nhân trong lịch sử được thể hiện ở điểm nào? (Chương III)",
+        "choices": [
+          "Quyết định toàn bộ tiến trình lịch sử",
+          "Không có vai trò gì",
+          "Có ảnh hưởng nhất định trong những điều kiện lịch sử nhất định",
+          "Luôn đứng trên quần chúng"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "q43",
+        "type": "single",
+        "text": "Quan hệ giữa quần chúng nhân dân và cá nhân trong lịch sử là gì? (Chương III)",
+        "choices": [
+          "Đối lập hoàn toàn",
+          "Quần chúng quyết định, cá nhân có vai trò quan trọng",
+          "Cá nhân quyết định, quần chúng phụ thuộc",
+          "Không liên quan"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q44",
+        "type": "single",
+        "text": "Ý thức xã hội thường lạc hậu hơn tồn tại xã hội do nguyên nhân nào? (Chương III)",
+        "choices": [
+          "Tồn tại xã hội thay đổi chậm",
+          "Ý thức xã hội có tính độc lập tương đối",
+          "Ý thức xã hội không phản ánh hiện thực",
+          "Do yếu tố sinh học"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q45",
+        "type": "single",
+        "text": "Ý thức xã hội có thể vượt trước tồn tại xã hội trong trường hợp nào? (Chương III)",
+        "choices": [
+          "Khi phản ánh đúng xu hướng phát triển của hiện thực",
+          "Khi tách rời hiện thực",
+          "Khi mang tính chủ quan",
+          "Khi bị áp đặt"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "q46",
+        "type": "single",
+        "text": "Hình thái ý thức xã hội nào giữ vai trò trung tâm trong kiến trúc thượng tầng? (Chương III)",
+        "choices": [
+          "Ý thức pháp quyền",
+          "Ý thức chính trị",
+          "Ý thức đạo đức",
+          "Ý thức tôn giáo"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q47",
+        "type": "single",
+        "text": "Cơ sở kinh tế của xã hội là gì? (Chương III)",
+        "choices": [
+          "Lực lượng sản xuất",
+          "Quan hệ sản xuất hợp thành",
+          "Phương thức sản xuất",
+          "Tồn tại xã hội"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q48",
+        "type": "single",
+        "text": "Sự phù hợp giữa quan hệ sản xuất và lực lượng sản xuất có ý nghĩa gì? (Chương III)",
+        "choices": [
+          "Thúc đẩy sự phát triển xã hội",
+          "Kìm hãm sự phát triển",
+          "Không ảnh hưởng gì",
+          "Chỉ ảnh hưởng chính trị"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "q49",
+        "type": "single",
+        "text": "Khi quan hệ sản xuất trở nên lỗi thời so với lực lượng sản xuất sẽ dẫn đến điều gì? (Chương III)",
+        "choices": [
+          "Ổn định xã hội",
+          "Cải cách nhỏ",
+          "Cách mạng xã hội",
+          "Không có thay đổi"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "q50",
+        "type": "single",
+        "text": "Phương thức sản xuất là sự thống nhất giữa những yếu tố nào? (Chương III)",
+        "choices": [
+          "Lực lượng sản xuất và quan hệ sản xuất",
+          "Cơ sở hạ tầng và kiến trúc thượng tầng",
+          "Tồn tại xã hội và ý thức xã hội",
+          "Nhà nước và giai cấp"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "q51",
+        "type": "single",
+        "text": "Sự phát triển của xã hội loài người diễn ra theo con đường nào? (Chương III)",
+        "choices": [
+          "Tuần hoàn khép kín",
+          "Ngẫu nhiên",
+          "Lịch sử – tự nhiên",
+          "Chủ quan"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "q52",
+        "type": "single",
+        "text": "Tiêu chuẩn căn bản để phân biệt các hình thái kinh tế – xã hội là gì? (Chương III)",
+        "choices": [
+          "Trình độ khoa học",
+          "Phương thức sản xuất",
+          "Chế độ chính trị",
+          "Ý thức xã hội"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q53",
+        "type": "single",
+        "text": "Nhà nước ra đời khi nào? (Chương III)",
+        "choices": [
+          "Khi xã hội có giai cấp và đấu tranh giai cấp",
+          "Khi xuất hiện tư hữu",
+          "Khi xã hội phân chia giai cấp đối kháng",
+          "Khi xuất hiện văn minh"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "q54",
+        "type": "single",
+        "text": "Bản chất giai cấp của nhà nước thể hiện ở điểm nào? (Chương III)",
+        "choices": [
+          "Bảo vệ lợi ích toàn xã hội",
+          "Công cụ thống trị của giai cấp thống trị",
+          "Thiết chế trung lập",
+          "Cơ quan hành chính"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q55",
+        "type": "single",
+        "text": "Chức năng đối nội của nhà nước là gì? (Chương III)",
+        "choices": [
+          "Đàn áp giai cấp đối kháng trong nước",
+          "Quan hệ ngoại giao",
+          "Chiến tranh xâm lược",
+          "Bảo vệ biên giới"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "q56",
+        "type": "single",
+        "text": "Chức năng đối ngoại của nhà nước là gì? (Chương III)",
+        "choices": [
+          "Quản lý kinh tế",
+          "Tổ chức sản xuất",
+          "Bảo vệ lợi ích quốc gia trong quan hệ quốc tế",
+          "Giáo dục tư tưởng"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "q57",
+        "type": "single",
+        "text": "Dân chủ theo quan điểm Mác–Lênin là gì? (Chương III)",
+        "choices": [
+          "Hình thức nhà nước",
+          "Quyền lực của thiểu số",
+          "Quyền lực thuộc về nhân dân",
+          "Chế độ trung lập"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "q58",
+        "type": "single",
+        "text": "Nhà nước xã hội chủ nghĩa khác các nhà nước trước đó ở điểm nào? (Chương III)",
+        "choices": [
+          "Không còn giai cấp",
+          "Bảo vệ lợi ích của giai cấp công nhân và nhân dân lao động",
+          "Không cần pháp luật",
+          "Không có quyền lực"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q59",
+        "type": "single",
+        "text": "Xu hướng phát triển tất yếu của nhà nước xã hội chủ nghĩa là gì? (Chương III)",
+        "choices": [
+          "Mạnh lên vô hạn",
+          "Tự tiêu vong",
+          "Bảo thủ",
+          "Trung lập hóa"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "q60",
+        "type": "single",
+        "text": "Mục tiêu cao nhất của chủ nghĩa xã hội theo quan điểm Mác–Lênin là gì? (Chương III)",
+        "choices": [
+          "Phát triển kinh tế",
+          "Xây dựng nhà nước mạnh",
+          "Giải phóng con người toàn diện",
+          "Ổn định chính trị"
+        ],
+        "answer": 2
+      }
+    ]
+  },
+  {
+    "title": "Đề 2 – Triết học Mác–Lênin",
+    "shuffle": true,
+    "timeLimit": 3600,
+    "questions": [
+      {
+        "id": "d2q1",
+        "type": "single",
+        "text": "Triết học ra đời khi nào? (Chương I)",
+        "choices": [
+          "Khi con người có nhận thức cảm tính",
+          "Khi xã hội có giai cấp và lao động trí óc tách khỏi lao động chân tay",
+          "Khi xuất hiện tôn giáo",
+          "Khi khoa học tự nhiên phát triển"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q2",
+        "type": "single",
+        "text": "Triết học với tư cách là thế giới quan khác với các hình thức thế giới quan khác ở điểm nào? (Chương I)",
+        "choices": [
+          "Mang tính cảm tính",
+          "Mang tính huyền thoại",
+          "Mang tính lý luận chung nhất",
+          "Mang tính kinh nghiệm"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "d2q3",
+        "type": "single",
+        "text": "Đối tượng nghiên cứu của triết học là gì? (Chương I)",
+        "choices": [
+          "Các quy luật riêng của tự nhiên",
+          "Các quy luật riêng của xã hội",
+          "Những quy luật vận động, phát triển chung nhất của tự nhiên, xã hội và tư duy",
+          "Các hiện tượng tâm lý cá nhân"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "d2q4",
+        "type": "single",
+        "text": "Triết học Mác – Lênin ra đời trên cơ sở kế thừa những nguồn lý luận nào? (Chương I)",
+        "choices": [
+          "Triết học cổ đại phương Đông",
+          "Triết học cổ điển Đức, kinh tế chính trị cổ điển Anh và chủ nghĩa xã hội không tưởng Pháp",
+          "Triết học Hy Lạp cổ đại",
+          "Triết học trung cổ"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q5",
+        "type": "single",
+        "text": "Chức năng phương pháp luận của triết học thể hiện ở điểm nào? (Chương I)",
+        "choices": [
+          "Giải thích thế giới",
+          "Định hướng nhận thức và hoạt động thực tiễn",
+          "Truyền bá tri thức khoa học",
+          "Giáo dục đạo đức"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q6",
+        "type": "single",
+        "text": "Vấn đề cơ bản của triết học có mấy mặt? (Chương I)",
+        "choices": [
+          "Một mặt",
+          "Hai mặt",
+          "Ba mặt",
+          "Bốn mặt"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q7",
+        "type": "single",
+        "text": "Theo chủ nghĩa duy vật biện chứng, ý thức là gì? (Chương II)",
+        "choices": [
+          "Thuộc tính của mọi dạng vật chất",
+          "Sự phản ánh thế giới khách quan vào bộ óc con người",
+          "Sản phẩm của cảm giác",
+          "Hiện tượng sinh học"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q8",
+        "type": "single",
+        "text": "Nguồn gốc tự nhiên của ý thức là gì? (Chương II)",
+        "choices": [
+          "Lao động",
+          "Ngôn ngữ",
+          "Bộ óc người và thế giới khách quan tác động vào bộ óc",
+          "Thực tiễn xã hội"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "d2q9",
+        "type": "single",
+        "text": "Vận động theo quan điểm triết học Mác – Lênin là gì? (Chương II)",
+        "choices": [
+          "Sự thay đổi vị trí trong không gian",
+          "Mọi sự biến đổi nói chung",
+          "Sự thay đổi có ý thức",
+          "Sự chuyển hóa năng lượng"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q10",
+        "type": "single",
+        "text": "Vận động là phương thức tồn tại của cái gì? (Chương II)",
+        "choices": [
+          "Ý thức",
+          "Vật chất",
+          "Tư duy",
+          "Xã hội"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q11",
+        "type": "single",
+        "text": "Theo phép biện chứng duy vật, phát triển là gì? (Chương II)",
+        "choices": [
+          "Sự thay đổi về lượng",
+          "Sự vận động lặp lại",
+          "Sự vận động theo khuynh hướng đi lên",
+          "Sự thay đổi ngẫu nhiên"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "d2q12",
+        "type": "single",
+        "text": "Nguồn gốc của sự phát triển theo phép biện chứng duy vật là gì? (Chương II)",
+        "choices": [
+          "Tác động bên ngoài",
+          "Ý chí con người",
+          "Mâu thuẫn nội tại của sự vật",
+          "Ngẫu nhiên"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "d2q13",
+        "type": "single",
+        "text": "Quy luật thống nhất và đấu tranh của các mặt đối lập phản ánh điều gì? (Chương II)",
+        "choices": [
+          "Khuynh hướng phát triển",
+          "Nguồn gốc của sự vận động và phát triển",
+          "Hình thức phát triển",
+          "Kết quả của phát triển"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q14",
+        "type": "single",
+        "text": "Quy luật lượng – chất phản ánh điều gì? (Chương II)",
+        "choices": [
+          "Nguồn gốc phát triển",
+          "Cách thức phát triển",
+          "Khuynh hướng phát triển",
+          "Hình thức phát triển"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q15",
+        "type": "single",
+        "text": "Trong quy luật lượng – chất, điểm nút là gì? (Chương II)",
+        "choices": [
+          "Giới hạn lượng",
+          "Thời điểm diễn ra bước nhảy",
+          "Khoảng độ",
+          "Mức thay đổi lượng"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q16",
+        "type": "single",
+        "text": "Phủ định biện chứng có đặc điểm nào sau đây? (Chương II)",
+        "choices": [
+          "Mang tính chủ quan",
+          "Mang tính kế thừa và phát triển",
+          "Xóa bỏ hoàn toàn cái cũ",
+          "Không liên quan đến phát triển"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q17",
+        "type": "single",
+        "text": "Quy luật phủ định của phủ định phản ánh điều gì? (Chương II)",
+        "choices": [
+          "Nguồn gốc phát triển",
+          "Hình thức phát triển",
+          "Khuynh hướng phát triển",
+          "Tốc độ phát triển"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "d2q18",
+        "type": "single",
+        "text": "Theo phép biện chứng duy vật, cái riêng là gì? (Chương II)",
+        "choices": [
+          "Tồn tại độc lập ngoài cái chung",
+          "Một sự vật, hiện tượng cụ thể",
+          "Chỉ tồn tại trong tư duy",
+          "Không tồn tại trong hiện thực"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q19",
+        "type": "single",
+        "text": "Mối quan hệ giữa cái chung và cái riêng được hiểu như thế nào? (Chương II)",
+        "choices": [
+          "Cái chung tồn tại ngoài cái riêng",
+          "Cái riêng tồn tại trong cái chung",
+          "Cái chung tồn tại trong cái riêng",
+          "Không có quan hệ"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "d2q20",
+        "type": "single",
+        "text": "Thực tiễn giữ vai trò gì đối với nhận thức? (Chương II)",
+        "choices": [
+          "Nguồn gốc của nhận thức",
+          "Động lực của nhận thức",
+          "Mục đích của nhận thức",
+          "Tiêu chuẩn kiểm tra chân lý"
+        ],
+        "answer": 3
+      },
+      {
+        "id": "d2q21",
+        "type": "single",
+        "text": "Tồn tại xã hội là gì? (Chương III)",
+        "choices": [
+          "Toàn bộ đời sống tinh thần của xã hội",
+          "Phương thức sản xuất vật chất và điều kiện sinh hoạt vật chất",
+          "Hệ tư tưởng xã hội",
+          "Ý thức xã hội"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q22",
+        "type": "single",
+        "text": "Ý thức xã hội là gì? (Chương III)",
+        "choices": [
+          "Toàn bộ tư tưởng, quan điểm xã hội",
+          "Toàn bộ đời sống vật chất xã hội",
+          "Phương thức sản xuất",
+          "Cơ sở hạ tầng"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "d2q23",
+        "type": "single",
+        "text": "Vai trò quyết định đối với sự phát triển xã hội thuộc về yếu tố nào? (Chương III)",
+        "choices": [
+          "Ý thức xã hội",
+          "Tồn tại xã hội",
+          "Nhà nước",
+          "Giai cấp"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q24",
+        "type": "single",
+        "text": "Quan hệ sản xuất bao gồm những mặt nào? (Chương III)",
+        "choices": [
+          "Quan hệ sở hữu, tổ chức quản lý và phân phối",
+          "Quan hệ kỹ thuật",
+          "Quan hệ trao đổi",
+          "Quan hệ tiêu dùng"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "d2q25",
+        "type": "single",
+        "text": "Lực lượng sản xuất bao gồm những yếu tố nào? (Chương III)",
+        "choices": [
+          "Người lao động và tư liệu sản xuất",
+          "Quan hệ sở hữu",
+          "Quan hệ phân phối",
+          "Nhà nước và pháp luật"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "d2q26",
+        "type": "single",
+        "text": "Mâu thuẫn cơ bản của phương thức sản xuất là mâu thuẫn giữa những yếu tố nào? (Chương III)",
+        "choices": [
+          "Các giai cấp đối kháng",
+          "Lực lượng sản xuất và quan hệ sản xuất",
+          "Nhà nước và nhân dân",
+          "Cơ sở hạ tầng và kiến trúc thượng tầng"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q27",
+        "type": "single",
+        "text": "Hình thái kinh tế – xã hội là gì? (Chương III)",
+        "choices": [
+          "Một giai đoạn lịch sử nhất định của xã hội với phương thức sản xuất đặc trưng",
+          "Một chế độ chính trị",
+          "Một nhà nước cụ thể",
+          "Một hệ tư tưởng"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "d2q28",
+        "type": "single",
+        "text": "Động lực trực tiếp của sự phát triển xã hội là gì? (Chương III)",
+        "choices": [
+          "Đấu tranh giai cấp",
+          "Ý thức xã hội",
+          "Nhà nước",
+          "Tôn giáo"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "d2q29",
+        "type": "single",
+        "text": "Cách mạng xã hội là gì? (Chương III)",
+        "choices": [
+          "Sự thay đổi dần dần trong xã hội",
+          "Sự thay đổi căn bản hình thái kinh tế – xã hội",
+          "Sự cải cách chính trị",
+          "Sự tiến hóa tự nhiên"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q30",
+        "type": "single",
+        "text": "Quần chúng nhân dân là gì? (Chương III)",
+        "choices": [
+          "Toàn bộ dân cư",
+          "Bộ phận đông đảo nhân dân có lợi ích gắn với tiến bộ xã hội",
+          "Giai cấp công nhân",
+          "Tầng lớp trí thức"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q31",
+        "type": "single",
+        "text": "Vai trò của quần chúng nhân dân trong lịch sử theo triết học Mác–Lênin là gì? (Chương III)",
+        "choices": [
+          "Lực lượng sáng tạo ra lịch sử",
+          "Lực lượng bị chi phối hoàn toàn",
+          "Lực lượng thụ động",
+          "Lực lượng phụ thuộc vào cá nhân"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "d2q32",
+        "type": "single",
+        "text": "Vai trò của cá nhân trong lịch sử được thể hiện như thế nào? (Chương III)",
+        "choices": [
+          "Quyết định toàn bộ tiến trình lịch sử",
+          "Không có vai trò gì",
+          "Có ảnh hưởng nhất định trong những điều kiện lịch sử nhất định",
+          "Luôn đứng trên quần chúng"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "d2q33",
+        "type": "single",
+        "text": "Quan hệ giữa quần chúng nhân dân và cá nhân trong lịch sử là gì? (Chương III)",
+        "choices": [
+          "Đối lập hoàn toàn",
+          "Quần chúng quyết định, cá nhân có vai trò quan trọng",
+          "Cá nhân quyết định, quần chúng phụ thuộc",
+          "Không liên quan"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q34",
+        "type": "single",
+        "text": "Ý thức xã hội thường lạc hậu hơn tồn tại xã hội vì lý do nào? (Chương III)",
+        "choices": [
+          "Tồn tại xã hội thay đổi chậm",
+          "Ý thức xã hội có tính độc lập tương đối",
+          "Ý thức xã hội không phản ánh hiện thực",
+          "Do yếu tố sinh học"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q35",
+        "type": "single",
+        "text": "Ý thức xã hội có thể vượt trước tồn tại xã hội trong trường hợp nào? (Chương III)",
+        "choices": [
+          "Khi phản ánh đúng xu hướng phát triển của hiện thực",
+          "Khi tách rời hiện thực",
+          "Khi mang tính chủ quan",
+          "Khi bị áp đặt"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "d2q36",
+        "type": "single",
+        "text": "Hình thái ý thức xã hội nào giữ vai trò trung tâm trong kiến trúc thượng tầng? (Chương III)",
+        "choices": [
+          "Ý thức pháp quyền",
+          "Ý thức chính trị",
+          "Ý thức đạo đức",
+          "Ý thức tôn giáo"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q37",
+        "type": "single",
+        "text": "Cơ sở kinh tế của xã hội là gì? (Chương III)",
+        "choices": [
+          "Lực lượng sản xuất",
+          "Quan hệ sản xuất hợp thành",
+          "Phương thức sản xuất",
+          "Tồn tại xã hội"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q38",
+        "type": "single",
+        "text": "Sự phù hợp giữa quan hệ sản xuất và lực lượng sản xuất có ý nghĩa gì? (Chương III)",
+        "choices": [
+          "Thúc đẩy sự phát triển xã hội",
+          "Kìm hãm sự phát triển",
+          "Không ảnh hưởng gì",
+          "Chỉ ảnh hưởng chính trị"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "d2q39",
+        "type": "single",
+        "text": "Khi quan hệ sản xuất trở nên lỗi thời so với lực lượng sản xuất sẽ dẫn đến điều gì? (Chương III)",
+        "choices": [
+          "Ổn định xã hội",
+          "Cải cách nhỏ",
+          "Cách mạng xã hội",
+          "Không có thay đổi"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "d2q40",
+        "type": "single",
+        "text": "Phương thức sản xuất là sự thống nhất giữa những yếu tố nào? (Chương III)",
+        "choices": [
+          "Lực lượng sản xuất và quan hệ sản xuất",
+          "Cơ sở hạ tầng và kiến trúc thượng tầng",
+          "Tồn tại xã hội và ý thức xã hội",
+          "Nhà nước và giai cấp"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "d2q41",
+        "type": "single",
+        "text": "Nhà nước ra đời khi xã hội ở trạng thái nào? (Chương III)",
+        "choices": [
+          "Khi xuất hiện văn minh",
+          "Khi xã hội có giai cấp đối kháng",
+          "Khi con người có ý thức xã hội",
+          "Khi xuất hiện tư hữu"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q42",
+        "type": "single",
+        "text": "Bản chất giai cấp của nhà nước thể hiện rõ nhất ở điểm nào? (Chương III)",
+        "choices": [
+          "Bảo vệ lợi ích chung của xã hội",
+          "Công cụ thống trị của giai cấp thống trị",
+          "Thiết chế trung lập",
+          "Cơ quan hành chính"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q43",
+        "type": "single",
+        "text": "Chức năng đối nội của nhà nước là gì? (Chương III)",
+        "choices": [
+          "Đàn áp các giai cấp đối kháng trong nước",
+          "Bảo vệ biên giới quốc gia",
+          "Quan hệ ngoại giao",
+          "Chiến tranh xâm lược"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "d2q44",
+        "type": "single",
+        "text": "Chức năng đối ngoại của nhà nước là gì? (Chương III)",
+        "choices": [
+          "Quản lý kinh tế",
+          "Tổ chức sản xuất",
+          "Bảo vệ lợi ích quốc gia trong quan hệ quốc tế",
+          "Giáo dục tư tưởng"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "d2q45",
+        "type": "single",
+        "text": "Dân chủ theo quan điểm Mác–Lênin được hiểu là gì? (Chương III)",
+        "choices": [
+          "Hình thức nhà nước",
+          "Quyền lực thuộc về nhân dân",
+          "Quyền lực của thiểu số",
+          "Chế độ trung lập"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q46",
+        "type": "single",
+        "text": "Nhà nước xã hội chủ nghĩa khác các nhà nước trước đó ở điểm nào? (Chương III)",
+        "choices": [
+          "Không còn giai cấp",
+          "Bảo vệ lợi ích của giai cấp công nhân và nhân dân lao động",
+          "Không cần pháp luật",
+          "Không có quyền lực"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q47",
+        "type": "single",
+        "text": "Xu hướng phát triển tất yếu của nhà nước xã hội chủ nghĩa là gì? (Chương III)",
+        "choices": [
+          "Mạnh lên vô hạn",
+          "Tự tiêu vong",
+          "Bảo thủ",
+          "Trung lập hóa"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q48",
+        "type": "single",
+        "text": "Tồn tại xã hội quyết định ý thức xã hội ở điểm nào? (Chương III)",
+        "choices": [
+          "Quyết định nội dung và tính chất của ý thức xã hội",
+          "Quyết định hình thức biểu hiện của ý thức",
+          "Quyết định toàn bộ tư duy cá nhân",
+          "Quyết định cảm xúc con người"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "d2q49",
+        "type": "single",
+        "text": "Ý thức xã hội có tính độc lập tương đối thể hiện ở đâu? (Chương III)",
+        "choices": [
+          "Luôn phản ánh đúng tồn tại xã hội",
+          "Có thể lạc hậu hoặc vượt trước tồn tại xã hội",
+          "Không chịu sự chi phối của tồn tại xã hội",
+          "Không có tác động trở lại xã hội"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q50",
+        "type": "single",
+        "text": "Ý thức xã hội tác động trở lại tồn tại xã hội thông qua yếu tố nào? (Chương III)",
+        "choices": [
+          "Hoạt động thực tiễn của con người",
+          "Hoạt động sinh học",
+          "Hoạt động tự nhiên",
+          "Hoạt động bản năng"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "d2q51",
+        "type": "single",
+        "text": "Trong lịch sử, giai cấp nào giữ vai trò lãnh đạo cách mạng xã hội chủ nghĩa? (Chương III)",
+        "choices": [
+          "Giai cấp tư sản",
+          "Giai cấp nông dân",
+          "Giai cấp công nhân",
+          "Tầng lớp trí thức"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "d2q52",
+        "type": "single",
+        "text": "Liên minh giai cấp trong cách mạng xã hội chủ nghĩa là liên minh giữa những giai cấp nào? (Chương III)",
+        "choices": [
+          "Công nhân – nông dân – trí thức",
+          "Tư sản – công nhân",
+          "Nông dân – địa chủ",
+          "Công nhân – tư sản"
+        ],
+        "answer": 0
+      },
+      {
+        "id": "d2q53",
+        "type": "single",
+        "text": "Mục tiêu trực tiếp của cách mạng xã hội chủ nghĩa là gì? (Chương III)",
+        "choices": [
+          "Xóa bỏ mọi giai cấp",
+          "Lật đổ giai cấp thống trị cũ",
+          "Thiết lập chính quyền của giai cấp công nhân và nhân dân lao động",
+          "Phát triển lực lượng sản xuất"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "d2q54",
+        "type": "single",
+        "text": "Cơ sở kinh tế của chủ nghĩa xã hội là gì? (Chương III)",
+        "choices": [
+          "Sở hữu tư nhân tư bản chủ nghĩa",
+          "Sở hữu xã hội về tư liệu sản xuất chủ yếu",
+          "Sở hữu phong kiến",
+          "Sở hữu cá nhân nhỏ"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q55",
+        "type": "single",
+        "text": "Đặc trưng bản chất của chủ nghĩa xã hội là gì? (Chương III)",
+        "choices": [
+          "Phát triển kinh tế thị trường",
+          "Giải phóng con người khỏi áp bức, bóc lột",
+          "Tăng trưởng kinh tế nhanh",
+          "Ổn định chính trị"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q56",
+        "type": "single",
+        "text": "Nguyên tắc phân phối chủ yếu trong chủ nghĩa xã hội là gì? (Chương III)",
+        "choices": [
+          "Theo vốn",
+          "Theo lao động",
+          "Theo nhu cầu",
+          "Theo địa vị xã hội"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q57",
+        "type": "single",
+        "text": "Mục tiêu lâu dài của chủ nghĩa xã hội hướng tới điều gì? (Chương III)",
+        "choices": [
+          "Xây dựng nhà nước mạnh",
+          "Phát triển kinh tế",
+          "Tiến tới xã hội cộng sản chủ nghĩa",
+          "Ổn định chính trị"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "d2q58",
+        "type": "single",
+        "text": "Xã hội cộng sản chủ nghĩa được đặc trưng bởi điều gì? (Chương III)",
+        "choices": [
+          "Còn tồn tại giai cấp",
+          "Không còn nhà nước",
+          "Còn sự phân chia giai cấp",
+          "Còn sự áp bức"
+        ],
+        "answer": 1
+      },
+      {
+        "id": "d2q59",
+        "type": "single",
+        "text": "Nguyên tắc phân phối trong xã hội cộng sản chủ nghĩa là gì? (Chương III)",
+        "choices": [
+          "Theo lao động",
+          "Theo vốn",
+          "Theo nhu cầu",
+          "Theo địa vị"
+        ],
+        "answer": 2
+      },
+      {
+        "id": "d2q60",
+        "type": "single",
+        "text": "Theo quan điểm Mác–Lênin, con người được giải phóng toàn diện khi nào? (Chương III)",
+        "choices": [
+          "Khi kinh tế phát triển",
+          "Khi có nhà nước mạnh",
+          "Khi xóa bỏ áp bức, bóc lột và phát triển tự do toàn diện",
+          "Khi khoa học phát triển"
+        ],
+        "answer": 2
+      }
+    ]
+  },
+  {
+  "title": "Đề 3 – Triết học Mác–Lênin",
+  "shuffle": true,
+  "timeLimit": 3000,
+  "questions": [
+    {
+      "id": "d3q1",
+      "type": "single",
+      "text": "Triết học ra đời trong điều kiện xã hội nào? (Chương I)",
+      "choices": [
+        "Xã hội nguyên thủy",
+        "Xã hội có giai cấp và lao động trí óc tách khỏi lao động chân tay",
+        "Xã hội có tôn giáo phát triển",
+        "Xã hội công nghiệp"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "d3q2",
+      "type": "single",
+      "text": "Triết học giữ vai trò gì trong hệ thống thế giới quan? (Chương I)",
+      "choices": [
+        "Vai trò cảm tính",
+        "Vai trò kinh nghiệm",
+        "Hạt nhân lý luận",
+        "Vai trò tôn giáo"
+      ],
+      "answer": 2
+    },
+    {
+      "id": "d3q3",
+      "type": "single",
+      "text": "Đối tượng nghiên cứu chung của triết học là gì? (Chương I)",
+      "choices": [
+        "Các sự vật riêng lẻ",
+        "Các quy luật chung nhất của tự nhiên, xã hội và tư duy",
+        "Các hiện tượng tâm lý",
+        "Các quy luật sinh học"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "d3q4",
+      "type": "single",
+      "text": "Triết học Mác – Lênin là sự thống nhất giữa những bộ phận nào? (Chương I)",
+      "choices": [
+        "Duy vật và duy tâm",
+        "Duy vật biện chứng và duy vật lịch sử",
+        "Biện chứng và siêu hình",
+        "Triết học và tôn giáo"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "d3q5",
+      "type": "single",
+      "text": "Chức năng thế giới quan của triết học thể hiện ở điểm nào? (Chương I)",
+      "choices": [
+        "Trang bị tri thức khoa học",
+        "Định hướng nhận thức về thế giới và con người",
+        "Truyền bá tư tưởng",
+        "Giải thích hiện tượng tự nhiên"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "d3q6",
+      "type": "single",
+      "text": "Mặt thứ nhất của vấn đề cơ bản của triết học là gì? (Chương I)",
+      "choices": [
+        "Quan hệ giữa tồn tại xã hội và ý thức xã hội",
+        "Quan hệ giữa vật chất và ý thức",
+        "Quan hệ giữa lý luận và thực tiễn",
+        "Quan hệ giữa cái chung và cái riêng"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "d3q7",
+      "type": "single",
+      "text": "Theo triết học Mác – Lênin, vật chất có đặc trưng gì cơ bản? (Chương II)",
+      "choices": [
+        "Mang tính cảm tính",
+        "Tồn tại khách quan",
+        "Phụ thuộc ý thức",
+        "Mang tính tinh thần"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "d3q8",
+      "type": "single",
+      "text": "Ý thức theo quan điểm duy vật biện chứng là gì? (Chương II)",
+      "choices": [
+        "Hiện tượng sinh học",
+        "Sự phản ánh thế giới khách quan vào bộ óc con người",
+        "Sản phẩm của cảm giác",
+        "Thuộc tính của vật chất"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "d3q9",
+      "type": "single",
+      "text": "Nguồn gốc xã hội của ý thức bao gồm những yếu tố nào? (Chương II)",
+      "choices": [
+        "Lao động và ngôn ngữ",
+        "Bộ óc và giác quan",
+        "Tự nhiên và xã hội",
+        "Ý chí con người"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "d3q10",
+      "type": "single",
+      "text": "Vận động được hiểu là gì trong triết học Mác – Lênin? (Chương II)",
+      "choices": [
+        "Sự thay đổi vị trí",
+        "Mọi sự biến đổi nói chung",
+        "Sự thay đổi có ý thức",
+        "Sự phát triển xã hội"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "d3q11",
+      "type": "single",
+      "text": "Vận động là phương thức tồn tại của cái gì? (Chương II)",
+      "choices": [
+        "Ý thức",
+        "Vật chất",
+        "Tư duy",
+        "Xã hội"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "d3q12",
+      "type": "single",
+      "text": "Phát triển theo phép biện chứng duy vật là gì? (Chương II)",
+      "choices": [
+        "Sự thay đổi ngẫu nhiên",
+        "Sự vận động theo khuynh hướng đi lên",
+        "Sự lặp lại",
+        "Sự thay đổi về lượng"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "d3q13",
+      "type": "single",
+      "text": "Nguồn gốc của sự vận động và phát triển là gì? (Chương II)",
+      "choices": [
+        "Tác động bên ngoài",
+        "Mâu thuẫn nội tại của sự vật",
+        "Ý chí con người",
+        "Ngẫu nhiên"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "d3q14",
+      "type": "single",
+      "text": "Quy luật lượng – chất phản ánh nội dung nào của sự phát triển? (Chương II)",
+      "choices": [
+        "Nguồn gốc",
+        "Cách thức",
+        "Khuynh hướng",
+        "Hình thức"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "d3q15",
+      "type": "single",
+      "text": "Điểm nút trong quy luật lượng – chất là gì? (Chương II)",
+      "choices": [
+        "Giới hạn của lượng",
+        "Thời điểm xảy ra bước nhảy",
+        "Khoảng độ",
+        "Sự thay đổi chất"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "d3q16",
+      "type": "single",
+      "text": "Phủ định biện chứng có đặc trưng nào? (Chương II)",
+      "choices": [
+        "Mang tính kế thừa",
+        "Mang tính chủ quan",
+        "Xóa bỏ hoàn toàn cái cũ",
+        "Không liên quan phát triển"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "d3q17",
+      "type": "single",
+      "text": "Quy luật phủ định của phủ định phản ánh điều gì? (Chương II)",
+      "choices": [
+        "Nguồn gốc phát triển",
+        "Hình thức phát triển",
+        "Khuynh hướng phát triển",
+        "Tốc độ phát triển"
+      ],
+      "answer": 2
+    },
+    {
+      "id": "d3q18",
+      "type": "single",
+      "text": "Cái chung tồn tại như thế nào theo phép biện chứng duy vật? (Chương II)",
+      "choices": [
+        "Ngoài cái riêng",
+        "Trong cái riêng",
+        "Chỉ trong tư duy",
+        "Không tồn tại"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "d3q19",
+      "type": "single",
+      "text": "Thực tiễn có vai trò gì đối với nhận thức? (Chương II)",
+      "choices": [
+        "Nguồn gốc",
+        "Động lực",
+        "Tiêu chuẩn kiểm tra chân lý",
+        "Cả ba vai trò trên"
+      ],
+      "answer": 2
+    },
+    {
+      "id": "d3q20",
+      "type": "single",
+      "text": "Chân lý theo quan điểm Mác – Lênin là gì? (Chương II)",
+      "choices": [
+        "Ý kiến số đông",
+        "Nhận thức phù hợp với hiện thực khách quan",
+        "Tri thức kinh nghiệm",
+        "Nhận thức chủ quan"
+      ],
+      "answer": 1
+    }
+    ,
+{
+  "id": "d3q21",
+  "type": "single",
+  "text": "Theo triết học Mác–Lênin, không gian và thời gian là gì? (Chương II)",
+  "choices": [
+    "Sản phẩm của ý thức",
+    "Hình thức tồn tại của vật chất",
+    "Thuộc tính của tư duy",
+    "Phạm trù siêu hình"
+  ],
+  "answer": 1
+},
+{
+  "id": "d3q22",
+  "type": "single",
+  "text": "Theo phép biện chứng duy vật, mối liên hệ phổ biến mang tính chất nào? (Chương II)",
+  "choices": [
+    "Chủ quan",
+    "Ngẫu nhiên",
+    "Khách quan và phổ biến",
+    "Tạm thời"
+  ],
+  "answer": 2
+},
+{
+  "id": "d3q23",
+  "type": "single",
+  "text": "Theo phép biện chứng duy vật, cái riêng là gì? (Chương II)",
+  "choices": [
+    "Cái tồn tại ngoài hiện thực",
+    "Một sự vật, hiện tượng cụ thể",
+    "Cái tồn tại trong tư duy",
+    "Không tồn tại"
+  ],
+  "answer": 1
+},
+{
+  "id": "d3q24",
+  "type": "single",
+  "text": "Quan hệ giữa cái chung và cái riêng được hiểu như thế nào? (Chương II)",
+  "choices": [
+    "Cái chung tồn tại ngoài cái riêng",
+    "Cái riêng tồn tại trong cái chung",
+    "Cái chung tồn tại trong cái riêng",
+    "Không có quan hệ"
+  ],
+  "answer": 2
+},
+{
+  "id": "d3q25",
+  "type": "single",
+  "text": "Nguyên nhân cơ bản của sự phát triển là gì? (Chương II)",
+  "choices": [
+    "Tác động bên ngoài",
+    "Ý chí con người",
+    "Mâu thuẫn nội tại của sự vật",
+    "Ngẫu nhiên"
+  ],
+  "answer": 2
+},
+{
+  "id": "d3q26",
+  "type": "single",
+  "text": "Trong quy luật lượng – chất, bước nhảy là gì? (Chương II)",
+  "choices": [
+    "Sự thay đổi dần dần về lượng",
+    "Sự thay đổi căn bản về chất",
+    "Khoảng giới hạn lượng",
+    "Sự biến đổi ngẫu nhiên"
+  ],
+  "answer": 1
+},
+{
+  "id": "d3q27",
+  "type": "single",
+  "text": "Theo triết học Mác–Lênin, thực tiễn là gì? (Chương II)",
+  "choices": [
+    "Hoạt động tinh thần của con người",
+    "Hoạt động vật chất có mục đích mang tính lịch sử – xã hội của con người",
+    "Hoạt động sinh học",
+    "Hoạt động bản năng"
+  ],
+  "answer": 1
+},
+{
+  "id": "d3q28",
+  "type": "single",
+  "text": "Vai trò của thực tiễn đối với nhận thức là gì? (Chương II)",
+  "choices": [
+    "Nguồn gốc của nhận thức",
+    "Động lực của nhận thức",
+    "Mục đích của nhận thức",
+    "Tiêu chuẩn kiểm tra chân lý"
+  ],
+  "answer": 3
+},
+{
+  "id": "d3q29",
+  "type": "single",
+  "text": "Chân lý tuyệt đối và chân lý tương đối có quan hệ như thế nào? (Chương II)",
+  "choices": [
+    "Tách rời nhau",
+    "Đối lập hoàn toàn",
+    "Thống nhất biện chứng với nhau",
+    "Không liên quan"
+  ],
+  "answer": 2
+},
+{
+  "id": "d3q30",
+  "type": "single",
+  "text": "Theo triết học Mác–Lênin, tiêu chuẩn của chân lý là gì? (Chương II)",
+  "choices": [
+    "Ý kiến số đông",
+    "Thực tiễn",
+    "Tư duy logic",
+    "Kinh nghiệm cá nhân"
+  ],
+  "answer": 1
+},
+{
+  "id": "d3q31",
+  "type": "single",
+  "text": "Tồn tại xã hội là gì? (Chương III)",
+  "choices": [
+    "Toàn bộ đời sống tinh thần xã hội",
+    "Phương thức sản xuất vật chất và điều kiện sinh hoạt vật chất của xã hội",
+    "Hệ tư tưởng xã hội",
+    "Ý thức xã hội"
+  ],
+  "answer": 1
+},
+{
+  "id": "d3q32",
+  "type": "single",
+  "text": "Ý thức xã hội là gì? (Chương III)",
+  "choices": [
+    "Toàn bộ những tư tưởng, quan điểm, tình cảm xã hội",
+    "Toàn bộ đời sống vật chất",
+    "Phương thức sản xuất",
+    "Cơ sở hạ tầng"
+  ],
+  "answer": 0
+},
+{
+  "id": "d3q33",
+  "type": "single",
+  "text": "Yếu tố nào giữ vai trò quyết định đối với sự phát triển xã hội? (Chương III)",
+  "choices": [
+    "Ý thức xã hội",
+    "Tồn tại xã hội",
+    "Nhà nước",
+    "Giai cấp"
+  ],
+  "answer": 1
+},
+{
+  "id": "d3q34",
+  "type": "single",
+  "text": "Quan hệ sản xuất bao gồm những mặt nào? (Chương III)",
+  "choices": [
+    "Quan hệ sở hữu, tổ chức quản lý và phân phối",
+    "Quan hệ trao đổi",
+    "Quan hệ tiêu dùng",
+    "Quan hệ kỹ thuật"
+  ],
+  "answer": 0
+},
+{
+  "id": "d3q35",
+  "type": "single",
+  "text": "Lực lượng sản xuất bao gồm những yếu tố nào? (Chương III)",
+  "choices": [
+    "Người lao động và tư liệu sản xuất",
+    "Quan hệ sở hữu",
+    "Quan hệ phân phối",
+    "Nhà nước"
+  ],
+  "answer": 0
+},
+{
+  "id": "d3q36",
+  "type": "single",
+  "text": "Mâu thuẫn cơ bản của phương thức sản xuất là mâu thuẫn giữa những yếu tố nào? (Chương III)",
+  "choices": [
+    "Các giai cấp",
+    "Lực lượng sản xuất và quan hệ sản xuất",
+    "Nhà nước và nhân dân",
+    "Cơ sở hạ tầng và kiến trúc thượng tầng"
+  ],
+  "answer": 1
+},
+{
+  "id": "d3q37",
+  "type": "single",
+  "text": "Hình thái kinh tế – xã hội là gì? (Chương III)",
+  "choices": [
+    "Một giai đoạn lịch sử nhất định của xã hội với phương thức sản xuất đặc trưng",
+    "Một chế độ chính trị",
+    "Một nhà nước",
+    "Một hệ tư tưởng"
+  ],
+  "answer": 0
+},
+{
+  "id": "d3q38",
+  "type": "single",
+  "text": "Động lực trực tiếp của sự phát triển xã hội là gì? (Chương III)",
+  "choices": [
+    "Đấu tranh giai cấp",
+    "Ý thức xã hội",
+    "Nhà nước",
+    "Tôn giáo"
+  ],
+  "answer": 0
+},
+{
+  "id": "d3q39",
+  "type": "single",
+  "text": "Cách mạng xã hội là gì? (Chương III)",
+  "choices": [
+    "Sự cải cách dần dần",
+    "Sự thay đổi căn bản hình thái kinh tế – xã hội",
+    "Sự tiến hóa tự nhiên",
+    "Sự điều chỉnh nhỏ"
+  ],
+  "answer": 1
+},
+{
+  "id": "d3q40",
+  "type": "single",
+  "text": "Quần chúng nhân dân được hiểu là ai? (Chương III)",
+  "choices": [
+    "Toàn bộ dân cư",
+    "Bộ phận đông đảo nhân dân gắn với tiến bộ xã hội",
+    "Giai cấp công nhân",
+    "Tầng lớp trí thức"
+  ],
+  "answer": 1
+}
+,
+{
+  "id": "d3q41",
+  "type": "single",
+  "text": "Nhà nước ra đời khi xã hội xuất hiện điều kiện nào? (Chương III)",
+  "choices": [
+    "Khi có văn minh",
+    "Khi xã hội phân chia giai cấp đối kháng",
+    "Khi xuất hiện ý thức xã hội",
+    "Khi có tôn giáo"
+  ],
+  "answer": 1
+},
+{
+  "id": "d3q42",
+  "type": "single",
+  "text": "Bản chất giai cấp của nhà nước thể hiện ở điểm nào? (Chương III)",
+  "choices": [
+    "Bảo vệ lợi ích chung",
+    "Công cụ thống trị của giai cấp thống trị",
+    "Thiết chế trung lập",
+    "Cơ quan hành chính"
+  ],
+  "answer": 1
+},
+{
+  "id": "d3q43",
+  "type": "single",
+  "text": "Chức năng đối nội cơ bản của nhà nước là gì? (Chương III)",
+  "choices": [
+    "Đàn áp các giai cấp đối kháng trong nước",
+    "Bảo vệ biên giới",
+    "Quan hệ ngoại giao",
+    "Phát triển khoa học"
+  ],
+  "answer": 0
+},
+{
+  "id": "d3q44",
+  "type": "single",
+  "text": "Chức năng đối ngoại của nhà nước là gì? (Chương III)",
+  "choices": [
+    "Quản lý kinh tế",
+    "Tổ chức sản xuất",
+    "Bảo vệ lợi ích quốc gia trong quan hệ quốc tế",
+    "Giáo dục tư tưởng"
+  ],
+  "answer": 2
+},
+{
+  "id": "d3q45",
+  "type": "single",
+  "text": "Dân chủ theo quan điểm Mác–Lênin được hiểu là gì? (Chương III)",
+  "choices": [
+    "Hình thức nhà nước",
+    "Quyền lực thuộc về nhân dân",
+    "Quyền lực của thiểu số",
+    "Chế độ trung lập"
+  ],
+  "answer": 1
+},
+{
+  "id": "d3q46",
+  "type": "single",
+  "text": "Nhà nước xã hội chủ nghĩa khác với các nhà nước trước đó ở điểm nào? (Chương III)",
+  "choices": [
+    "Không còn giai cấp",
+    "Bảo vệ lợi ích của giai cấp công nhân và nhân dân lao động",
+    "Không cần pháp luật",
+    "Không có quyền lực"
+  ],
+  "answer": 1
+},
+{
+  "id": "d3q47",
+  "type": "single",
+  "text": "Xu hướng phát triển tất yếu của nhà nước xã hội chủ nghĩa là gì? (Chương III)",
+  "choices": [
+    "Mạnh lên vô hạn",
+    "Tự tiêu vong",
+    "Bảo thủ",
+    "Trung lập hóa"
+  ],
+  "answer": 1
+},
+{
+  "id": "d3q48",
+  "type": "single",
+  "text": "Tồn tại xã hội quyết định ý thức xã hội ở điểm nào? (Chương III)",
+  "choices": [
+    "Quyết định nội dung và tính chất của ý thức xã hội",
+    "Quyết định cảm xúc cá nhân",
+    "Quyết định tư duy logic",
+    "Quyết định đạo đức"
+  ],
+  "answer": 0
+},
+{
+  "id": "d3q49",
+  "type": "single",
+  "text": "Ý thức xã hội có tính độc lập tương đối thể hiện ở đâu? (Chương III)",
+  "choices": [
+    "Không chịu sự chi phối của tồn tại xã hội",
+    "Luôn phản ánh đúng hiện thực",
+    "Có thể lạc hậu hoặc vượt trước tồn tại xã hội",
+    "Không tác động trở lại xã hội"
+  ],
+  "answer": 2
+},
+{
+  "id": "d3q50",
+  "type": "single",
+  "text": "Ý thức xã hội tác động trở lại tồn tại xã hội thông qua yếu tố nào? (Chương III)",
+  "choices": [
+    "Hoạt động thực tiễn của con người",
+    "Hoạt động sinh học",
+    "Hoạt động tự nhiên",
+    "Hoạt động bản năng"
+  ],
+  "answer": 0
+},
+{
+  "id": "d3q51",
+  "type": "single",
+  "text": "Giai cấp nào giữ vai trò lãnh đạo cách mạng xã hội chủ nghĩa? (Chương III)",
+  "choices": [
+    "Giai cấp tư sản",
+    "Giai cấp nông dân",
+    "Giai cấp công nhân",
+    "Tầng lớp trí thức"
+  ],
+  "answer": 2
+},
+{
+  "id": "d3q52",
+  "type": "single",
+  "text": "Liên minh giai cấp cơ bản trong cách mạng xã hội chủ nghĩa là liên minh nào? (Chương III)",
+  "choices": [
+    "Công nhân – nông dân – trí thức",
+    "Công nhân – tư sản",
+    "Nông dân – địa chủ",
+    "Tư sản – trí thức"
+  ],
+  "answer": 0
+},
+{
+  "id": "d3q53",
+  "type": "single",
+  "text": "Mục tiêu trực tiếp của cách mạng xã hội chủ nghĩa là gì? (Chương III)",
+  "choices": [
+    "Xóa bỏ mọi giai cấp",
+    "Phát triển lực lượng sản xuất",
+    "Thiết lập chính quyền của giai cấp công nhân và nhân dân lao động",
+    "Ổn định xã hội"
+  ],
+  "answer": 2
+},
+{
+  "id": "d3q54",
+  "type": "single",
+  "text": "Cơ sở kinh tế của chủ nghĩa xã hội là gì? (Chương III)",
+  "choices": [
+    "Sở hữu tư nhân tư bản chủ nghĩa",
+    "Sở hữu xã hội về tư liệu sản xuất chủ yếu",
+    "Sở hữu phong kiến",
+    "Sở hữu cá thể"
+  ],
+  "answer": 1
+},
+{
+  "id": "d3q55",
+  "type": "single",
+  "text": "Đặc trưng bản chất nhất của chủ nghĩa xã hội là gì? (Chương III)",
+  "choices": [
+    "Phát triển kinh tế nhanh",
+    "Giải phóng con người khỏi áp bức, bóc lột",
+    "Ổn định chính trị",
+    "Tăng trưởng sản xuất"
+  ],
+  "answer": 1
+},
+{
+  "id": "d3q56",
+  "type": "single",
+  "text": "Nguyên tắc phân phối chủ yếu trong chủ nghĩa xã hội là gì? (Chương III)",
+  "choices": [
+    "Theo vốn",
+    "Theo lao động",
+    "Theo nhu cầu",
+    "Theo địa vị"
+  ],
+  "answer": 1
+},
+{
+  "id": "d3q57",
+  "type": "single",
+  "text": "Mục tiêu lâu dài của chủ nghĩa xã hội là gì? (Chương III)",
+  "choices": [
+    "Xây dựng nhà nước mạnh",
+    "Phát triển kinh tế",
+    "Tiến tới xã hội cộng sản chủ nghĩa",
+    "Ổn định xã hội"
+  ],
+  "answer": 2
+},
+{
+  "id": "d3q58",
+  "type": "single",
+  "text": "Xã hội cộng sản chủ nghĩa được đặc trưng bởi điều gì? (Chương III)",
+  "choices": [
+    "Còn tồn tại giai cấp",
+    "Không còn nhà nước",
+    "Còn sự áp bức",
+    "Còn bóc lột"
+  ],
+  "answer": 1
+},
+{
+  "id": "d3q59",
+  "type": "single",
+  "text": "Nguyên tắc phân phối trong xã hội cộng sản chủ nghĩa là gì? (Chương III)",
+  "choices": [
+    "Theo lao động",
+    "Theo vốn",
+    "Theo nhu cầu",
+    "Theo địa vị"
+  ],
+  "answer": 2
+},
+{
+  "id": "d3q60",
+  "type": "single",
+  "text": "Theo quan điểm Mác–Lênin, mục tiêu cao nhất của sự giải phóng con người là gì? (Chương III)",
+  "choices": [
+    "Phát triển kinh tế",
+    "Ổn định chính trị",
+    "Giải phóng con người toàn diện",
+    "Xây dựng nhà nước mạnh"
+  ],
+  "answer": 2
+}
+
+  ]
+},
+{
+  "title": "Đề 4 – Triết học Mác–Lênin ",
+  "shuffle": true,
+  "timeLimit": 3000,
+  "questions": [
+    
+{
+  "id": "d4q1",
+  "type": "single",
+  "text": "Triết học ra đời nhằm đáp ứng nhu cầu nào của con người? (Chương I)",
+  "choices": [
+    "Nhu cầu sinh tồn",
+    "Nhu cầu nhận thức và giải thích thế giới",
+    "Nhu cầu tín ngưỡng",
+    "Nhu cầu giải trí"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q2",
+  "type": "single",
+  "text": "Triết học khác khoa học cụ thể ở điểm nào? (Chương I)",
+  "choices": [
+    "Nghiên cứu hiện tượng riêng lẻ",
+    "Nghiên cứu các quy luật chung nhất",
+    "Mang tính thực nghiệm",
+    "Mang tính kinh nghiệm"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q3",
+  "type": "single",
+  "text": "Triết học Mác–Lênin là thế giới quan của giai cấp nào? (Chương I)",
+  "choices": [
+    "Giai cấp tư sản",
+    "Giai cấp công nhân",
+    "Giai cấp nông dân",
+    "Tầng lớp trí thức"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q4",
+  "type": "single",
+  "text": "Điểm khác biệt cơ bản giữa chủ nghĩa duy vật và chủ nghĩa duy tâm là gì? (Chương I)",
+  "choices": [
+    "Quan niệm về con người",
+    "Quan niệm về tự nhiên",
+    "Quan niệm về mối quan hệ giữa vật chất và ý thức",
+    "Quan niệm về xã hội"
+  ],
+  "answer": 2
+},
+{
+  "id": "d4q5",
+  "type": "single",
+  "text": "Mặt thứ hai của vấn đề cơ bản của triết học là gì? (Chương I)",
+  "choices": [
+    "Vật chất có trước hay ý thức có trước",
+    "Con người có thể nhận thức được thế giới hay không",
+    "Vai trò của thực tiễn",
+    "Nguồn gốc của ý thức"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q6",
+  "type": "single",
+  "text": "Chức năng phương pháp luận của triết học có ý nghĩa gì? (Chương I)",
+  "choices": [
+    "Giải thích thế giới",
+    "Định hướng phương pháp nhận thức và hoạt động thực tiễn",
+    "Truyền bá tri thức",
+    "Giáo dục đạo đức"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q7",
+  "type": "single",
+  "text": "Theo triết học Mác–Lênin, vật chất tồn tại như thế nào? (Chương II)",
+  "choices": [
+    "Phụ thuộc ý thức",
+    "Tồn tại khách quan",
+    "Do con người sáng tạo",
+    "Mang tính tinh thần"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q8",
+  "type": "single",
+  "text": "Thuộc tính chung nhất của vật chất là gì? (Chương II)",
+  "choices": [
+    "Khối lượng",
+    "Vận động",
+    "Không gian",
+    "Thời gian"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q9",
+  "type": "single",
+  "text": "Ý thức là sản phẩm của yếu tố nào? (Chương II)",
+  "choices": [
+    "Tự nhiên thuần túy",
+    "Bộ óc người và thực tiễn xã hội",
+    "Cảm giác cá nhân",
+    "Ý chí con người"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q10",
+  "type": "single",
+  "text": "Nguồn gốc xã hội của ý thức là gì? (Chương II)",
+  "choices": [
+    "Bộ óc người",
+    "Lao động và ngôn ngữ",
+    "Tự nhiên",
+    "Giác quan"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q11",
+  "type": "single",
+  "text": "Theo triết học Mác–Lênin, vận động là gì? (Chương II)",
+  "choices": [
+    "Sự thay đổi vị trí",
+    "Mọi sự biến đổi nói chung",
+    "Sự phát triển xã hội",
+    "Sự thay đổi có ý thức"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q12",
+  "type": "single",
+  "text": "Hình thức vận động cao nhất của vật chất là gì? (Chương II)",
+  "choices": [
+    "Vận động cơ học",
+    "Vận động sinh học",
+    "Vận động xã hội",
+    "Vận động hóa học"
+  ],
+  "answer": 2
+},
+{
+  "id": "d4q13",
+  "type": "single",
+  "text": "Không gian và thời gian theo quan điểm Mác–Lênin là gì? (Chương II)",
+  "choices": [
+    "Sản phẩm của ý thức",
+    "Hình thức tồn tại của vật chất",
+    "Phạm trù tinh thần",
+    "Thuộc tính của tư duy"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q14",
+  "type": "single",
+  "text": "Theo phép biện chứng duy vật, phát triển là gì? (Chương II)",
+  "choices": [
+    "Sự thay đổi về lượng",
+    "Sự vận động theo khuynh hướng đi lên",
+    "Sự lặp lại",
+    "Sự biến đổi ngẫu nhiên"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q15",
+  "type": "single",
+  "text": "Nguồn gốc của sự vận động và phát triển là gì? (Chương II)",
+  "choices": [
+    "Tác động bên ngoài",
+    "Mâu thuẫn nội tại của sự vật",
+    "Ý chí con người",
+    "Ngẫu nhiên"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q16",
+  "type": "single",
+  "text": "Quy luật thống nhất và đấu tranh của các mặt đối lập phản ánh điều gì? (Chương II)",
+  "choices": [
+    "Nguồn gốc của sự vận động và phát triển",
+    "Cách thức phát triển",
+    "Khuynh hướng phát triển",
+    "Hình thức phát triển"
+  ],
+  "answer": 0
+},
+{
+  "id": "d4q17",
+  "type": "single",
+  "text": "Quy luật lượng – chất phản ánh điều gì? (Chương II)",
+  "choices": [
+    "Nguồn gốc phát triển",
+    "Cách thức phát triển",
+    "Khuynh hướng phát triển",
+    "Tốc độ phát triển"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q18",
+  "type": "single",
+  "text": "Bước nhảy trong quy luật lượng – chất là gì? (Chương II)",
+  "choices": [
+    "Sự thay đổi dần dần",
+    "Sự thay đổi căn bản về chất",
+    "Khoảng độ",
+    "Giới hạn lượng"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q19",
+  "type": "single",
+  "text": "Phủ định biện chứng có đặc điểm nào? (Chương II)",
+  "choices": [
+    "Mang tính kế thừa",
+    "Mang tính chủ quan",
+    "Xóa bỏ hoàn toàn cái cũ",
+    "Không liên quan phát triển"
+  ],
+  "answer": 0
+},
+{
+  "id": "d4q20",
+  "type": "single",
+  "text": "Quy luật phủ định của phủ định phản ánh điều gì? (Chương II)",
+  "choices": [
+    "Nguồn gốc phát triển",
+    "Hình thức phát triển",
+    "Khuynh hướng phát triển",
+    "Tốc độ phát triển"
+  ],
+  "answer": 2
+}
+,
+{
+  "id": "d4q21",
+  "type": "single",
+  "text": "Theo phép biện chứng duy vật, mối liên hệ phổ biến có đặc điểm gì? (Chương II)",
+  "choices": [
+    "Mang tính chủ quan",
+    "Mang tính khách quan và phổ biến",
+    "Chỉ tồn tại trong tư duy",
+    "Mang tính tạm thời"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q22",
+  "type": "single",
+  "text": "Theo phép biện chứng duy vật, cái chung tồn tại như thế nào? (Chương II)",
+  "choices": [
+    "Tồn tại ngoài cái riêng",
+    "Tồn tại trong cái riêng",
+    "Chỉ tồn tại trong tư duy",
+    "Không tồn tại"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q23",
+  "type": "single",
+  "text": "Quan hệ giữa cái chung và cái riêng được hiểu đúng là gì? (Chương II)",
+  "choices": [
+    "Cái chung tồn tại ngoài cái riêng",
+    "Cái riêng tồn tại trong cái chung",
+    "Cái chung tồn tại trong cái riêng",
+    "Không có quan hệ"
+  ],
+  "answer": 2
+},
+{
+  "id": "d4q24",
+  "type": "single",
+  "text": "Nguyên nhân sâu xa của sự phát triển là gì? (Chương II)",
+  "choices": [
+    "Tác động bên ngoài",
+    "Ý chí con người",
+    "Mâu thuẫn nội tại của sự vật",
+    "Ngẫu nhiên"
+  ],
+  "answer": 2
+},
+{
+  "id": "d4q25",
+  "type": "single",
+  "text": "Trong quy luật lượng – chất, điểm nút là gì? (Chương II)",
+  "choices": [
+    "Khoảng độ",
+    "Giới hạn lượng",
+    "Thời điểm xảy ra bước nhảy",
+    "Sự thay đổi về lượng"
+  ],
+  "answer": 2
+},
+{
+  "id": "d4q26",
+  "type": "single",
+  "text": "Theo triết học Mác–Lênin, thực tiễn là gì? (Chương II)",
+  "choices": [
+    "Hoạt động tinh thần",
+    "Hoạt động vật chất có mục đích mang tính lịch sử – xã hội",
+    "Hoạt động sinh học",
+    "Hoạt động bản năng"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q27",
+  "type": "single",
+  "text": "Vai trò quyết định của thực tiễn đối với nhận thức thể hiện ở điểm nào? (Chương II)",
+  "choices": [
+    "Nguồn gốc của nhận thức",
+    "Động lực của nhận thức",
+    "Tiêu chuẩn kiểm tra chân lý",
+    "Mục đích của nhận thức"
+  ],
+  "answer": 2
+},
+{
+  "id": "d4q28",
+  "type": "single",
+  "text": "Theo triết học Mác–Lênin, tiêu chuẩn của chân lý là gì? (Chương II)",
+  "choices": [
+    "Ý kiến số đông",
+    "Thực tiễn",
+    "Tư duy logic",
+    "Kinh nghiệm cá nhân"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q29",
+  "type": "single",
+  "text": "Chân lý tuyệt đối và chân lý tương đối có quan hệ như thế nào? (Chương II)",
+  "choices": [
+    "Tách rời nhau",
+    "Đối lập nhau",
+    "Thống nhất biện chứng với nhau",
+    "Không liên quan"
+  ],
+  "answer": 2
+},
+{
+  "id": "d4q30",
+  "type": "single",
+  "text": "Tồn tại xã hội là gì? (Chương III)",
+  "choices": [
+    "Toàn bộ đời sống tinh thần xã hội",
+    "Phương thức sản xuất vật chất và điều kiện sinh hoạt vật chất của xã hội",
+    "Hệ tư tưởng xã hội",
+    "Ý thức xã hội"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q31",
+  "type": "single",
+  "text": "Ý thức xã hội là gì? (Chương III)",
+  "choices": [
+    "Toàn bộ tư tưởng, quan điểm, tình cảm xã hội",
+    "Toàn bộ đời sống vật chất",
+    "Phương thức sản xuất",
+    "Cơ sở hạ tầng"
+  ],
+  "answer": 0
+},
+{
+  "id": "d4q32",
+  "type": "single",
+  "text": "Yếu tố nào giữ vai trò quyết định đối với sự phát triển xã hội? (Chương III)",
+  "choices": [
+    "Ý thức xã hội",
+    "Tồn tại xã hội",
+    "Nhà nước",
+    "Giai cấp"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q33",
+  "type": "single",
+  "text": "Quan hệ sản xuất bao gồm những mặt nào? (Chương III)",
+  "choices": [
+    "Quan hệ sở hữu, tổ chức quản lý và phân phối",
+    "Quan hệ trao đổi",
+    "Quan hệ tiêu dùng",
+    "Quan hệ kỹ thuật"
+  ],
+  "answer": 0
+},
+{
+  "id": "d4q34",
+  "type": "single",
+  "text": "Lực lượng sản xuất bao gồm những yếu tố nào? (Chương III)",
+  "choices": [
+    "Người lao động và tư liệu sản xuất",
+    "Quan hệ sở hữu",
+    "Quan hệ phân phối",
+    "Nhà nước"
+  ],
+  "answer": 0
+},
+{
+  "id": "d4q35",
+  "type": "single",
+  "text": "Mâu thuẫn cơ bản của phương thức sản xuất là mâu thuẫn giữa những yếu tố nào? (Chương III)",
+  "choices": [
+    "Các giai cấp",
+    "Lực lượng sản xuất và quan hệ sản xuất",
+    "Nhà nước và nhân dân",
+    "Cơ sở hạ tầng và kiến trúc thượng tầng"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q36",
+  "type": "single",
+  "text": "Hình thái kinh tế – xã hội là gì? (Chương III)",
+  "choices": [
+    "Một giai đoạn lịch sử nhất định của xã hội với phương thức sản xuất đặc trưng",
+    "Một chế độ chính trị",
+    "Một nhà nước",
+    "Một hệ tư tưởng"
+  ],
+  "answer": 0
+},
+{
+  "id": "d4q37",
+  "type": "single",
+  "text": "Động lực trực tiếp của sự phát triển xã hội là gì? (Chương III)",
+  "choices": [
+    "Đấu tranh giai cấp",
+    "Ý thức xã hội",
+    "Nhà nước",
+    "Tôn giáo"
+  ],
+  "answer": 0
+},
+{
+  "id": "d4q38",
+  "type": "single",
+  "text": "Cách mạng xã hội là gì? (Chương III)",
+  "choices": [
+    "Sự cải cách dần dần",
+    "Sự thay đổi căn bản hình thái kinh tế – xã hội",
+    "Sự tiến hóa tự nhiên",
+    "Sự điều chỉnh nhỏ"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q39",
+  "type": "single",
+  "text": "Quần chúng nhân dân được hiểu là ai? (Chương III)",
+  "choices": [
+    "Toàn bộ dân cư",
+    "Bộ phận đông đảo nhân dân gắn với tiến bộ xã hội",
+    "Giai cấp công nhân",
+    "Tầng lớp trí thức"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q40",
+  "type": "single",
+  "text": "Vai trò của quần chúng nhân dân trong lịch sử là gì? (Chương III)",
+  "choices": [
+    "Lực lượng sáng tạo ra lịch sử",
+    "Lực lượng bị chi phối",
+    "Lực lượng thụ động",
+    "Lực lượng phụ thuộc cá nhân"
+  ],
+  "answer": 0
+}
+,
+{
+  "id": "d4q41",
+  "type": "single",
+  "text": "Vai trò của cá nhân trong lịch sử theo quan điểm Mác–Lênin được hiểu như thế nào? (Chương III)",
+  "choices": [
+    "Quyết định toàn bộ lịch sử",
+    "Không có vai trò gì",
+    "Có ảnh hưởng nhất định trong những điều kiện lịch sử nhất định",
+    "Luôn đứng trên quần chúng"
+  ],
+  "answer": 2
+},
+{
+  "id": "d4q42",
+  "type": "single",
+  "text": "Quan hệ giữa cá nhân và quần chúng nhân dân trong lịch sử là gì? (Chương III)",
+  "choices": [
+    "Đối lập nhau",
+    "Quần chúng quyết định, cá nhân có vai trò quan trọng",
+    "Cá nhân quyết định, quần chúng phụ thuộc",
+    "Không liên quan"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q43",
+  "type": "single",
+  "text": "Nhà nước ra đời khi xã hội xuất hiện điều kiện nào? (Chương III)",
+  "choices": [
+    "Khi có văn minh",
+    "Khi xã hội phân chia giai cấp đối kháng",
+    "Khi có ý thức xã hội",
+    "Khi có tôn giáo"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q44",
+  "type": "single",
+  "text": "Bản chất giai cấp của nhà nước thể hiện ở điểm nào? (Chương III)",
+  "choices": [
+    "Bảo vệ lợi ích chung",
+    "Công cụ thống trị của giai cấp thống trị",
+    "Thiết chế trung lập",
+    "Cơ quan hành chính"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q45",
+  "type": "single",
+  "text": "Chức năng đối nội cơ bản của nhà nước là gì? (Chương III)",
+  "choices": [
+    "Đàn áp các giai cấp đối kháng trong nước",
+    "Bảo vệ biên giới",
+    "Quan hệ ngoại giao",
+    "Phát triển khoa học"
+  ],
+  "answer": 0
+},
+{
+  "id": "d4q46",
+  "type": "single",
+  "text": "Chức năng đối ngoại của nhà nước là gì? (Chương III)",
+  "choices": [
+    "Quản lý kinh tế",
+    "Tổ chức sản xuất",
+    "Bảo vệ lợi ích quốc gia trong quan hệ quốc tế",
+    "Giáo dục tư tưởng"
+  ],
+  "answer": 2
+},
+{
+  "id": "d4q47",
+  "type": "single",
+  "text": "Dân chủ theo quan điểm Mác–Lênin được hiểu là gì? (Chương III)",
+  "choices": [
+    "Hình thức nhà nước",
+    "Quyền lực thuộc về nhân dân",
+    "Quyền lực của thiểu số",
+    "Chế độ trung lập"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q48",
+  "type": "single",
+  "text": "Nhà nước xã hội chủ nghĩa khác với các nhà nước trước đó ở điểm nào? (Chương III)",
+  "choices": [
+    "Không còn giai cấp",
+    "Bảo vệ lợi ích của giai cấp công nhân và nhân dân lao động",
+    "Không cần pháp luật",
+    "Không có quyền lực"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q49",
+  "type": "single",
+  "text": "Xu hướng phát triển tất yếu của nhà nước xã hội chủ nghĩa là gì? (Chương III)",
+  "choices": [
+    "Mạnh lên vô hạn",
+    "Tự tiêu vong",
+    "Bảo thủ",
+    "Trung lập hóa"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q50",
+  "type": "single",
+  "text": "Tồn tại xã hội quyết định ý thức xã hội ở nội dung nào? (Chương III)",
+  "choices": [
+    "Quyết định nội dung và tính chất của ý thức xã hội",
+    "Quyết định cảm xúc cá nhân",
+    "Quyết định tư duy logic",
+    "Quyết định đạo đức"
+  ],
+  "answer": 0
+},
+{
+  "id": "d4q51",
+  "type": "single",
+  "text": "Ý thức xã hội có tính độc lập tương đối thể hiện ở điểm nào? (Chương III)",
+  "choices": [
+    "Không chịu sự chi phối của tồn tại xã hội",
+    "Luôn phản ánh đúng hiện thực",
+    "Có thể lạc hậu hoặc vượt trước tồn tại xã hội",
+    "Không tác động trở lại xã hội"
+  ],
+  "answer": 2
+},
+{
+  "id": "d4q52",
+  "type": "single",
+  "text": "Ý thức xã hội tác động trở lại tồn tại xã hội thông qua yếu tố nào? (Chương III)",
+  "choices": [
+    "Hoạt động thực tiễn của con người",
+    "Hoạt động sinh học",
+    "Hoạt động tự nhiên",
+    "Hoạt động bản năng"
+  ],
+  "answer": 0
+},
+{
+  "id": "d4q53",
+  "type": "single",
+  "text": "Giai cấp nào giữ vai trò lãnh đạo cách mạng xã hội chủ nghĩa? (Chương III)",
+  "choices": [
+    "Giai cấp tư sản",
+    "Giai cấp nông dân",
+    "Giai cấp công nhân",
+    "Tầng lớp trí thức"
+  ],
+  "answer": 2
+},
+{
+  "id": "d4q54",
+  "type": "single",
+  "text": "Liên minh giai cấp cơ bản trong cách mạng xã hội chủ nghĩa là liên minh nào? (Chương III)",
+  "choices": [
+    "Công nhân – nông dân – trí thức",
+    "Công nhân – tư sản",
+    "Nông dân – địa chủ",
+    "Tư sản – trí thức"
+  ],
+  "answer": 0
+},
+{
+  "id": "d4q55",
+  "type": "single",
+  "text": "Mục tiêu trực tiếp của cách mạng xã hội chủ nghĩa là gì? (Chương III)",
+  "choices": [
+    "Xóa bỏ mọi giai cấp",
+    "Phát triển lực lượng sản xuất",
+    "Thiết lập chính quyền của giai cấp công nhân và nhân dân lao động",
+    "Ổn định xã hội"
+  ],
+  "answer": 2
+},
+{
+  "id": "d4q56",
+  "type": "single",
+  "text": "Cơ sở kinh tế của chủ nghĩa xã hội là gì? (Chương III)",
+  "choices": [
+    "Sở hữu tư nhân tư bản chủ nghĩa",
+    "Sở hữu xã hội về tư liệu sản xuất chủ yếu",
+    "Sở hữu phong kiến",
+    "Sở hữu cá thể"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q57",
+  "type": "single",
+  "text": "Đặc trưng bản chất nhất của chủ nghĩa xã hội là gì? (Chương III)",
+  "choices": [
+    "Phát triển kinh tế nhanh",
+    "Giải phóng con người khỏi áp bức, bóc lột",
+    "Ổn định chính trị",
+    "Tăng trưởng sản xuất"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q58",
+  "type": "single",
+  "text": "Nguyên tắc phân phối chủ yếu trong chủ nghĩa xã hội là gì? (Chương III)",
+  "choices": [
+    "Theo vốn",
+    "Theo lao động",
+    "Theo nhu cầu",
+    "Theo địa vị"
+  ],
+  "answer": 1
+},
+{
+  "id": "d4q59",
+  "type": "single",
+  "text": "Mục tiêu lâu dài của chủ nghĩa xã hội là gì? (Chương III)",
+  "choices": [
+    "Xây dựng nhà nước mạnh",
+    "Phát triển kinh tế",
+    "Tiến tới xã hội cộng sản chủ nghĩa",
+    "Ổn định xã hội"
+  ],
+  "answer": 2
+},
+{
+  "id": "d4q60",
+  "type": "single",
+  "text": "Theo quan điểm Mác–Lênin, mục tiêu cao nhất của sự giải phóng con người là gì? (Chương III)",
+  "choices": [
+    "Phát triển kinh tế",
+    "Ổn định chính trị",
+    "Giải phóng con người toàn diện",
+    "Xây dựng nhà nước mạnh"
+  ],
+  "answer": 2
+}
+]
+}
+
+
+
+]
