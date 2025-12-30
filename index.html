@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ShimeChamhoc – Premium Interface</title>
+  <title>ShimeChamhoc – Full Features</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root { 
@@ -128,7 +128,10 @@
           <h2 style="color: var(--ok)">Hoàn thành!</h2>
           <p id="scoreLine" style="font-size: 1.5rem; font-weight: 800;"></p>
           <div class="progress" style="margin:20px 0"><div id="scoreBar"></div></div>
-          <button class="btn ok" onclick="location.reload()">Làm đề khác</button>
+          <div style="display:flex; gap:10px; margin-bottom:20px">
+            <button class="btn ok" onclick="location.reload()">Làm đề khác</button>
+          </div>
+          <div id="reviewArea"></div>
         </div>
       </section>
     </div>
@@ -188,7 +191,6 @@
         wrap.className = 'choice';
         if (answers[idx].value === i) wrap.classList.add('active');
         
-        // Hiện màu đúng/sai nếu đã click và đang ở chế độ chấm tức thì
         if (answers[idx].value !== null && $('#instant').checked) {
             if (i === q.answer) wrap.classList.add('correct');
             else if (i === answers[idx].value) wrap.classList.add('wrong');
@@ -197,24 +199,15 @@
         wrap.innerHTML = `<input type="radio" name="opt" style="margin-right:10px" ${answers[idx].value === i ? 'checked' : ''}> <label style="cursor:pointer">${c}</label>`;
         
         wrap.onclick = () => {
-          // Lưu đáp án duy nhất vào mảng answers cho câu này
           answers[idx].value = i;
-          
-          // Vẽ lại câu hỏi để cập nhật UI đồng bộ
           renderQuestion();
 
           if($('#instant').checked) {
-            const isCorrect = (i === q.answer);
-            if(!isCorrect) { 
-                wrongStreak++; 
-                if(wrongStreak >= 3) $('#sheepPopup').style.display='flex'; 
-            } else { 
-                wrongStreak = 0; 
-            }
+            const ok = (i === q.answer);
+            if(!ok) { wrongStreak++; if(wrongStreak >= 3) $('#sheepPopup').style.display='flex'; } 
+            else { wrongStreak = 0; }
             if(q.explanation) $('#explain').textContent = "Giải thích: " + q.explanation;
-            
-            // Tự động chuyển câu nếu đúng
-            if($('#autoNext').checked && isCorrect && idx < quiz.questions.length - 1) {
+            if($('#autoNext').checked && ok && idx < quiz.questions.length - 1) {
                setTimeout(() => { if(idx < quiz.questions.length - 1) { idx++; renderQuestion(); } }, 800);
             }
           }
@@ -223,7 +216,6 @@
       });
       
       $('#btnPrev').disabled = (idx === 0);
-      // Nút Tiếp theo chỉ ẩn ở câu cuối cùng
       $('#btnNext').style.visibility = (idx === quiz.questions.length - 1) ? 'hidden' : 'visible';
     }
 
@@ -232,9 +224,7 @@
 
     $('#btnStart').onclick = () => {
       if(!quiz) return;
-      // Trộn đề nếu có check
       if($('#shuffle').checked) quiz.questions.sort(() => Math.random() - 0.5);
-      // Reset mảng đáp án: mỗi câu chỉ nhận 1 giá trị duy nhất
       answers = quiz.questions.map(() => ({value: null}));
       idx = 0; 
       $('#screenIntro').style.display='none'; 
@@ -246,7 +236,6 @@
       if(!confirm("Bạn muốn nộp bài?")) return;
       clearInterval(timerId);
       
-      // LOGIC TÍNH ĐIỂM CHUẨN: Chỉ đếm mỗi câu hỏi 1 lần
       let totalCorrect = 0;
       quiz.questions.forEach((q, i) => {
           if (answers[i].value !== null && answers[i].value === q.answer) {
@@ -261,7 +250,31 @@
       $('#scoreBar').style.width = percent + '%';
       $('#screenQuiz').style.display='none'; 
       $('#screenResult').style.display='block';
+      
+      generateReview();
     };
+
+    function generateReview() {
+      const area = $('#reviewArea');
+      area.innerHTML = '<h3 style="margin-top:30px">Chi tiết bài làm:</h3>';
+      quiz.questions.forEach((q, i) => {
+        const userAns = answers[i].value;
+        const isCorrect = (userAns === q.answer);
+        const card = document.createElement('div');
+        card.className = 'card pad';
+        card.style.marginBottom = '15px';
+        card.style.borderLeft = `5px solid ${isCorrect ? 'var(--ok)' : 'var(--bad)'}`;
+        card.innerHTML = `
+          <div style="font-weight:800; margin-bottom:5px">Câu ${i+1}: ${q.text}</div>
+          <div style="color:${isCorrect ? 'var(--ok)' : 'var(--bad)'}">
+            <b>Bạn chọn:</b> ${userAns !== null ? q.choices[userAns] : 'Chưa trả lời'}
+          </div>
+          <div style="color:var(--ok)"><b>Đáp án đúng:</b> ${q.choices[q.answer]}</div>
+          ${q.explanation ? `<div class="muted" style="margin-top:5px; font-style:italic">Giải thích: ${q.explanation}</div>` : ''}
+        `;
+        area.appendChild(card);
+      });
+    }
 
     function startTimer(){
       let totalSec = Number($('#timeLimit').value) * 60;
