@@ -69,6 +69,35 @@ window.MathJax = {
       position: fixed; inset: 0; display: none; justify-content: center; align-items: center;
       background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 9999;
     }
+    #sheepPopup .box{
+      max-width: 240px;
+  width: fit-content;
+  pointer-events: auto;
+  background: transparent;  
+  border: none;
+  box-shadow: none;
+  padding: 10px 14px 6px;
+  text-align: center;
+  animation: stickerPop .35s cubic-bezier(.2,1.4,.4,1);
+}
+
+
+
+#sheepPopup img{
+  width:150px;
+  height:auto;
+  display:block;
+  margin:0 auto 6px;
+
+  /* VIỀN STICKER */
+  filter:
+    drop-shadow(0 0 0 6px white)
+    drop-shadow(0 10px 22px rgba(0,0,0,0.35));
+
+  transform: rotate(-4deg);
+}
+
+
     #qText{
   max-height: 260px;
   overflow-y: auto;
@@ -80,10 +109,26 @@ window.MathJax = {
 @media (max-width: 960px) { 
   .row { grid-template-columns: 1fr; } 
 }
-
+@keyframes pop{
+  0%   { transform: scale(0.7) rotate(-8deg); opacity: 0 }
+  60%  { transform: scale(1.05) rotate(3deg); opacity: 1 }
+  100% { transform: scale(1) rotate(0deg); }
+}
+@keyframes stickerPop{
+  0% {
+    transform: scale(0.3) rotate(-12deg);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.08) rotate(3deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
 }
 
-  }
+
   </style>
 </head>
 <body>
@@ -159,7 +204,7 @@ window.MathJax = {
 
   <div id="sheepPopup">
     <div class="box">
-      <img src="https://png.pngtree.com/png-vector/20240801/ourlarge/pngtree-sheep-natural-with-a-kawaii-face-cute-cartoon-on-transperant-background-png-image_13322177.png" style="width:100px; margin-bottom:15px">
+      <img src="sheep.png" alt="Sheep sticker">
       <div style="font-weight:800">Cố gắng lênnn! 🐑</div>
       <p class="muted">Sai 3 câu rồi đó, bình tĩnh nhé!</p>
       <button class="btn ok" onclick="$('#sheepPopup').style.display='none'; wrongStreak=0;">Tiếp tục</button>
