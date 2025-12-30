@@ -18,12 +18,35 @@ window.MathJax = {
       --text: #f8fafc; --acc: #38bdf8; --ok: #22c55e; --bad: #ef4444; 
       --border: rgba(255, 255, 255, 0.08);
     }
+    /* ===== LIGHT MODE ===== */
+[data-theme="light"] {
+  --bg: #f1f5f9;
+  --card: rgba(255, 255, 255, 0.9);
+  --muted: #475569;
+  --text: #0f172a;
+  --acc: #0284c7;
+  --ok: #16a34a;
+  --bad: #dc2626;
+  --border: rgba(0, 0, 0, 0.08);
+}
+/* ===== FIX dropdown khi Light mode ===== */
+[data-theme="light"] select,
+[data-theme="light"] option {
+  background: #ffffff;
+  color: #0f172a;
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
     * { box-sizing: border-box; transition: all 0.2s ease; }
     body {
-      margin: 0; font-family: 'Inter', sans-serif;
-      background: radial-gradient(circle at top right, #1e293b, #0b1220);
-      color: var(--text); line-height: 1.6; min-height: 100vh;
-    }
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: radial-gradient(circle at top right, var(--bg), #0b1220);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
     header {
       position: sticky; top: 0; z-index: 100;
       background: rgba(11, 18, 32, 0.7); backdrop-filter: blur(12px);
@@ -49,10 +72,17 @@ window.MathJax = {
     .btn.ok { background: #14532d; color: #bbf7d0; }
     .btn.warn { background: #7f1d1d; color: #fecaca; }
     .grid { display: grid; gap: 12px; }
-    select#quizSelect {
-      width: 100%; padding: 12px; border-radius: 12px;
-      border: 1px solid var(--border); background: #0d1424; color: var(--text);
-    }
+   select#quizSelect {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 55%,
+    calc(100% - 12px) 55%;
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+}
     .choice {
       border: 1px solid var(--border); border-radius: 14px; padding: 16px;
       cursor: pointer; background: rgba(255,255,255,0.03); display: flex; align-items: center;
@@ -127,6 +157,10 @@ window.MathJax = {
     transform: scale(1) rotate(0deg);
   }
 }
+[data-theme="light"] select#quizSelect {
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
 
 
   </style>
@@ -136,6 +170,8 @@ window.MathJax = {
     <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;">
       <div style="font-weight:800;font-size:1.2rem; color: var(--acc)">📘 ShimeChamhoc</div>
       <button class="btn secondary" onclick="$('#fileInput').click()">Nạp JSON</button>
+      <button class="btn ghost" id="toggleTheme">🌙 / ☀️</button>
+
     </div>
   </header>
 
@@ -363,6 +399,27 @@ window.MathJax = {
         if(totalSec <= 0) { clearInterval(timerId); $('#btnSubmit').click(); }
       }, 1000);
     }
+    // ===== THEME TOGGLE =====
+const themeBtn = document.getElementById('toggleTheme');
+
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || 'dark';
+  setTheme(current === 'dark' ? 'light' : 'dark');
+}
+
+// Load theme khi mở trang
+const savedTheme = localStorage.getItem('theme') || 'dark';
+setTheme(savedTheme);
+
+// Click nút
+themeBtn.onclick = toggleTheme;
+
+
   </script>
 </body>
 </html>
