@@ -161,6 +161,46 @@ window.MathJax = {
   background: #ffffff !important;
   color: #0f172a !important;
 }
+#fireworks {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+#congratsText {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--ok);
+  opacity: 0;
+  z-index: 9999;
+  text-align: center;
+  transition: all 0.4s ease;
+}
+
+#congratsText.show {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+#resultOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 18, 32, 0.65);
+  backdrop-filter: blur(6px);
+  z-index: 9997;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+#resultOverlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
 
 
   </style>
@@ -341,6 +381,57 @@ window.MathJax = {
       $('#screenQuiz').style.display='block';
       renderQuestion(); startTimer();
     };
+    function launchFireworks() {
+  const canvas = document.getElementById("fireworks");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let particles = [];
+
+  function boom(x) {
+    for (let i = 0; i < 80; i++) {
+      particles.push({
+        x,
+        y: canvas.height * 0.5,
+        vx: Math.cos(Math.random() * Math.PI * 2) * (3 + Math.random() * 4),
+        vy: Math.sin(Math.random() * Math.PI * 2) * (3 + Math.random() * 4),
+        life: 60,
+        color: `hsl(${Math.random() * 360},100%,60%)`
+      });
+    }
+  }
+
+  boom(canvas.width * 0.2);
+  boom(canvas.width * 0.8);
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach((p, i) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.05;
+      p.life--;
+
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+      ctx.fill();
+
+      if (p.life <= 0) particles.splice(i, 1);
+    });
+
+    if (particles.length) requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  const text = document.getElementById("congratsText");
+  text.classList.add("show");
+  setTimeout(() => text.classList.remove("show"), 4000);
+}
+
 
     $('#btnSubmit').onclick = () => {
       if(!confirm("Bạn muốn nộp bài?")) return;
@@ -360,8 +451,17 @@ window.MathJax = {
       $('#scoreBar').style.width = percent + '%';
       $('#screenQuiz').style.display='none'; 
       $('#screenResult').style.display='block';
+      $('#resultOverlay').classList.add('show');
+      $('#congratsText').classList.add('show');
+      setTimeout(() => {
+      $('#resultOverlay').classList.remove('show');
+      $('#congratsText').classList.remove('show');
+}, 2500);
+
       
       generateReview();
+      launchFireworks();
+
     };
 
     function generateReview() {
@@ -421,5 +521,10 @@ themeBtn.onclick = toggleTheme;
 
 
   </script>
+  <canvas id="fireworks"></canvas>
+<div id="congratsText">🎉 Chúc mừng bạn đã hoàn thành bài làm!</div>
+<div id="resultOverlay"></div>
+
+
 </body>
 </html>
