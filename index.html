@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ShimeChamhoc – Full Features</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
   <style>
     :root { 
       --bg: #0b1220; --card: rgba(22, 32, 53, 0.8); --muted: #94a3b8; 
@@ -62,8 +69,21 @@
       position: fixed; inset: 0; display: none; justify-content: center; align-items: center;
       background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 9999;
     }
-    #sheepPopup .box { background: #1e293b; border: 2px solid var(--acc); padding: 32px; border-radius: 24px; text-align: center; }
-    @media (max-width: 960px) { .row { grid-template-columns: 1fr; } }
+    #qText{
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 6px;
+  word-break: break-word;
+  line-height: 1.6;
+}
+
+@media (max-width: 960px) { 
+  .row { grid-template-columns: 1fr; } 
+}
+
+}
+
+  }
   </style>
 </head>
 <body>
@@ -183,7 +203,9 @@
     function renderQuestion() {
       const q = quiz.questions[idx];
       $('#qIndex').textContent = `Câu ${idx+1}/${quiz.questions.length}`;
-      $('#qText').textContent = q.text;
+      $('#qText').innerHTML = q.text;
+      if (window.MathJax) MathJax.typesetPromise();
+
       const box = $('#qChoices'); box.innerHTML = ''; $('#explain').textContent = '';
       
       q.choices.forEach((c, i) => {
@@ -196,7 +218,12 @@
             else if (i === answers[idx].value) wrap.classList.add('wrong');
         }
 
-        wrap.innerHTML = `<input type="radio" name="opt" style="margin-right:10px" ${answers[idx].value === i ? 'checked' : ''}> <label style="cursor:pointer">${c}</label>`;
+        wrap.innerHTML = `
+        <input type="radio" name="opt" style="margin-right:10px" ${answers[idx].value === i ? 'checked' : ''}>
+        <label style="cursor:pointer">${c}</label>
+        `;
+
+
         
         wrap.onclick = () => {
           answers[idx].value = i;
@@ -214,6 +241,8 @@
         };
         box.appendChild(wrap);
       });
+      if (window.MathJax) MathJax.typesetPromise();
+
       
       $('#btnPrev').disabled = (idx === 0);
       $('#btnNext').style.visibility = (idx === quiz.questions.length - 1) ? 'hidden' : 'visible';
@@ -265,14 +294,16 @@
         card.style.marginBottom = '15px';
         card.style.borderLeft = `5px solid ${isCorrect ? 'var(--ok)' : 'var(--bad)'}`;
         card.innerHTML = `
-          <div style="font-weight:800; margin-bottom:5px">Câu ${i+1}: ${q.text}</div>
-          <div style="color:${isCorrect ? 'var(--ok)' : 'var(--bad)'}">
-            <b>Bạn chọn:</b> ${userAns !== null ? q.choices[userAns] : 'Chưa trả lời'}
-          </div>
-          <div style="color:var(--ok)"><b>Đáp án đúng:</b> ${q.choices[q.answer]}</div>
-          ${q.explanation ? `<div class="muted" style="margin-top:5px; font-style:italic">Giải thích: ${q.explanation}</div>` : ''}
+        <div style="font-weight:800; margin-bottom:5px">Câu ${i+1}: ${q.text}</div>
+        <div style="color:${isCorrect ? 'var(--ok)' : 'var(--bad)'}">
+        <div><b>Bạn chọn:</b> ${userAns !== null ? q.choices[userAns] : 'Chưa trả lời'}</div>
+        <div><b>Đáp án đúng:</b> ${q.choices[q.answer]}</div>
+        </div>
+        ${q.explanation ? `<div class="muted" style="margin-top:5px; font-style:italic">Giải thích: ${q.explanation}</div>` : ''}
         `;
+
         area.appendChild(card);
+        if (window.MathJax) MathJax.typesetPromise();
       });
     }
 
