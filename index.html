@@ -6,6 +6,8 @@
   <title>ShimeChamhoc – Full Features</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <script>
+    let isSubmitted = false;
+
 window.MathJax = {
   tex: { inlineMath: [['\\(','\\)'], ['$', '$']] }
 };
@@ -201,6 +203,43 @@ window.MathJax = {
   opacity: 1;
   pointer-events: auto;
 }
+.qcell {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 600;
+  position: relative;
+}
+
+.qcell.done { border-color: var(--acc); }
+.qcell.correct { background: rgba(34,197,94,0.2); border-color: var(--ok); }
+.qcell.wrong { background: rgba(239,68,68,0.2); border-color: var(--bad); }
+
+.qcell.bookmark::after {
+  content: "⭐";
+  position: absolute;
+  font-size: 12px;
+  top: -6px;
+  right: -4px;
+}
+
+.bookmark-btn {
+  cursor: pointer;
+  font-size: 22px;
+  user-select: none;
+  transition: transform .2s ease, color .2s ease;
+}
+.bookmark-btn:hover {
+  transform: scale(1.2);
+}
+.bookmark-btn.active {
+  color: #facc15; /* vàng */
+}
 
 
   </style>
@@ -251,8 +290,13 @@ window.MathJax = {
         <div id="screenQuiz" style="display:none">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
             <span class="pill" id="qIndex"></span>
-            <div class="timer pill" id="timer">--:--</div>
+
+            <div style="display:flex;align-items:center;gap:14px">
+                <span id="bookmarkBtn" class="bookmark-btn">⭐</span>
+                <div class="timer pill" id="timer">--:--</div>
           </div>
+          </div>
+
           <div id="qText" style="font-size:20px;font-weight:700;margin-bottom:24px;"></div>
           <div id="qChoices" class="grid"></div>
           <div style="display:flex;justify-content:space-between;margin-top:30px; border-top: 1px solid var(--border); padding-top:20px">
@@ -263,6 +307,21 @@ window.MathJax = {
             </div>
           </div>
           <div id="explain" class="muted" style="margin-top:15px; padding:12px; background:rgba(255,255,255,0.03); border-radius:10px"></div>
+          <div id="questionMap" class="card pad" style="margin-top:20px">
+          <div style="font-weight:700;margin-bottom:10px">📋 Tổng quan câu hỏi</div>
+
+  <!-- FILTER BUTTONS -->
+          <div style="display:flex;gap:8px;margin-bottom:10px">
+          <button class="btn secondary" id="filterAll">Tất cả</button>
+          <button class="btn secondary" id="filterBookmark">⭐ Bookmark</button>
+          <button class="btn secondary" id="filterWrong">❌ Câu sai</button>
+          </div>
+
+           <div id="questionGrid"
+       style="display:grid;grid-template-columns:repeat(auto-fill,40px);gap:8px">
+  </div>
+</div>
+
         </div>
 
         <div id="screenResult" style="display:none">
@@ -293,7 +352,10 @@ window.MathJax = {
     const strip = (s)=> (s??'').toString().trim().toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'');
 
     let allQuizzes = [], quiz = null, idx = 0, answers = [], timerId = null, wrongStreak = 0;
+    let questionFilter = 'all'; // all | bookmark | wrong
+
     const STORAGE_KEY = "shimechamhoc_progress_v1";
+    
     let currentTimeLeft = 0;
 
 
@@ -403,6 +465,8 @@ function loadProgress() {
 
     function renderQuestion() {
       const q = quiz.questions[idx];
+      if (q.bookmarked === undefined) q.bookmarked = false;
+
       $('#qIndex').textContent = `Câu ${idx+1}/${quiz.questions.length}`;
       $('#qText').innerHTML = q.text;
       if (window.MathJax) MathJax.typesetPromise();
@@ -455,7 +519,66 @@ function loadProgress() {
       
       $('#btnPrev').disabled = (idx === 0);
       $('#btnNext').style.visibility = (idx === quiz.questions.length - 1) ? 'hidden' : 'visible';
+      renderQuestionMap(); 
+      // ===== BOOKMARK UI =====
+const bm = $('#bookmarkBtn');
+bm.classList.toggle('active', q.bookmarked);
+bm.textContent = q.bookmarked ? '⭐' : '☆';
+
+bm.onclick = () => {
+  q.bookmarked = !q.bookmarked;
+  bm.classList.toggle('active', q.bookmarked);
+  bm.textContent = q.bookmarked ? '⭐' : '☆';
+  saveProgress();
+};
+
     }
+    function renderQuestionMap() {
+  const grid = $('#questionGrid');
+  if (!grid) return;
+
+  grid.innerHTML = '';
+
+  quiz.questions.forEach((q, i) => {
+    const ans = answers[i]?.value;
+
+    // ===== FILTER LOGIC =====
+    if (questionFilter === 'bookmark' && !q.bookmarked) return;
+    if (questionFilter === 'wrong') {
+  if (ans === null) return;
+
+  // CHỈ HIỆN CÂU SAI KHI:
+  // 1. Instant bật
+  // 2. HOẶC đã nộp bài
+  if (!$('#instant').checked && !isSubmitted) return;
+
+  if (ans === q.answer) return;
+}
+
+
+    const cell = document.createElement('div');
+    cell.className = 'qcell';
+    cell.textContent = i + 1;
+
+    if (ans !== null) cell.classList.add('done');
+
+    if ($('#instant').checked && ans !== null) {
+      if (ans === q.answer) cell.classList.add('correct');
+      else cell.classList.add('wrong');
+    }
+
+    if (q.bookmarked) cell.classList.add('bookmark');
+
+    cell.onclick = () => {
+      idx = i;
+      renderQuestion();
+    };
+
+    grid.appendChild(cell);
+  });
+}
+
+
 
     $('#btnNext').onclick = () => {
   if(idx < quiz.questions.length - 1) {
@@ -536,6 +659,7 @@ $('#btnPrev').onclick = () => {
 
 
     $('#btnSubmit').onclick = () => {
+      isSubmitted = true;
       localStorage.removeItem(STORAGE_KEY);
 
       if(!confirm("Bạn muốn nộp bài?")) return;
@@ -636,6 +760,20 @@ setTheme(savedTheme);
 
 // Click nút
 themeBtn.onclick = toggleTheme;
+$('#filterAll').onclick = () => {
+  questionFilter = 'all';
+  renderQuestionMap();
+};
+
+$('#filterBookmark').onclick = () => {
+  questionFilter = 'bookmark';
+  renderQuestionMap();
+};
+
+$('#filterWrong').onclick = () => {
+  questionFilter = 'wrong';
+  renderQuestionMap();
+};
 
 
   </script>
