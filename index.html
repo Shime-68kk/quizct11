@@ -293,6 +293,9 @@ window.MathJax = {
     const strip = (s)=> (s??'').toString().trim().toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'');
 
     let allQuizzes = [], quiz = null, idx = 0, answers = [], timerId = null, wrongStreak = 0;
+    const STORAGE_KEY = "shimechamhoc_progress_v1";
+    let currentTimeLeft = 0;
+
 
     function handleData(data) {
       allQuizzes = Array.isArray(data) ? data : [data];
@@ -312,14 +315,85 @@ window.MathJax = {
     $('#quizSelect').onchange = (e) => setupQuiz(e.target.value);
 
     window.addEventListener('DOMContentLoaded', () => {
-      fetch('data.json').then(r => r.json()).then(handleData).catch(()=> $('#statusMessage').textContent = "Hãy nạp file JSON.");
-    });
+  fetch('data.json')
+    .then(r => r.json())
+    .then(data => {
+      handleData(data);
+
+      const saved = loadProgress();
+      if (saved && confirm("🔄 Phát hiện bài làm chưa hoàn thành. Tiếp tục không?")) {
+        quiz = saved.quiz;
+        idx = saved.idx;
+        answers = saved.answers;
+        currentTimeLeft = saved.timeLeft;
+
+        $('#instant').checked = saved.settings.instant;
+        $('#autoNext').checked = saved.settings.autoNext;
+        $('#shuffle').checked = saved.settings.shuffle;
+
+        $('#screenIntro').style.display='none';
+        $('#screenQuiz').style.display='block';
+
+        renderQuestion();
+
+        if (currentTimeLeft > 0) {
+          timerId = setInterval(() => {
+            currentTimeLeft--;
+            saveProgress();
+
+            let m = Math.floor(currentTimeLeft / 60);
+            let s = (currentTimeLeft % 60).toString().padStart(2,'0');
+            $('#timer').textContent = `${m}:${s}`;
+
+            if(currentTimeLeft <= 0) {
+              clearInterval(timerId);
+              $('#btnSubmit').click();
+            }
+          }, 1000);
+        } else {
+          $('#timer').textContent = '∞';
+        }
+      } else {
+        localStorage.removeItem(STORAGE_KEY);
+      }
+    })
+    .catch(() => $('#statusMessage').textContent = "Hãy nạp file JSON.");
+});
 
     $('#fileInput').onchange = (e) => {
       const r = new FileReader();
       r.onload = () => { try { handleData(JSON.parse(r.result)); } catch(err) { alert('File không hợp lệ!'); } };
       r.readAsText(e.target.files[0]);
     };
+    function saveProgress() {
+  if (!quiz || !answers.length) return;
+
+  const data = {
+    quiz,
+    idx,
+    answers,
+    timeLeft: currentTimeLeft,
+    settings: {
+      instant: $('#instant').checked,
+      autoNext: $('#autoNext').checked,
+      shuffle: $('#shuffle').checked
+    }
+  };
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+function loadProgress() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return null;
+
+  try {
+    return JSON.parse(raw);
+  } catch {
+    localStorage.removeItem(STORAGE_KEY);
+    return null;
+  }
+}
+
 
     function renderQuestion() {
       const q = quiz.questions[idx];
@@ -347,8 +421,10 @@ window.MathJax = {
 
         
         wrap.onclick = () => {
-          answers[idx].value = i;
-          renderQuestion();
+        answers[idx].value = i;
+        renderQuestion();
+        saveProgress();
+
 
           if($('#instant').checked) {
             const ok = (i === q.answer);
@@ -369,8 +445,22 @@ window.MathJax = {
       $('#btnNext').style.visibility = (idx === quiz.questions.length - 1) ? 'hidden' : 'visible';
     }
 
-    $('#btnNext').onclick = () => { if(idx < quiz.questions.length - 1) { idx++; renderQuestion(); } };
-    $('#btnPrev').onclick = () => { if(idx > 0) { idx--; renderQuestion(); } };
+    $('#btnNext').onclick = () => {
+  if(idx < quiz.questions.length - 1) {
+    idx++;
+    renderQuestion();
+    saveProgress();
+  }
+};
+
+$('#btnPrev').onclick = () => {
+  if(idx > 0) {
+    idx--;
+    renderQuestion();
+    saveProgress();
+  }
+};
+
 
     $('#btnStart').onclick = () => {
       if(!quiz) return;
@@ -434,6 +524,8 @@ window.MathJax = {
 
 
     $('#btnSubmit').onclick = () => {
+      localStorage.removeItem(STORAGE_KEY);
+
       if(!confirm("Bạn muốn nộp bài?")) return;
       clearInterval(timerId);
       
@@ -489,16 +581,28 @@ window.MathJax = {
     }
 
     function startTimer(){
-      let totalSec = Number($('#timeLimit').value) * 60;
-      if(totalSec <= 0) { $('#timer').textContent='∞'; return; }
-      timerId = setInterval(() => {
-        totalSec--;
-        let m = Math.floor(totalSec/60);
-        let s = (totalSec%60).toString().padStart(2,'0');
-        $('#timer').textContent = `${m}:${s}`;
-        if(totalSec <= 0) { clearInterval(timerId); $('#btnSubmit').click(); }
-      }, 1000);
+  currentTimeLeft = Number($('#timeLimit').value) * 60;
+
+  if(currentTimeLeft <= 0) {
+    $('#timer').textContent = '∞';
+    return;
+  }
+
+  timerId = setInterval(() => {
+    currentTimeLeft--;
+    saveProgress();
+
+    let m = Math.floor(currentTimeLeft / 60);
+    let s = (currentTimeLeft % 60).toString().padStart(2,'0');
+    $('#timer').textContent = `${m}:${s}`;
+
+    if(currentTimeLeft <= 0) {
+      clearInterval(timerId);
+      $('#btnSubmit').click();
     }
+  }, 1000);
+}
+
     // ===== THEME TOGGLE =====
 const themeBtn = document.getElementById('toggleTheme');
 
