@@ -312,7 +312,11 @@ window.MathJax = {
             </div>
           </div>
           <div id="explain" class="muted" style="margin-top:15px; padding:12px; background:rgba(255,255,255,0.03); border-radius:10px"></div>
+          <button class="btn secondary" id="btnAIExplain" style="margin-top:10px">
+  🤖 Giải thích bằng AI
+          </button>
           <div id="questionMap" class="card pad" style="margin-top:20px">
+
           <div style="font-weight:700;margin-bottom:10px">📋 Tổng quan câu hỏi</div>
 
   <!-- FILTER BUTTONS -->
@@ -321,6 +325,10 @@ window.MathJax = {
           <button class="btn secondary" id="filterBookmark">⭐ Bookmark</button>
           <button class="btn secondary" id="filterWrong">❌ Câu sai</button>
           </div>
+          <input id="searchBox" placeholder="Tìm câu hỏi..." 
+            style="width:100%; padding:10px; border-radius:10px;
+            background:rgba(255,255,255,0.03); color:var(--text);
+            border:1px solid var(--border); margin-bottom:10px;">
 
            <div id="questionGrid"
        style="display:grid;grid-template-columns:repeat(auto-fill,40px);gap:8px">
@@ -423,6 +431,55 @@ function renderMathDebounced(target, delay = 50) {
       .catch(() => {});
   }, delay);
 }
+$('#btnAIExplain').onclick = async () => {
+  const btn = $('#btnAIExplain');
+  if (!quiz) return;
+
+  const q = quiz.questions[idx];
+  const userAnsIndex = answers[idx]?.value ?? null;
+
+  btn.disabled = true;
+  const old = btn.textContent;
+  btn.textContent = '⏳ Đang hỏi AI...';
+
+  try {
+    const payload = {
+      question: q.text,
+      choices: q.choices,
+      userAnswerIndex: userAnsIndex,
+      correctAnswerIndex: q.answer,
+      // gửi thêm explanation gốc nếu có (để AI bổ sung sâu hơn)
+      teacherExplanation: q.explanation || ''
+    };
+
+    const res = await fetch('/api/explain', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+  const t = await res.text(); // đọc body trả về
+  throw new Error(`API lỗi: ${res.status}\n${t}`);
+}
+
+
+    const data = await res.json();
+
+    // hiện vào ô explain (cho phép có LaTeX)
+    $('#explain').innerHTML =
+      `<b>AI giải thích:</b><br>${data.explanation || 'Không có phản hồi.'}`;
+
+    // render MathJax cho phần AI vừa trả về
+    renderMathDebounced($('#explain'), 50);
+
+  } catch (e) {
+    $('#explain').textContent = '❌ Lỗi khi gọi AI: ' + (e?.message || e);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = old;
+  }
+};
 
     let allQuizzes = [], quiz = null, idx = 0, answers = [], timerId = null, wrongStreak = 0;
     let questionFilter = 'all'; // all | bookmark | wrong
@@ -624,8 +681,9 @@ function applyQuestionFilter() {
       const canShowWrong = $('#instant').checked || isSubmitted;
       show = (ans !== null) && canShowWrong && (ans !== q.answer);
     }
-    if (show && searchKeyword) {
-      show = questionMatches(currentQuizIndex, i);}
+    if (show && searchKeywordN) {
+  show = questionMatches(currentQuizIndex, i);
+}
     qCells[i].style.display = show ? '' : 'none';
   }
 }
@@ -913,6 +971,11 @@ $('#filterWrong').onclick = () => {
   questionFilter = 'wrong';
   applyQuestionFilter();
 };
+$('#searchBox').oninput = (e) => {
+  searchKeywordN = strip(e.target.value); // keyword đã strip sẵn
+  applyQuestionFilter();
+};
+
   </script>
   <canvas id="fireworks"></canvas>
 <div id="congratsText">🎉 Chúc mừng bạn đã hoàn thành bài làm!</div>
