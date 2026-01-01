@@ -6,8 +6,13 @@
   <title>ShimeChamhoc – Full Features</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <script>
+let searchKeywordN = ''; // ✅ keyword đã strip sẵn
+    let currentQuizIndex = 0;
+let searchKeyword = '';
     let isSubmitted = false;
-
+let qCells = [];      // lưu DOM của từng ô theo index
+let mapBuilt = false; // đã build map chưa
+let currentCellIndex = -1;
 window.MathJax = {
   tex: { inlineMath: [['\\(','\\)'], ['$', '$']] }
 };
@@ -350,6 +355,74 @@ window.MathJax = {
     const $ = (sel)=>document.querySelector(sel);
     const $$ = (sel)=>Array.from(document.querySelectorAll(sel));
     const strip = (s)=> (s??'').toString().trim().toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'');
+    // ===== SEARCH INDEX (pre-strip 1 lần khi nạp JSON) =====
+let searchIndex = []; 
+// searchIndex[qz] = { titleN: "...", q: [ { textN:"", choicesN:[...], expN:"" } ] }
+
+function buildSearchIndex(quizzes) {
+  searchIndex = quizzes.map(qz => ({
+    titleN: strip(qz.title || ''),
+    q: (qz.questions || []).map(qq => ({
+      textN: strip(qq.text || ''),
+      choicesN: (qq.choices || []).map(c => strip(c || '')),
+      expN: strip(qq.explanation || '')
+    }))
+  }));
+}
+function questionMatches(qzIndex, i) {
+  const k = searchKeywordN; // ✅ đã strip sẵn
+  if (!k) return true;
+
+  const qi = searchIndex[qzIndex]?.q?.[i];
+  if (!qi) return true;
+
+  return (
+    qi.textN.includes(k) ||
+    qi.expN.includes(k) ||
+    qi.choicesN.some(x => x.includes(k))
+  );
+}
+
+    // ===== MATHJAX OPTIMIZED RENDER (WAIT STARTUP) =====
+let mathRenderTimer = null;
+let mathTypesetChain = Promise.resolve(); // khóa hàng đợi typeset
+
+function toMathTargets(target) {
+  if (!target) return [];
+  return Array.isArray(target) ? target.filter(Boolean) : [target];
+}
+
+function whenMathJaxReady() {
+  if (!window.MathJax) return Promise.resolve();
+  if (MathJax.startup && MathJax.startup.promise) return MathJax.startup.promise;
+  return Promise.resolve();
+}
+
+function renderMath(target) {
+  if (!window.MathJax) return;
+  const els = toMathTargets(target);
+  if (!els.length) return;
+
+  mathTypesetChain = mathTypesetChain
+    .then(() => whenMathJaxReady())
+    .then(() => MathJax.typesetPromise(els))
+    .catch(() => {});
+}
+
+function renderMathDebounced(target, delay = 50) {
+  if (!window.MathJax) return;
+  const els = toMathTargets(target);
+  if (!els.length) return;
+
+  clearTimeout(mathRenderTimer);
+  mathRenderTimer = setTimeout(() => {
+    // serialize để không typeset chồng lên nhau
+    mathTypesetChain = mathTypesetChain
+      .then(() => whenMathJaxReady())
+      .then(() => MathJax.typesetPromise(els))
+      .catch(() => {});
+  }, delay);
+}
 
     let allQuizzes = [], quiz = null, idx = 0, answers = [], timerId = null, wrongStreak = 0;
     let questionFilter = 'all'; // all | bookmark | wrong
@@ -361,18 +434,23 @@ window.MathJax = {
 
     function handleData(data) {
       allQuizzes = Array.isArray(data) ? data : [data];
+      buildSearchIndex(allQuizzes);
       if (allQuizzes.length > 1) {
         $('#quizSelectGroup').style.display = 'grid';
         $('#quizSelect').innerHTML = allQuizzes.map((q, i) => `<option value="${i}">${q.title || 'Đề '+(i+1)}</option>`).join('');
       }
       setupQuiz(0);
     }
-
     function setupQuiz(index) {
-      quiz = JSON.parse(JSON.stringify(allQuizzes[index]));
-      $('#timeLimit').value = Math.round((quiz.timeLimit||0)/60);
-      $('#statusMessage').innerHTML = `Đã nạp: <b>${quiz.title}</b>. Bấm Bắt đầu ngay!`;
-    }
+      currentQuizIndex = Number(index) || 0;
+  quiz = (window.structuredClone
+    ? structuredClone(allQuizzes[index])
+    : JSON.parse(JSON.stringify(allQuizzes[index]))
+  );
+  $('#timeLimit').value = Math.round((quiz.timeLimit||0)/60);
+  $('#statusMessage').innerHTML = `Đã nạp: <b>${quiz.title}</b>. Bấm Bắt đầu ngay!`;
+}
+
 
     $('#quizSelect').onchange = (e) => setupQuiz(e.target.value);
 
@@ -399,7 +477,10 @@ window.MathJax = {
 
         $('#screenIntro').style.display='none';
         $('#screenQuiz').style.display='block';
-
+        mapBuilt = false;
+        qCells = [];
+        currentCellIndex = -1;
+        buildQuestionMapOnce();
         renderQuestion();
 
         if (currentTimeLeft > 0) {
@@ -461,15 +542,103 @@ function loadProgress() {
     return null;
   }
 }
+function buildQuestionMapOnce() {
+  const grid = $('#questionGrid');
+  if (!grid || mapBuilt || !quiz) return;
 
+  grid.innerHTML = '';
+  qCells = new Array(quiz.questions.length);
+
+  quiz.questions.forEach((q, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'qcell';
+    cell.textContent = i + 1;
+    cell.dataset.i = i;
+
+    cell.onclick = () => {
+      idx = i;
+      renderQuestion();
+      saveProgress();
+    };
+
+    grid.appendChild(cell);
+    qCells[i] = cell;
+  });
+
+  mapBuilt = true;
+
+  // cập nhật trạng thái ban đầu 1 lần
+  updateAllCells();
+  updateCurrentCell();
+  applyQuestionFilter(); // nếu bạn đang ở filter nào đó
+}
+
+function updateCell(i) {
+  const cell = qCells[i];
+  if (!cell) return;
+
+  const q = quiz.questions[i];
+  const ans = answers[i]?.value ?? null;
+
+  // reset các class trạng thái
+  cell.classList.remove('done', 'correct', 'wrong', 'bookmark', 'current');
+
+  if (ans !== null) cell.classList.add('done');
+  if (q.bookmarked) cell.classList.add('bookmark');
+
+  // chỉ tô đúng/sai khi: instant bật OR đã nộp bài
+  const canShowResult = $('#instant').checked || isSubmitted;
+  if (canShowResult && ans !== null) {
+    if (ans === q.answer) cell.classList.add('correct');
+    else cell.classList.add('wrong');
+  }
+}
+
+function updateAllCells() {
+  for (let i = 0; i < qCells.length; i++) updateCell(i);
+}
+
+function updateCurrentCell() {
+  // bỏ current cũ
+  if (currentCellIndex >= 0 && qCells[currentCellIndex]) {
+    qCells[currentCellIndex].classList.remove('current');
+  }
+  // set current mới
+  currentCellIndex = idx;
+  if (qCells[currentCellIndex]) qCells[currentCellIndex].classList.add('current');
+}
+
+// Filter chỉ scan 1 lần khi bấm filter, KHÔNG scan mỗi lần click đáp án
+function applyQuestionFilter() {
+  if (!mapBuilt) return;
+
+  for (let i = 0; i < quiz.questions.length; i++) {
+    const q = quiz.questions[i];
+    const ans = answers[i]?.value ?? null;
+
+    let show = true;
+
+    if (questionFilter === 'bookmark') {
+      show = !!q.bookmarked;
+    } else if (questionFilter === 'wrong') {
+      const canShowWrong = $('#instant').checked || isSubmitted;
+      show = (ans !== null) && canShowWrong && (ans !== q.answer);
+    }
+    if (show && searchKeyword) {
+      show = questionMatches(currentQuizIndex, i);}
+    qCells[i].style.display = show ? '' : 'none';
+  }
+}
 
     function renderQuestion() {
       const q = quiz.questions[idx];
       if (q.bookmarked === undefined) q.bookmarked = false;
 
       $('#qIndex').textContent = `Câu ${idx+1}/${quiz.questions.length}`;
-      $('#qText').innerHTML = q.text;
-      if (window.MathJax) MathJax.typesetPromise();
+      const qTextEl = $('#qText');
+      qTextEl.innerHTML = q.text;
+      
+
 
       const box = $('#qChoices'); box.innerHTML = ''; $('#explain').textContent = '';
       
@@ -492,6 +661,7 @@ function loadProgress() {
         
         wrap.onclick = () => {
         answers[idx].value = i;
+        if (mapBuilt) updateCell(idx);
         renderQuestion();
         saveProgress();
 
@@ -513,13 +683,19 @@ function loadProgress() {
           }
         };
         box.appendChild(wrap);
-      });
-      if (window.MathJax) MathJax.typesetPromise();
+       });
+      renderMathDebounced([qTextEl, box]);
+
+
 
       
       $('#btnPrev').disabled = (idx === 0);
       $('#btnNext').style.visibility = (idx === quiz.questions.length - 1) ? 'hidden' : 'visible';
-      renderQuestionMap(); 
+      buildQuestionMapOnce();     // build lưới 1 lần duy nhất
+      updateCell(idx);            // cập nhật ô của câu hiện tại (done/correct/wrong/bookmark)
+      updateCurrentCell();        // tô viền current
+      applyQuestionFilter();      // nếu đang bật filter
+
       // ===== BOOKMARK UI =====
 const bm = $('#bookmarkBtn');
 bm.classList.toggle('active', q.bookmarked);
@@ -530,56 +706,13 @@ bm.onclick = () => {
   bm.classList.toggle('active', q.bookmarked);
   bm.textContent = q.bookmarked ? '⭐' : '☆';
   saveProgress();
+  if (mapBuilt) {
+  updateCell(idx);
+  applyQuestionFilter();
+}
 };
 
     }
-    function renderQuestionMap() {
-  const grid = $('#questionGrid');
-  if (!grid) return;
-
-  grid.innerHTML = '';
-
-  quiz.questions.forEach((q, i) => {
-    const ans = answers[i]?.value;
-
-    // ===== FILTER LOGIC =====
-    if (questionFilter === 'bookmark' && !q.bookmarked) return;
-    if (questionFilter === 'wrong') {
-  if (ans === null) return;
-
-  // CHỈ HIỆN CÂU SAI KHI:
-  // 1. Instant bật
-  // 2. HOẶC đã nộp bài
-  if (!$('#instant').checked && !isSubmitted) return;
-
-  if (ans === q.answer) return;
-}
-
-
-    const cell = document.createElement('div');
-    cell.className = 'qcell';
-    cell.textContent = i + 1;
-
-    if (ans !== null) cell.classList.add('done');
-
-    if ($('#instant').checked && ans !== null) {
-      if (ans === q.answer) cell.classList.add('correct');
-      else cell.classList.add('wrong');
-    }
-
-    if (q.bookmarked) cell.classList.add('bookmark');
-
-    cell.onclick = () => {
-      idx = i;
-      renderQuestion();
-    };
-
-    grid.appendChild(cell);
-  });
-}
-
-
-
     $('#btnNext').onclick = () => {
   if(idx < quiz.questions.length - 1) {
     idx++;
@@ -598,14 +731,23 @@ $('#btnPrev').onclick = () => {
 
 
     $('#btnStart').onclick = () => {
-      if(!quiz) return;
-      if($('#shuffle').checked) quiz.questions.sort(() => Math.random() - 0.5);
-      answers = quiz.questions.map(() => ({value: null}));
-      idx = 0; 
-      $('#screenIntro').style.display='none'; 
-      $('#screenQuiz').style.display='block';
-      renderQuestion(); startTimer();
-    };
+  if(!quiz) return;
+  if($('#shuffle').checked) quiz.questions.sort(() => Math.random() - 0.5);
+  answers = quiz.questions.map(() => ({value: null}));
+  idx = 0;
+
+  mapBuilt = false;
+  qCells = [];
+  currentCellIndex = -1;
+
+  $('#screenIntro').style.display='none';
+  $('#screenQuiz').style.display='block';
+
+  buildQuestionMapOnce();
+  renderQuestion();
+  startTimer();
+};
+
     function launchFireworks() {
   const canvas = document.getElementById("fireworks");
   const ctx = canvas.getContext("2d");
@@ -659,10 +801,13 @@ $('#btnPrev').onclick = () => {
 
 
     $('#btnSubmit').onclick = () => {
+       if(!confirm("Bạn muốn nộp bài?")) return;
       isSubmitted = true;
+      if (mapBuilt) {
+      updateAllCells();
+      applyQuestionFilter();
+      }
       localStorage.removeItem(STORAGE_KEY);
-
-      if(!confirm("Bạn muốn nộp bài?")) return;
       clearInterval(timerId);
       
       let totalCorrect = 0;
@@ -693,54 +838,53 @@ $('#btnPrev').onclick = () => {
     };
 
     function generateReview() {
-      const area = $('#reviewArea');
-      area.innerHTML = '<h3 style="margin-top:30px">Chi tiết bài làm:</h3>';
-      quiz.questions.forEach((q, i) => {
-        const userAns = answers[i].value;
-        const isCorrect = (userAns === q.answer);
-        const card = document.createElement('div');
-        card.className = 'card pad';
-        card.style.marginBottom = '15px';
-        card.style.borderLeft = `5px solid ${isCorrect ? 'var(--ok)' : 'var(--bad)'}`;
-        card.innerHTML = `
-        <div style="font-weight:800; margin-bottom:5px">Câu ${i+1}: ${q.text}</div>
-        <div style="color:${isCorrect ? 'var(--ok)' : 'var(--bad)'}">
+  const area = $('#reviewArea');
+  area.innerHTML = '<h3 style="margin-top:30px">Chi tiết bài làm:</h3>';
+
+  quiz.questions.forEach((q, i) => {
+    const userAns = answers[i].value;
+    const isCorrect = (userAns === q.answer);
+
+    const card = document.createElement('div');
+    card.className = 'card pad';
+    card.style.marginBottom = '15px';
+    card.style.borderLeft = `5px solid ${isCorrect ? 'var(--ok)' : 'var(--bad)'}`;
+
+    card.innerHTML = `
+      <div style="font-weight:800; margin-bottom:5px">Câu ${i+1}: ${q.text}</div>
+      <div style="color:${isCorrect ? 'var(--ok)' : 'var(--bad)'}">
         <div><b>Bạn chọn:</b> ${userAns !== null ? q.choices[userAns] : 'Chưa trả lời'}</div>
         <div><b>Đáp án đúng:</b> ${q.choices[q.answer]}</div>
-        </div>
-        ${q.explanation ? `<div class="muted" style="margin-top:5px; font-style:italic">Giải thích: ${q.explanation}</div>` : ''}
-        `;
+      </div>
+      ${q.explanation ? `<div class="muted" style="margin-top:5px; font-style:italic">Giải thích: ${q.explanation}</div>` : ''}
+    `;
 
-        area.appendChild(card);
-        if (window.MathJax) MathJax.typesetPromise();
-      });
-    }
+    area.appendChild(card);
+  });
 
+  // Render MathJax 1 lần cho cả khu review (nhanh hơn nhiều)
+  renderMath(area);
+}
     function startTimer(){
   if (timerId) clearInterval(timerId);
 
   currentTimeLeft = Number($('#timeLimit').value) * 60;
-
   if(currentTimeLeft <= 0) {
     $('#timer').textContent = '∞';
     return;
   }
-
   timerId = setInterval(() => {
     currentTimeLeft--;
     saveProgress();
-
     let m = Math.floor(currentTimeLeft / 60);
     let s = (currentTimeLeft % 60).toString().padStart(2,'0');
     $('#timer').textContent = `${m}:${s}`;
-
     if(currentTimeLeft <= 0) {
       clearInterval(timerId);
       $('#btnSubmit').click();
     }
   }, 1000);
 }
-
     // ===== THEME TOGGLE =====
 const themeBtn = document.getElementById('toggleTheme');
 
@@ -748,39 +892,30 @@ function setTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   localStorage.setItem('theme', theme);
 }
-
 function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme') || 'dark';
   setTheme(current === 'dark' ? 'light' : 'dark');
 }
-
 // Load theme khi mở trang
 const savedTheme = localStorage.getItem('theme') || 'dark';
 setTheme(savedTheme);
-
 // Click nút
 themeBtn.onclick = toggleTheme;
 $('#filterAll').onclick = () => {
   questionFilter = 'all';
-  renderQuestionMap();
+  applyQuestionFilter();
 };
-
 $('#filterBookmark').onclick = () => {
   questionFilter = 'bookmark';
-  renderQuestionMap();
+  applyQuestionFilter();
 };
-
 $('#filterWrong').onclick = () => {
   questionFilter = 'wrong';
-  renderQuestionMap();
+  applyQuestionFilter();
 };
-
-
   </script>
   <canvas id="fireworks"></canvas>
 <div id="congratsText">🎉 Chúc mừng bạn đã hoàn thành bài làm!</div>
 <div id="resultOverlay"></div>
-
-
 </body>
 </html>
