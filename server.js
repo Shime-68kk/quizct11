@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.static(__dirname));
 
 const API_KEY = process.env.GEMINI_API_KEY || "";
-const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash"; // ✅ đổi model ở đây
+const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash"; 
 
 const genAI = new GoogleGenerativeAI(API_KEY);
 
@@ -64,3 +64,4 @@ app.listen(5500, () => {
   console.log("ℹ️ health:", "http://localhost:5500/api/health");
   console.log("ℹ️ model:", MODEL);
 });
+
