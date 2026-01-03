@@ -6,7 +6,7 @@
   <title>ShimeChamhoc – Full Features</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <script>
-let searchKeywordN = ''; // ✅ keyword đã strip sẵn
+let searchKeywordN = ''; 
     let currentQuizIndex = 0;
 let searchKeyword = '';
     let isSubmitted = false;
@@ -53,7 +53,6 @@ window.MathJax = {
   line-height: 1.6;
   min-height: 100vh;
 }
-
     header {
       position: sticky; top: 0; z-index: 100;
       background: rgba(11, 18, 32, 0.7); backdrop-filter: blur(12px);
@@ -117,9 +116,6 @@ window.MathJax = {
   text-align: center;
   animation: stickerPop .35s cubic-bezier(.2,1.4,.4,1);
 }
-
-
-
 #sheepPopup img{
   width:150px;
   height:auto;
@@ -130,11 +126,8 @@ window.MathJax = {
   filter:
     drop-shadow(0 0 0 6px white)
     drop-shadow(0 10px 22px rgba(0,0,0,0.35));
-
   transform: rotate(-4deg);
 }
-
-
     #qText{
   max-height: 260px;
   overflow-y: auto;
@@ -284,14 +277,12 @@ window.MathJax = {
           <button class="btn ok" id="btnStart" style="width:100%; margin-top:10px">Bắt đầu</button>
         </div>
       </aside>
-
       <section class="card pad" id="panelMain">
         <div id="screenIntro">
           <h2 style="margin-top:0">Sẵn sàng chưa?</h2>
           <p class="muted" id="statusMessage">Đang chờ dữ liệu...</p>
           <input type="file" id="fileInput" accept="application/json" style="display:none" />
         </div>
-
         <div id="screenQuiz" style="display:none">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
             <span class="pill" id="qIndex"></span>
@@ -301,7 +292,6 @@ window.MathJax = {
                 <div class="timer pill" id="timer">--:--</div>
           </div>
           </div>
-
           <div id="qText" style="font-size:20px;font-weight:700;margin-bottom:24px;"></div>
           <div id="qChoices" class="grid"></div>
           <div style="display:flex;justify-content:space-between;margin-top:30px; border-top: 1px solid var(--border); padding-top:20px">
@@ -316,9 +306,7 @@ window.MathJax = {
   🤖 Giải thích bằng AI
           </button>
           <div id="questionMap" class="card pad" style="margin-top:20px">
-
           <div style="font-weight:700;margin-bottom:10px">📋 Tổng quan câu hỏi</div>
-
   <!-- FILTER BUTTONS -->
           <div style="display:flex;gap:8px;margin-bottom:10px">
           <button class="btn secondary" id="filterAll">Tất cả</button>
@@ -329,7 +317,6 @@ window.MathJax = {
             style="width:100%; padding:10px; border-radius:10px;
             background:rgba(255,255,255,0.03); color:var(--text);
             border:1px solid var(--border); margin-bottom:10px;">
-
            <div id="questionGrid"
        style="display:grid;grid-template-columns:repeat(auto-fill,40px);gap:8px">
   </div>
@@ -349,7 +336,6 @@ window.MathJax = {
       </section>
     </div>
   </main>
-
   <div id="sheepPopup">
     <div class="box">
       <img src="sheep.png" alt="Sheep sticker">
@@ -358,15 +344,11 @@ window.MathJax = {
       <button class="btn ok" onclick="$('#sheepPopup').style.display='none'; wrongStreak=0;">Tiếp tục</button>
     </div>
   </div>
-
   <script>
     const $ = (sel)=>document.querySelector(sel);
     const $$ = (sel)=>Array.from(document.querySelectorAll(sel));
     const strip = (s)=> (s??'').toString().trim().toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'');
-    // ===== SEARCH INDEX (pre-strip 1 lần khi nạp JSON) =====
 let searchIndex = []; 
-// searchIndex[qz] = { titleN: "...", q: [ { textN:"", choicesN:[...], expN:"" } ] }
-
 function buildSearchIndex(quizzes) {
   searchIndex = quizzes.map(qz => ({
     titleN: strip(qz.title || ''),
@@ -378,12 +360,10 @@ function buildSearchIndex(quizzes) {
   }));
 }
 function questionMatches(qzIndex, i) {
-  const k = searchKeywordN; // ✅ đã strip sẵn
+  const k = searchKeywordN; 
   if (!k) return true;
-
   const qi = searchIndex[qzIndex]?.q?.[i];
   if (!qi) return true;
-
   return (
     qi.textN.includes(k) ||
     qi.expN.includes(k) ||
@@ -399,18 +379,15 @@ function toMathTargets(target) {
   if (!target) return [];
   return Array.isArray(target) ? target.filter(Boolean) : [target];
 }
-
 function whenMathJaxReady() {
   if (!window.MathJax) return Promise.resolve();
   if (MathJax.startup && MathJax.startup.promise) return MathJax.startup.promise;
   return Promise.resolve();
 }
-
 function renderMath(target) {
   if (!window.MathJax) return;
   const els = toMathTargets(target);
   if (!els.length) return;
-
   mathTypesetChain = mathTypesetChain
     .then(() => whenMathJaxReady())
     .then(() => MathJax.typesetPromise(els))
@@ -424,7 +401,6 @@ function renderMathDebounced(target, delay = 50) {
 
   clearTimeout(mathRenderTimer);
   mathRenderTimer = setTimeout(() => {
-    // serialize để không typeset chồng lên nhau
     mathTypesetChain = mathTypesetChain
       .then(() => whenMathJaxReady())
       .then(() => MathJax.typesetPromise(els))
@@ -441,7 +417,6 @@ $('#btnAIExplain').onclick = async () => {
   btn.disabled = true;
   const old = btn.textContent;
   btn.textContent = '⏳ Đang hỏi AI...';
-
   try {
     const payload = {
       question: q.text,
@@ -451,19 +426,15 @@ $('#btnAIExplain').onclick = async () => {
       // gửi thêm explanation gốc nếu có (để AI bổ sung sâu hơn)
       teacherExplanation: q.explanation || ''
     };
-
     const res = await fetch('/api/explain', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
-
     if (!res.ok) {
   const t = await res.text(); // đọc body trả về
   throw new Error(`API lỗi: ${res.status}\n${t}`);
 }
-
-
     const data = await res.json();
 
     // hiện vào ô explain (cho phép có LaTeX)
@@ -472,7 +443,6 @@ $('#btnAIExplain').onclick = async () => {
 
     // render MathJax cho phần AI vừa trả về
     renderMathDebounced($('#explain'), 50);
-
   } catch (e) {
     $('#explain').textContent = '❌ Lỗi khi gọi AI: ' + (e?.message || e);
   } finally {
@@ -480,15 +450,12 @@ $('#btnAIExplain').onclick = async () => {
     btn.textContent = old;
   }
 };
-
     let allQuizzes = [], quiz = null, idx = 0, answers = [], timerId = null, wrongStreak = 0;
     let questionFilter = 'all'; // all | bookmark | wrong
 
     const STORAGE_KEY = "shimechamhoc_progress_v1";
     
     let currentTimeLeft = 0;
-
-
     function handleData(data) {
       allQuizzes = Array.isArray(data) ? data : [data];
       buildSearchIndex(allQuizzes);
@@ -516,7 +483,6 @@ $('#btnAIExplain').onclick = async () => {
     .then(r => r.json())
     .then(data => {
       handleData(data);
-
       const saved = loadProgress();
       if (saved && confirm("🔄 Phát hiện bài làm chưa hoàn thành. Tiếp tục không?")) {
         quiz = saved.quiz;
@@ -539,18 +505,14 @@ $('#btnAIExplain').onclick = async () => {
         currentCellIndex = -1;
         buildQuestionMapOnce();
         renderQuestion();
-
         if (currentTimeLeft > 0) {
           if (timerId) clearInterval(timerId);
-
           timerId = setInterval(() => {
             currentTimeLeft--;
             saveProgress();
-
             let m = Math.floor(currentTimeLeft / 60);
             let s = (currentTimeLeft % 60).toString().padStart(2,'0');
             $('#timer').textContent = `${m}:${s}`;
-
             if(currentTimeLeft <= 0) {
               clearInterval(timerId);
               $('#btnSubmit').click();
@@ -573,7 +535,6 @@ $('#btnAIExplain').onclick = async () => {
     };
     function saveProgress() {
   if (!quiz || !answers.length) return;
-
   const data = {
     quiz,
     idx,
@@ -602,10 +563,8 @@ function loadProgress() {
 function buildQuestionMapOnce() {
   const grid = $('#questionGrid');
   if (!grid || mapBuilt || !quiz) return;
-
   grid.innerHTML = '';
   qCells = new Array(quiz.questions.length);
-
   quiz.questions.forEach((q, i) => {
     const cell = document.createElement('div');
     cell.className = 'qcell';
@@ -623,40 +582,29 @@ function buildQuestionMapOnce() {
   });
 
   mapBuilt = true;
-
   // cập nhật trạng thái ban đầu 1 lần
   updateAllCells();
   updateCurrentCell();
-  applyQuestionFilter(); // nếu bạn đang ở filter nào đó
+  applyQuestionFilter();
 }
-
 function updateCell(i) {
   const cell = qCells[i];
   if (!cell) return;
-
   const q = quiz.questions[i];
   const ans = answers[i]?.value ?? null;
-
-  // reset các class trạng thái
   cell.classList.remove('done', 'correct', 'wrong', 'bookmark', 'current');
-
   if (ans !== null) cell.classList.add('done');
   if (q.bookmarked) cell.classList.add('bookmark');
-
-  // chỉ tô đúng/sai khi: instant bật OR đã nộp bài
   const canShowResult = $('#instant').checked || isSubmitted;
   if (canShowResult && ans !== null) {
     if (ans === q.answer) cell.classList.add('correct');
     else cell.classList.add('wrong');
   }
 }
-
 function updateAllCells() {
   for (let i = 0; i < qCells.length; i++) updateCell(i);
 }
-
 function updateCurrentCell() {
-  // bỏ current cũ
   if (currentCellIndex >= 0 && qCells[currentCellIndex]) {
     qCells[currentCellIndex].classList.remove('current');
   }
@@ -664,17 +612,13 @@ function updateCurrentCell() {
   currentCellIndex = idx;
   if (qCells[currentCellIndex]) qCells[currentCellIndex].classList.add('current');
 }
-
-// Filter chỉ scan 1 lần khi bấm filter, KHÔNG scan mỗi lần click đáp án
+// Filter chỉ scan 1 lần khi bấm filter, không scan mỗi lần click đáp án
 function applyQuestionFilter() {
   if (!mapBuilt) return;
-
   for (let i = 0; i < quiz.questions.length; i++) {
     const q = quiz.questions[i];
     const ans = answers[i]?.value ?? null;
-
     let show = true;
-
     if (questionFilter === 'bookmark') {
       show = !!q.bookmarked;
     } else if (questionFilter === 'wrong') {
@@ -687,43 +631,30 @@ function applyQuestionFilter() {
     qCells[i].style.display = show ? '' : 'none';
   }
 }
-
     function renderQuestion() {
       const q = quiz.questions[idx];
       if (q.bookmarked === undefined) q.bookmarked = false;
-
       $('#qIndex').textContent = `Câu ${idx+1}/${quiz.questions.length}`;
       const qTextEl = $('#qText');
       qTextEl.innerHTML = q.text;
-      
-
-
       const box = $('#qChoices'); box.innerHTML = ''; $('#explain').textContent = '';
-      
       q.choices.forEach((c, i) => {
         const wrap = document.createElement('div');
         wrap.className = 'choice';
         if (answers[idx].value === i) wrap.classList.add('active');
-        
         if (answers[idx].value !== null && $('#instant').checked) {
             if (i === q.answer) wrap.classList.add('correct');
             else if (i === answers[idx].value) wrap.classList.add('wrong');
         }
-
         wrap.innerHTML = `
         <input type="radio" name="opt" style="margin-right:10px" ${answers[idx].value === i ? 'checked' : ''}>
         <label style="cursor:pointer">${c}</label>
         `;
-
-
-        
         wrap.onclick = () => {
         answers[idx].value = i;
         if (mapBuilt) updateCell(idx);
         renderQuestion();
         saveProgress();
-
-
           if($('#instant').checked) {
             const ok = (i === q.answer);
             if(!ok) { wrongStreak++; if(wrongStreak >= 3) $('#sheepPopup').style.display='flex'; } 
@@ -736,29 +667,21 @@ function applyQuestionFilter() {
     saveProgress();
   }, 800);
 }
-
-
           }
         };
         box.appendChild(wrap);
        });
       renderMathDebounced([qTextEl, box]);
-
-
-
-      
       $('#btnPrev').disabled = (idx === 0);
       $('#btnNext').style.visibility = (idx === quiz.questions.length - 1) ? 'hidden' : 'visible';
       buildQuestionMapOnce();     // build lưới 1 lần duy nhất
       updateCell(idx);            // cập nhật ô của câu hiện tại (done/correct/wrong/bookmark)
       updateCurrentCell();        // tô viền current
       applyQuestionFilter();      // nếu đang bật filter
-
       // ===== BOOKMARK UI =====
 const bm = $('#bookmarkBtn');
 bm.classList.toggle('active', q.bookmarked);
 bm.textContent = q.bookmarked ? '⭐' : '☆';
-
 bm.onclick = () => {
   q.bookmarked = !q.bookmarked;
   bm.classList.toggle('active', q.bookmarked);
@@ -786,35 +709,26 @@ $('#btnPrev').onclick = () => {
     saveProgress();
   }
 };
-
-
     $('#btnStart').onclick = () => {
   if(!quiz) return;
   if($('#shuffle').checked) quiz.questions.sort(() => Math.random() - 0.5);
   answers = quiz.questions.map(() => ({value: null}));
   idx = 0;
-
   mapBuilt = false;
   qCells = [];
   currentCellIndex = -1;
-
   $('#screenIntro').style.display='none';
   $('#screenQuiz').style.display='block';
-
   buildQuestionMapOnce();
   renderQuestion();
   startTimer();
 };
-
     function launchFireworks() {
   const canvas = document.getElementById("fireworks");
   const ctx = canvas.getContext("2d");
-
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-
   let particles = [];
-
   function boom(x) {
     for (let i = 0; i < 80; i++) {
       particles.push({
@@ -827,10 +741,8 @@ $('#btnPrev').onclick = () => {
       });
     }
   }
-
   boom(canvas.width * 0.2);
   boom(canvas.width * 0.8);
-
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     particles.forEach((p, i) => {
@@ -838,26 +750,19 @@ $('#btnPrev').onclick = () => {
       p.y += p.vy;
       p.vy += 0.05;
       p.life--;
-
       ctx.fillStyle = p.color;
       ctx.beginPath();
       ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
       ctx.fill();
-
       if (p.life <= 0) particles.splice(i, 1);
     });
-
     if (particles.length) requestAnimationFrame(animate);
   }
-
   animate();
-
   const text = document.getElementById("congratsText");
   text.classList.add("show");
   setTimeout(() => text.classList.remove("show"), 4000);
 }
-
-
     $('#btnSubmit').onclick = () => {
        if(!confirm("Bạn muốn nộp bài?")) return;
       isSubmitted = true;
@@ -874,10 +779,8 @@ $('#btnPrev').onclick = () => {
               totalCorrect++;
           }
       });
-
       const total = quiz.questions.length;
       const percent = Math.round((totalCorrect / total) * 100);
-      
       $('#scoreLine').textContent = `Kết quả: ${totalCorrect}/${total} câu đúng (${percent}%)`;
       $('#scoreBar').style.width = percent + '%';
       $('#screenQuiz').style.display='none'; 
@@ -887,27 +790,21 @@ $('#btnPrev').onclick = () => {
       setTimeout(() => {
       $('#resultOverlay').classList.remove('show');
       $('#congratsText').classList.remove('show');
-}, 2500);
-
-      
+}, 2500);    
       generateReview();
       launchFireworks();
-
     };
 
     function generateReview() {
   const area = $('#reviewArea');
   area.innerHTML = '<h3 style="margin-top:30px">Chi tiết bài làm:</h3>';
-
   quiz.questions.forEach((q, i) => {
     const userAns = answers[i].value;
     const isCorrect = (userAns === q.answer);
-
     const card = document.createElement('div');
     card.className = 'card pad';
     card.style.marginBottom = '15px';
     card.style.borderLeft = `5px solid ${isCorrect ? 'var(--ok)' : 'var(--bad)'}`;
-
     card.innerHTML = `
       <div style="font-weight:800; margin-bottom:5px">Câu ${i+1}: ${q.text}</div>
       <div style="color:${isCorrect ? 'var(--ok)' : 'var(--bad)'}">
@@ -916,16 +813,13 @@ $('#btnPrev').onclick = () => {
       </div>
       ${q.explanation ? `<div class="muted" style="margin-top:5px; font-style:italic">Giải thích: ${q.explanation}</div>` : ''}
     `;
-
     area.appendChild(card);
   });
-
-  // Render MathJax 1 lần cho cả khu review (nhanh hơn nhiều)
+  // Render MathJax 1 lần cho cả khu review
   renderMath(area);
 }
     function startTimer(){
   if (timerId) clearInterval(timerId);
-
   currentTimeLeft = Number($('#timeLimit').value) * 60;
   if(currentTimeLeft <= 0) {
     $('#timer').textContent = '∞';
@@ -945,7 +839,6 @@ $('#btnPrev').onclick = () => {
 }
     // ===== THEME TOGGLE =====
 const themeBtn = document.getElementById('toggleTheme');
-
 function setTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   localStorage.setItem('theme', theme);
@@ -975,10 +868,10 @@ $('#searchBox').oninput = (e) => {
   searchKeywordN = strip(e.target.value); // keyword đã strip sẵn
   applyQuestionFilter();
 };
-
   </script>
   <canvas id="fireworks"></canvas>
 <div id="congratsText">🎉 Chúc mừng bạn đã hoàn thành bài làm!</div>
 <div id="resultOverlay"></div>
 </body>
 </html>
+
