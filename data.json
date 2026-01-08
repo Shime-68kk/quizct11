@@ -729,7 +729,7 @@
   {
     "title": "Đề 2 – Triết học Mác–Lênin",
     "shuffle": true,
-    "timeLimit": 3000,
+    "timeLimit": 3600,
     "questions": [
       {
         "id": "d2q1",
