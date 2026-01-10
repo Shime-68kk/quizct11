@@ -9,23 +9,113 @@
     function sanitizeHTML(input) {
   const html = String(input ?? "");
   const doc = new DOMParser().parseFromString(html, "text/html");
-  // remove tag nguy hiểm
-  doc.querySelectorAll("script, style, iframe, object, embed, link, meta").forEach(el => el.remove());
-  // remove event handler + javascript: url
+
+  // Remove dangerous tags entirely
+  doc.querySelectorAll(
+    "script, style, iframe, object, embed, link, meta, base, form"
+  ).forEach(el => el.remove());
+
+  // Allowlist for <img> hosts (optional). Empty => allow any https host.
+  const ALLOWED_IMG_HOSTS = new Set([
+    // "i.imgur.com",
+    // "images.unsplash.com",
+    // "raw.githubusercontent.com",
+  ]);
+
+  const isSafeUrl = (url, { allowDataImage = false, allowHttp = false } = {}) => {
+    const v = String(url || "").trim();
+    if (!v) return true;
+
+    const lower = v.toLowerCase();
+
+    // allow same-origin / relative URLs
+    if (lower.startsWith("#") || lower.startsWith("/") || lower.startsWith("./") || lower.startsWith("../")) return true;
+
+    // allow mailto
+    if (lower.startsWith("mailto:")) return true;
+
+    // allow data:image/*;base64,...
+    if (allowDataImage && lower.startsWith("data:image/")) {
+      // basic validation: must include ;base64,
+      return lower.includes(";base64,");
+    }
+
+    // block dangerous schemes
+    if (
+      lower.startsWith("javascript:") ||
+      lower.startsWith("vbscript:") ||
+      lower.startsWith("file:") ||
+      lower.startsWith("blob:") ||
+      lower.startsWith("data:")
+    ) return false;
+
+    // allow http/https (prefer https)
+    if (lower.startsWith("https://") || (allowHttp && lower.startsWith("http://"))) {
+      try {
+        const u = new URL(v);
+        if (ALLOWED_IMG_HOSTS.size === 0) return true;
+        return ALLOWED_IMG_HOSTS.has(u.host);
+      } catch {
+        return false;
+      }
+    }
+    return false;
+  };
+
   doc.querySelectorAll("*").forEach(el => {
-    // remove on* attributes
+    const tag = el.tagName.toLowerCase();
+
+    // Strip all inline event handlers + style
     [...el.attributes].forEach(attr => {
       const name = attr.name.toLowerCase();
-      const value = (attr.value || "").trim().toLowerCase();
-      if (name.startsWith("on")) el.removeAttribute(attr.name);
-      // chặn javascript: trong href/src
-      if ((name === "href" || name === "src") && value.startsWith("javascript:")) {
+      const value = String(attr.value || "").trim();
+
+      if (name.startsWith("on")) {
         el.removeAttribute(attr.name);
+        return;
+      }
+      if (name === "style") {
+        el.removeAttribute(attr.name);
+        return;
+      }
+
+      if (name === "href") {
+        if (!isSafeUrl(value)) el.removeAttribute(attr.name);
+        return;
+      }
+
+      if (name === "src") {
+        if (tag === "img") {
+          // allow base64 images OR https URLs (optional allowlist by host)
+          if (!isSafeUrl(value, { allowDataImage: true, allowHttp: false })) {
+            el.removeAttribute(attr.name);
+          }
+        } else {
+          if (!isSafeUrl(value)) el.removeAttribute(attr.name);
+        }
+        return;
+      }
+
+      // Remove potentially risky attributes on non-img tags
+      if (tag !== "img") {
+        if (name === "srcset") el.removeAttribute(attr.name);
       }
     });
+
+    // For <img>, keep only a small allowlist of attributes
+    if (tag === "img") {
+      const allowed = new Set(["src", "alt", "title", "width", "height", "loading", "decoding"]);
+      [...el.attributes].forEach(attr => {
+        if (!allowed.has(attr.name.toLowerCase())) el.removeAttribute(attr.name);
+      });
+      if (!el.getAttribute("loading")) el.setAttribute("loading", "lazy");
+      if (!el.getAttribute("decoding")) el.setAttribute("decoding", "async");
+    }
   });
+
   return doc.body.innerHTML;
 }
+
 let searchKeywordN = ''; // ✅ keyword đã strip sẵn
     let currentQuizIndex = 0;
 let searchKeyword = '';
@@ -300,6 +390,8 @@ window.MathJax = {
     <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;">
       <div style="font-weight:800;font-size:1.2rem; color: var(--acc)">📘 ShimeChamhoc</div>
       <button class="btn secondary" onclick="$('#fileInput').click()">Nạp JSON</button>
+      <button class="btn secondary" onclick="openTextbookImporter()">📄 Nạp giáo trình</button>
+
       <button class="btn ghost" id="toggleTheme">🌙 / ☀️</button>
 
     </div>
@@ -372,6 +464,8 @@ window.MathJax = {
           <h2 style="margin-top:0">Sẵn sàng chưa?</h2>
           <p class="muted" id="statusMessage">Đang chờ dữ liệu...</p>
           <input type="file" id="fileInput" accept="application/json" style="display:none" />
+          <input type="file" id="textbookInput" accept=".txt,.md,.html,text/plain,text/markdown,text/html" style="display:none" />
+
         </div>
 
         <div id="screenQuiz" style="display:none">
@@ -441,10 +535,373 @@ window.MathJax = {
     </div>
   </div>
 
+
+  <!-- ===== TEXTBOOK IMPORTER MODAL ===== -->
+  <div id="importerModal" style="position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);z-index:9996;">
+    <div class="card pad" style="max-width:920px;width:min(920px,92vw);max-height:84vh;overflow:auto;">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+        <div>
+          <div style="font-weight:800;font-size:1.1rem">📄 Nhập giáo trình → Tạo JSON</div>
+          <div class="muted" style="margin-top:2px">Hỗ trợ nhanh: TXT/MD/HTML (copy/paste hoặc tải file). PDF scan cần OCR (mình hướng dẫn sau).</div>
+        </div>
+        <button class="btn secondary" onclick="closeTextbookImporter()">✖</button>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+        <button class="btn secondary" onclick="$('#textbookInput').click()">📎 Chọn file</button>
+        <button class="btn secondary" onclick="importerPasteExample()">🧪 Dán ví dụ</button>
+        <button class="btn ok" onclick="importerParse()">⚙️ Tạo quiz JSON</button>
+        <button class="btn secondary" id="btnDownloadGenerated" onclick="downloadGeneratedJSON()" disabled>⬇️ Tải JSON</button>
+      </div>
+
+      <div class="grid" style="margin-top:12px">
+        <label class="muted">Nội dung giáo trình (có thể dán nguyên chương + đáp án)</label>
+        <textarea id="textbookArea" style="width:100%;min-height:220px;resize:vertical;padding:12px;border-radius:12px;background:rgba(255,255,255,0.03);color:var(--text);border:1px solid var(--border)"></textarea>
+
+        <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center" class="muted">
+          <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="splitByChapter" checked> Tách theo chương</label>
+          <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="keepAnswerInExplanation" checked> Nếu thiếu đáp án → nhét vào "giải thích"</label>
+          <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="autoLoadAfterParse" checked> Nạp luôn vào quiz sau khi tạo</label>
+        </div>
+
+        <div id="importerReport" class="muted" style="padding:12px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid var(--border)"></div>
+      </div>
+    </div>
+  </div>
+
   <script>
     const $ = (sel)=>document.querySelector(sel);
     const $$ = (sel)=>Array.from(document.querySelectorAll(sel));
+function fetchWithTimeout(url, options = {}, timeoutMs = 12000) {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), timeoutMs);
+  return fetch(url, { ...options, signal: ctrl.signal }).finally(() => clearTimeout(t));
+}
+
     const strip = (s)=> (s??'').toString().trim().toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'');
+
+    // ===== TEXTBOOK IMPORTER (TXT/MD/HTML -> JSON quiz) =====
+    let __generatedQuizzes = null; // array of quizzes compatible with handleData()
+
+    function openTextbookImporter() {
+      $('#importerModal').style.display = 'flex';
+      $('#importerReport').textContent = '👉 Dán nội dung hoặc chọn file, rồi bấm "Tạo quiz JSON".';
+    }
+    function closeTextbookImporter() {
+      $('#importerModal').style.display = 'none';
+    }
+    function importerPasteExample() {
+      $('#textbookArea').value =
+`CHƯƠNG 1: Mở đầu
+1) Câu 1 là gì?
+A. Đáp án A
+B. Đáp án B
+C. Đáp án C
+D. Đáp án D
+Đáp án: B
+Giải thích: Vì ...
+
+2) Câu 2 ...
+A) ...
+B) ...
+C) ...
+D) ...
+Đáp án: A
+
+CHƯƠNG 2: ...
+1. Câu ...
+A. ...
+B. ...
+C. ...
+D. ...
+Đáp án: D`;
+    }
+
+    $('#textbookInput').onchange = (e) => {
+      const f = e.target.files?.[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = () => {
+        $('#textbookArea').value = String(r.result || '');
+        openTextbookImporter();
+        $('#importerReport').textContent = `✅ Đã nạp file: ${f.name}. Bấm "Tạo quiz JSON".`;
+      };
+      r.readAsText(f, 'utf-8');
+      e.target.value = '';
+    };
+
+    function normalizeLines(raw) {
+      return String(raw || '')
+        .replace(/\r\n/g, '\n')
+        .replace(/\r/g, '\n')
+        .replace(/\u00A0/g, ' ')
+        .split('\n');
+    }
+
+    function parseTextbookToQuizzes(raw, opts = {}) {
+  const {
+    splitByChapter = true,
+    keepAnswerInExplanation = true
+  } = opts;
+
+  const lines = normalizeLines(raw);
+
+  const reChapter = /^\s*(?:ch(?:ươ|u)ơng|chapter)\s*([0-9]+)\s*[:\-.]?\s*(.*)$/i;
+  const reQStart = /^\s*(\d{1,4})\s*[\)\.\:\-]\s*(.+)$/; // "1) ..." or "1. ..."
+  const reChoice = /^\s*([A-D])\s*[\)\.\:\-]\s*(.+)$/i;
+  const reAnswer = /^\s*(?:đáp\s*án|dap\s*an|ans(?:wer)?)\s*[:\-–=]*\s*([A-D](?:\s*(?:,|\/|và|and)\s*[A-D])*)\s*$/i;
+  const reExplain = /^\s*(?:giải\s*thích|giai\s*thich|explain(?:ation)?)\s*[:\-–=]*\s*(.*)$/i;
+
+  function newQuiz(title) {
+    return { title: title || 'Bộ câu hỏi', timeLimit: 0, questions: [] };
+  }
+
+  // -------------------------
+  // PASS 1: scan questions/choices/explanations; answers may be missing
+  // -------------------------
+  let quizzes = [];
+  let curQuiz = newQuiz('Bộ câu hỏi');
+  let curQ = null;
+  let pendingExplain = [];
+
+  const idxMap = { A:0, B:1, C:2, D:3 };
+
+  function normalizeAnswerRaw(rawAns) {
+    const letters = String(rawAns || "")
+      .toUpperCase()
+      .split(/[,\/]|và|and/i)
+      .map(s => s.trim())
+      .filter(Boolean)
+      .filter(s => /^[A-D]$/.test(s));
+    if (!letters.length) return null;
+    const arr = [...new Set(letters.map(l => idxMap[l]))].sort((a,b)=>a-b);
+    return arr.length === 1 ? arr[0] : arr;
+  }
+
+  function flushQuestion() {
+    if (!curQ) return;
+
+    if (pendingExplain.length) {
+      const exp = pendingExplain.join('\n').trim();
+      if (exp) curQ.explanation = curQ.explanation ? (curQ.explanation + '\n' + exp) : exp;
+      pendingExplain = [];
+    }
+
+    // minimal validation: must have text + >=2 choices
+    if (!curQ.text || !Array.isArray(curQ.choices) || curQ.choices.length < 2) {
+      curQ = null;
+      return;
+    }
+
+    // keep raw answer if missing; DO NOT force answer=0 here
+    if (curQ.answer == null && keepAnswerInExplanation && curQ._rawAnswer) {
+      curQ.explanation = (curQ.explanation ? (curQ.explanation + '\n') : '') + `Đáp án (thô): ${curQ._rawAnswer}`;
+    }
+    delete curQ._rawAnswer;
+
+    curQuiz.questions.push(curQ);
+    curQ = null;
+  }
+
+  function flushQuizIfHasQuestions() {
+    flushQuestion();
+    if (curQuiz.questions.length) quizzes.push(curQuiz);
+  }
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) continue;
+
+    // chapter split
+    const mCh = reChapter.exec(line);
+    if (mCh && splitByChapter) {
+      flushQuizIfHasQuestions();
+      const chapNum = mCh[1];
+      const chapName = (mCh[2] || '').trim();
+      curQuiz = newQuiz(`Chương ${chapNum}${chapName ? ': ' + chapName : ''}`);
+      continue;
+    }
+
+    // question start
+    const mQ = reQStart.exec(line);
+    if (mQ) {
+      flushQuestion();
+      const qno = Number(mQ[1]);
+      curQ = {
+        _qno: Number.isFinite(qno) ? qno : null,
+        text: mQ[2].trim(),
+        choices: [],
+        answer: null,          // number | number[] | null
+        explanation: ''
+      };
+      pendingExplain = [];
+      continue;
+    }
+
+    if (!curQ) continue;
+
+    // choice
+    const mC = reChoice.exec(line);
+    if (mC) {
+      curQ.choices.push(mC[2].trim());
+      continue;
+    }
+
+    // answer line (explicit)
+    const mA = reAnswer.exec(line);
+    if (mA) {
+      const rawAns = mA[1].toUpperCase().trim();
+      curQ._rawAnswer = rawAns;
+      const ans = normalizeAnswerRaw(rawAns);
+      if (ans != null) curQ.answer = ans;
+      continue;
+    }
+
+    // explanation
+    const mE = reExplain.exec(line);
+    if (mE) {
+      const rest = (mE[1] || '').trim();
+      if (rest) pendingExplain.push(rest);
+      continue;
+    }
+
+    // other lines: append to question text if no choices yet; else to explanation
+    if (curQ.choices.length === 0 && curQ.text) {
+      curQ.text += '\n' + line;
+    } else {
+      pendingExplain.push(line);
+    }
+  }
+
+  flushQuizIfHasQuestions();
+
+  // Assign stable ids
+  let runningId = 0;
+  quizzes.forEach(qz => qz.questions.forEach(q => { if (q._id == null) q._id = runningId++; }));
+
+  // -------------------------
+  // PASS 2: If many answers missing, try to parse answer key at end: "1.A 2.B ..." / "1-A 2-C ..."
+  // -------------------------
+  const allQuestions = quizzes.flatMap(qz => qz.questions);
+  const missing = allQuestions.filter(q => q.answer == null).length;
+
+  if (missing > 0) {
+    const ansMap = extractAnswerKeyFromTail(lines);
+    if (ansMap.size) {
+      for (const q of allQuestions) {
+        if (q.answer != null) continue;
+        if (q._qno == null) continue;
+        const raw = ansMap.get(q._qno);
+        if (!raw) continue;
+        const ans = normalizeAnswerRaw(raw);
+        if (ans != null) q.answer = ans;
+      }
+    }
+  }
+
+  // Finalize: for any still-missing answer, set 0 so app works (but mark in explanation)
+  for (const q of allQuestions) {
+    if (q.answer == null) {
+      if (keepAnswerInExplanation) {
+        q.explanation = (q.explanation ? (q.explanation + '\n') : '') + '⚠️ Thiếu đáp án: mặc định chấm A.';
+      }
+      q.answer = 0;
+    }
+  }
+
+  // cleanup internal fields
+  quizzes.forEach(qz => qz.questions.forEach(q => { delete q._qno; }));
+
+  return quizzes;
+
+  // ---- helper: extract answer key from tail ----
+  function extractAnswerKeyFromTail(linesArr) {
+    const map = new Map(); // qno -> "A" or "A,B"
+    const maxScan = 250;   // scan up to last 250 non-empty lines
+    let scanned = 0;
+    let foundAny = false;
+
+    // regex finds multiple pairs per line
+    const pairRe = /(\d{1,4})\s*[\.\-\)\:\s]\s*([A-D])\b/gi;
+
+    for (let i = linesArr.length - 1; i >= 0 && scanned < maxScan; i--) {
+      const ln = String(linesArr[i] || '').trim();
+      if (!ln) continue;
+      scanned++;
+
+      let m;
+      let localCount = 0;
+      pairRe.lastIndex = 0;
+      while ((m = pairRe.exec(ln)) !== null) {
+        const qno = Number(m[1]);
+        const letter = m[2].toUpperCase();
+        if (!Number.isFinite(qno)) continue;
+        // accumulate if repeated => multi-answer (rare, but support)
+        const prev = map.get(qno);
+        map.set(qno, prev ? `${prev},${letter}` : letter);
+        localCount++;
+      }
+
+      if (localCount >= 3) foundAny = true;
+
+      // Heuristic stop: once we've found a dense block and then encounter a line with no pairs, stop scanning
+      if (foundAny && localCount === 0) break;
+    }
+
+    return map;
+  }
+}
+
+    function importerParse() {
+      const raw = $('#textbookArea').value || '';
+      if (!raw.trim()) {
+        $('#importerReport').textContent = '❌ Chưa có nội dung để parse.';
+        return;
+      }
+
+      const splitByChapter = $('#splitByChapter').checked;
+      const keepAnswerInExplanation = $('#keepAnswerInExplanation').checked;
+
+      const quizzes = parseTextbookToQuizzes(raw, { splitByChapter, keepAnswerInExplanation });
+
+      if (!quizzes.length) {
+        __generatedQuizzes = null;
+        $('#btnDownloadGenerated').disabled = true;
+        $('#importerReport').textContent =
+          '❌ Không parse được câu hỏi. Gợi ý: đảm bảo có dạng "1) ...", lựa chọn "A. ...", và dòng "Đáp án: B".';
+        return;
+      }
+
+      __generatedQuizzes = quizzes;
+      $('#btnDownloadGenerated').disabled = false;
+
+      const totalQ = quizzes.reduce((s, qz) => s + (qz.questions?.length || 0), 0);
+      const titles = quizzes.slice(0, 5).map(qz => `• ${qz.title} (${qz.questions.length} câu)`).join('\n');
+      $('#importerReport').textContent =
+        `✅ Tạo được ${quizzes.length} bộ / ${totalQ} câu.\n${titles}${quizzes.length>5 ? '\n• ...' : ''}\n\n` +
+        `Bạn có thể "Tải JSON" hoặc nạp thẳng vào app để làm bài.`;
+
+      if ($('#autoLoadAfterParse').checked) {
+        handleData(quizzes);
+        closeTextbookImporter();
+        $('#statusMessage').innerHTML =
+          `Đã tạo từ giáo trình: <b>${sanitizeHTML(quizzes[0]?.title || 'Bộ câu hỏi')}</b>. Bấm Bắt đầu ngay!`;
+      }
+    }
+
+    function downloadGeneratedJSON() {
+      if (!__generatedQuizzes) return;
+      const blob = new Blob([JSON.stringify(__generatedQuizzes, null, 2)], { type: 'application/json;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'generated-quiz.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 500);
+    }
+
     // ===== SEARCH INDEX (pre-strip 1 lần khi nạp JSON) =====
 let searchIndex = []; 
 // searchIndex[qz] = { titleN: "...", q: [ { textN:"", choicesN:[...], expN:"" } ] }
@@ -526,42 +983,150 @@ function typesetAndThen(targets, done) {
 }
 
 const API_BASE = "https://quizct11.onrender.com";
+
+// ---- AI Explain cache & prefetch ----
+const aiExplainCache = new Map();   // key -> { html, raw, ts }
+const aiExplainInflight = new Map();// key -> Promise
+
+function aiCacheKey(q, userAns) {
+  const qid = (q && (q._id ?? q.id ?? q.qid ?? '')) + '';
+  const ua = Array.isArray(userAns) ? userAns.slice().sort((a,b)=>a-b).join(',') : String(userAns ?? '');
+  return `${qid}|${ua}`;
+}
+
+function normalizeUserAnswerForAI(userAns) {
+  if (Array.isArray(userAns)) return userAns.slice().sort((a,b)=>a-b);
+  return (userAns ?? null);
+}
+
+function fetchWithTimeout(url, opts = {}, timeoutMs = 12000) {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), timeoutMs);
+  return fetch(url, { ...opts, signal: ctrl.signal }).finally(() => clearTimeout(t));
+}
+
+// Attempt to stream text if server supports it; fallback to JSON
+async function fetchAIExplain({ q, userAnsIndex, correctAnsIndex, onChunk, timeoutMs = 12000 }) {
+  const payload = {
+    question: q.text,
+    choices: q.choices,
+    userAnswerIndex: normalizeUserAnswerForAI(userAnsIndex),
+    correctAnswerIndex: correctAnsIndex,
+    teacherExplanation: q.explanation || '' 
+  };
+
+  const res = await fetchWithTimeout(`${API_BASE}/api/explain`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      // Hint streaming if backend supports it (safe even if ignored)
+      'Accept': 'text/plain, text/event-stream, application/json'
+    },
+    body: JSON.stringify(payload)
+  }, timeoutMs);
+
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+  const ct = (res.headers.get('content-type') || '').toLowerCase();
+
+  // If JSON => standard response
+  if (ct.includes('application/json')) {
+    const data = await res.json();
+    return String(data.explanation || '');
+  }
+
+  // Otherwise, treat as stream/text
+  if (!res.body || !onChunk) {
+    const t = await res.text();
+    return String(t || '');
+  }
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder('utf-8');
+  let full = '';
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    const chunk = decoder.decode(value, { stream: true });
+    full += chunk;
+    onChunk(chunk, full);
+  }
+  return full;
+}
+
+function renderAIBox(htmlOrText, { streaming = false } = {}) {
+  const box = $('#explain');
+  if (streaming) {
+    // streaming: update progressively, do NOT typeset every chunk too aggressively
+    box.innerHTML = `<b>AI giải thích:</b><br>${sanitizeHTML(htmlOrText)}`;
+  } else {
+    box.innerHTML = `<b>AI giải thích:</b><br>${sanitizeHTML(htmlOrText)}`;
+    renderMathDebounced(box, 60);
+  }
+}
+
+async function getAIExplainCached(q, userAnsIndex, correctAnsIndex, { streamToBox = false } = {}) {
+  const key = aiCacheKey(q, userAnsIndex);
+
+  if (aiExplainCache.has(key)) {
+    return aiExplainCache.get(key).raw;
+  }
+  if (aiExplainInflight.has(key)) {
+    return aiExplainInflight.get(key);
+  }
+
+  const p = (async () => {
+    const raw = await fetchAIExplain({
+      q,
+      userAnsIndex,
+      correctAnsIndex,
+      onChunk: streamToBox ? (chunk, full) => {
+        renderAIBox(full, { streaming: true });
+      } : null
+    });
+    aiExplainCache.set(key, { raw, ts: Date.now() });
+    return raw;
+  })().finally(() => {
+    aiExplainInflight.delete(key);
+  });
+
+  aiExplainInflight.set(key, p);
+  return p;
+}
+
+// Prefetch (silent)
+function prefetchAIExplain(q, userAnsIndex) {
+  if (!q || !quiz) return;
+  const correctAnsIndex = q.answer;
+  // Don't stream during prefetch
+  getAIExplainCached(q, userAnsIndex, correctAnsIndex, { streamToBox: false }).catch(() => {});
+}
+
 $('#btnAIExplain').onclick = async () => {
   const btn = $('#btnAIExplain');
   if (!quiz) return;
 
   const q = quiz.questions[idx];
   const userAnsIndex = answers[idx]?.value ?? null;
+  const correctAnsIndex = q.answer;
 
-  btn.disabled = true;
+  // immediate cache hit => instant UI
+  const key = aiCacheKey(q, userAnsIndex);
+  if (aiExplainCache.has(key)) {
+    renderAIBox(aiExplainCache.get(key).raw, { streaming: false });
+    return;
+  }
+
   const old = btn.textContent;
-  btn.textContent = '⏳ Đang hỏi AI...';
+  btn.disabled = true;
+  btn.textContent = 'Đang hỏi AI...';
+  $('#explain').textContent = '⏳ Đang tải giải thích...';
 
   try {
-    const payload = {
-      question: q.text,
-      choices: q.choices,
-      userAnswerIndex: userAnsIndex,
-      correctAnswerIndex: q.answer,
-      // gửi thêm explanation gốc nếu có (để AI bổ sung sâu hơn)
-      teacherExplanation: q.explanation || ''
-    };
-    const res = await fetch(`${API_BASE}/api/explain`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(payload)
-});
-    if (!res.ok) {
-  const t = await res.text(); // đọc body trả về
-  throw new Error(`API lỗi: ${res.status}\n${t}`);
-}
-    const data = await res.json();
-
-    // hiện vào ô explain (cho phép có LaTeX)
-    $('#explain').innerHTML =
-  `<b>AI giải thích:</b><br>${sanitizeHTML(data.explanation || 'Không có phản hồi.')}`;
-    // render MathJax cho phần AI vừa trả về
-    renderMathDebounced($('#explain'), 50);
+    // Streaming UI if backend supports streaming; else fallback to JSON
+    const raw = await getAIExplainCached(q, userAnsIndex, correctAnsIndex, { streamToBox: true });
+    // final render + MathJax (mượt hơn)
+    renderAIBox(raw, { streaming: false });
   } catch (e) {
     $('#explain').textContent = '❌ Lỗi khi gọi AI: ' + (e?.message || e);
   } finally {
@@ -749,7 +1314,7 @@ function upsertExamIntoAllQuizzes(examQuiz) {
 
           timerId = setInterval(() => {
             currentTimeLeft--;
-            saveProgress();
+            saveProgressDebounced();
 
             let m = Math.floor(currentTimeLeft / 60);
             let s = (currentTimeLeft % 60).toString().padStart(2,'0');
@@ -792,6 +1357,17 @@ function upsertExamIntoAllQuizzes(examQuiz) {
 
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
+
+// Giảm spam localStorage: gom nhiều lần gọi saveProgress trong thời gian ngắn
+const saveProgressDebounced = (() => {
+  let t = null;
+  return () => {
+    clearTimeout(t);
+    t = setTimeout(() => {
+      try { saveProgress(); } catch(e) {}
+    }, 600);
+  };
+})();
 function loadProgress() {
   const raw = localStorage.getItem(STORAGE_KEY);
   if (!raw) return null;
@@ -819,7 +1395,7 @@ function buildQuestionMapOnce() {
     cell.onclick = () => {
       idx = i;
       renderQuestion();
-      saveProgress();
+      saveProgressDebounced();
     };
 
     grid.appendChild(cell);
@@ -841,16 +1417,14 @@ function updateCell(i) {
   const q = quiz.questions[i];
   const ans = answers[i]?.value ?? null;
 
-  // reset các class trạng thái
   cell.classList.remove('done', 'correct', 'wrong', 'bookmark', 'current');
 
   if (ans !== null) cell.classList.add('done');
   if (q.bookmarked) cell.classList.add('bookmark');
 
-  // chỉ tô đúng/sai khi: instant bật OR đã nộp bài
   const canShowResult = $('#instant').checked || isSubmitted;
   if (canShowResult && ans !== null) {
-    if (ans === q.answer) cell.classList.add('correct');
+    if (isAnswerCorrect(q, ans)) cell.classList.add('correct');
     else cell.classList.add('wrong');
   }
 }
@@ -891,42 +1465,75 @@ function applyQuestionFilter() {
     qCells[i].style.display = show ? '' : 'none';
   }
 }
+
+// ---- Answer helpers (single & multi) ----
+function asArrayAnswer(ans) {
+  if (Array.isArray(ans)) return ans.slice().map(Number).filter(Number.isFinite).sort((a,b)=>a-b);
+  if (typeof ans === 'number' && Number.isFinite(ans)) return [ans];
+  return [];
+}
+function asArrayUserAns(v) {
+  if (Array.isArray(v)) return v.slice().map(Number).filter(Number.isFinite).sort((a,b)=>a-b);
+  if (typeof v === 'number' && Number.isFinite(v)) return [v];
+  return [];
+}
+function isAnswerCorrect(q, userVal) {
+  const a = asArrayAnswer(q.answer);
+  const u = asArrayUserAns(userVal);
+  if (!a.length) return false;
+  if (a.length !== u.length) return false;
+  for (let i=0;i<a.length;i++) if (a[i] !== u[i]) return false;
+  return true;
+}
+function isChoiceCorrect(q, choiceIndex) {
+  return asArrayAnswer(q.answer).includes(choiceIndex);
+}
 // ===== UPDATE UI CHO CHOICES (KHÔNG RERENDER) =====
 function applyChoiceUI() {
   const q = quiz.questions[idx];
   const selected = answers[idx]?.value ?? null;
 
-  // mỗi choice là 1 div.choice trong #qChoices
+  const selectedArr = asArrayUserAns(selected);
   const nodes = Array.from($('#qChoices').children);
 
   nodes.forEach((node, i) => {
     node.classList.remove('active', 'correct', 'wrong');
 
-    // update radio checked
-    const radio = node.querySelector('input[type="radio"]');
-    if (radio) radio.checked = (selected === i);
+    // update input checked (radio/checkbox)
+    const input = node.querySelector('input');
+    if (input) input.checked = selectedArr.includes(i);
 
-    // active
-    if (selected === i) node.classList.add('active');
+    // active styling
+    if (selectedArr.includes(i)) node.classList.add('active');
 
     // instant grading
     const canShowResult = $('#instant').checked || isSubmitted;
-if (selected !== null && canShowResult) {
-  if (i === q.answer) node.classList.add('correct');
-  else if (i === selected) node.classList.add('wrong');
-}
-
+    if (selectedArr.length && canShowResult) {
+      if (isChoiceCorrect(q, i)) {
+        node.classList.add('correct');
+      } else if (selectedArr.includes(i)) {
+        node.classList.add('wrong');
+      }
+    }
   });
 }
 function selectChoice(choiceIndex) {
   const q = quiz.questions[idx];
-
-  // đảm bảo answers[idx] tồn tại
   if (!answers[idx]) answers[idx] = { value: null };
 
-  answers[idx].value = choiceIndex;
+  const isMulti = Array.isArray(q.answer);
 
-  // update UI choices
+  if (!isMulti) {
+    answers[idx].value = choiceIndex;
+  } else {
+    const cur = asArrayUserAns(answers[idx].value);
+    const pos = cur.indexOf(choiceIndex);
+    if (pos >= 0) cur.splice(pos, 1);
+    else cur.push(choiceIndex);
+    cur.sort((a,b)=>a-b);
+    answers[idx].value = cur.length ? cur : null;
+  }
+
   applyChoiceUI();
 
   // update map cell + save
@@ -934,37 +1541,44 @@ function selectChoice(choiceIndex) {
     updateCell(idx);
     applyQuestionFilter();
   }
-  saveProgress();
 
-  // ===== giữ nguyên logic instant / wrongStreak / sheep / explain =====
-  if ($('#instant').checked) {
-    const ok = (choiceIndex === q.answer);
+  saveProgressDebounced();
 
-    if (!ok) {
-      wrongStreak++;
-      if (wrongStreak >= 3) $('#sheepPopup').style.display = 'flex';
+  // Prefetch AI silently (especially useful in instant-mode / wrong answers)
+  try {
+    const userVal = answers[idx].value;
+    const instant = $('#instant').checked;
+    if (instant) {
+      // prioritize prefetch when user seems wrong
+      if (!isAnswerCorrect(q, userVal)) prefetchAIExplain(q, userVal);
     } else {
-      wrongStreak = 0;
+      // light prefetch anyway
+      prefetchAIExplain(q, userVal);
     }
+  } catch {}
 
+  // instant explanation text (local)
+  const canShowResult = $('#instant').checked || isSubmitted;
+  if (canShowResult && answers[idx].value !== null) {
     if (q.explanation) {
       $('#explain').textContent = "Giải thích: " + q.explanation;
       renderMathDebounced($('#explain'), 50);
     }
   }
-  if ($('#autoNext').checked && idx < quiz.questions.length - 1) {
+
+  // auto next (only for single-choice, otherwise user needs multi picks)
+  if (!isMulti && $('#autoNext').checked && idx < quiz.questions.length - 1) {
     clearTimeout(autoNextTimer);
-    const extra=500;// sửa giây delay chuyển câu
-    const delay = ($('#instant').checked ? 800 : 250)+extra;
+    const extra = 500;
+    const delay = ($('#instant').checked ? 800 : 250) + extra;
     autoNextTimer = setTimeout(() => {
       idx++;
       renderQuestion();
-      saveProgress();
+      saveProgressDebounced();
     }, delay);
   }
 }
     function renderQuestion() {
-  const quizScreen = $('#screenQuiz');
   quizScreen.classList.add('is-switching');
 
   const q = quiz.questions[idx];
@@ -980,23 +1594,40 @@ function selectChoice(choiceIndex) {
   box.innerHTML = '';
   $('#explain').textContent = '';
 
+  const isMulti = Array.isArray(q.answer);
+  const inputType = isMulti ? 'checkbox' : 'radio';
+  const inputName = 'opt';
+
   q.choices.forEach((c, i) => {
     const wrap = document.createElement('div');
     wrap.className = 'choice';
+    wrap.dataset.choice = String(i);
     wrap.innerHTML = `
-      <input type="radio" name="opt" style="margin-right:10px">
+      <input type="${inputType}" name="${inputName}" style="margin-right:10px">
       <label style="cursor:pointer">${sanitizeHTML(c)}</label>
     `;
-    wrap.addEventListener('click', () => selectChoice(i));
     box.appendChild(wrap);
   });
 
+  // Event delegation: 1 listener
+  box.onclick = (e) => {
+    const node = e.target.closest('.choice');
+    if (!node) return;
+    const i = Number(node.dataset.choice);
+    if (Number.isFinite(i)) selectChoice(i);
+  };
+
   applyChoiceUI();
+
   typesetAndThen([qTextEl, box], () => {
-  quizScreen.classList.remove('is-switching');
-});
+    quizScreen.classList.remove('is-switching');
+  });
+
   $('#btnPrev').disabled = (idx === 0);
   $('#btnNext').style.visibility = (idx === quiz.questions.length - 1) ? 'hidden' : 'visible';
+
+  // bookmark icon
+  $('#btnBookmark').textContent = q.bookmarked ? '🔖' : '📑';
 
   buildQuestionMapOnce();
   updateCell(idx);
@@ -1012,7 +1643,7 @@ function selectChoice(choiceIndex) {
     q.bookmarked = !q.bookmarked;
     bm.classList.toggle('active', q.bookmarked);
     bm.textContent = q.bookmarked ? '⭐' : '☆';
-    saveProgress();
+    saveProgressDebounced();
     if (mapBuilt) {
       updateCell(idx);
       applyQuestionFilter();
@@ -1023,7 +1654,7 @@ function selectChoice(choiceIndex) {
   if(idx < quiz.questions.length - 1) {
     idx++;
     renderQuestion();
-    saveProgress();
+    saveProgressDebounced();
   }
 };
 
@@ -1031,14 +1662,14 @@ $('#btnPrev').onclick = () => {
   if(idx > 0) {
     idx--;
     renderQuestion();
-    saveProgress();
+    saveProgressDebounced();
   }
 };
 
 
     $('#btnStart').onclick = () => {
   if(!quiz) return;
-  if($('#shuffle').checked) quiz.questions.sort(() => Math.random() - 0.5);
+  if($('#shuffle').checked) shuffleInPlace(quiz.questions);
   answers = quiz.questions.map(() => ({value: null}));
   idx = 0;
 
@@ -1104,8 +1735,6 @@ $('#btnPrev').onclick = () => {
   text.classList.add("show");
   setTimeout(() => text.classList.remove("show"), 4000);
 }
-
-
     $('#btnSubmit').onclick = () => {
        if(!confirm("Bạn muốn nộp bài?")) return;
       isSubmitted = true;
@@ -1118,14 +1747,11 @@ $('#btnPrev').onclick = () => {
       
       let totalCorrect = 0;
       quiz.questions.forEach((q, i) => {
-          if (answers[i].value !== null && answers[i].value === q.answer) {
-              totalCorrect++;
-          }
+        const userVal = answers[i]?.value ?? null;
+        if (userVal !== null && isAnswerCorrect(q, userVal)) totalCorrect++;
       });
-
-      const total = quiz.questions.length;
+const total = quiz.questions.length;
       const percent = Math.round((totalCorrect / total) * 100);
-      
       $('#scoreLine').textContent = `Kết quả: ${totalCorrect}/${total} câu đúng (${percent}%)`;
       $('#scoreBar').style.width = percent + '%';
       $('#screenQuiz').style.display='none'; 
@@ -1147,32 +1773,39 @@ $('#btnPrev').onclick = () => {
   const area = $('#reviewArea');
   area.innerHTML = '<h3 style="margin-top:30px">Chi tiết bài làm:</h3>';
 
+  const fmt = (q, val) => {
+    const arr = asArrayUserAns(val);
+    if (!arr.length) return 'Chưa trả lời';
+    return arr.map(i => sanitizeHTML(q.choices[i] ?? `(${i})`)).join(' | ');
+  };
+  const fmtCorrect = (q) => {
+    const arr = asArrayAnswer(q.answer);
+    return arr.map(i => sanitizeHTML(q.choices[i] ?? `(${i})`)).join(' | ');
+  };
+
   quiz.questions.forEach((q, i) => {
-    const userAns = answers[i].value;
-    const isCorrect = (userAns === q.answer);
+    const userAns = answers[i]?.value ?? null;
+    const ok = isAnswerCorrect(q, userAns);
 
     const card = document.createElement('div');
     card.className = 'card pad';
     card.style.marginBottom = '15px';
-    card.style.borderLeft = `5px solid ${isCorrect ? 'var(--ok)' : 'var(--bad)'}`;
+    card.style.borderLeft = `5px solid ${ok ? 'var(--ok)' : 'var(--bad)'}`;
 
     card.innerHTML = `
-  <div style="font-weight:800; margin-bottom:5px">
-    Câu ${i+1}: ${sanitizeHTML(q.text)}
-  </div>
-  <div style="color:${isCorrect ? 'var(--ok)' : 'var(--bad)'}">
-    <div><b>Bạn chọn:</b> ${userAns !== null ? sanitizeHTML(q.choices[userAns]) : 'Chưa trả lời'}</div>
-    <div><b>Đáp án đúng:</b> ${sanitizeHTML(q.choices[q.answer])}</div>
-  </div>
-  ${q.explanation ? `<div class="muted" style="margin-top:5px; font-style:italic">
-    Giải thích: ${sanitizeHTML(q.explanation)}
-  </div>` : ''}
-`;
+      <div style="font-weight:800; margin-bottom:5px">
+        Câu ${i+1}: ${sanitizeHTML(q.text)}
+      </div>
+      <div style="color:${ok ? 'var(--ok)' : 'var(--bad)'}">
+        <div><b>Bạn chọn:</b> ${fmt(q, userAns)}</div>
+        <div><b>Đáp án đúng:</b> ${fmtCorrect(q)}</div>
+      </div>
+      ${q.explanation ? `<div class="muted" style="margin-top:5px; font-size:13px">${sanitizeHTML(q.explanation)}</div>` : ``}
+    `;
     area.appendChild(card);
   });
 
-  // Render MathJax 1 lần cho cả khu review (nhanh hơn nhiều)
-  renderMath(area);
+  renderMathDebounced(area, 80);
 }
     function startTimer(){
   if (timerId) clearInterval(timerId);
@@ -1184,7 +1817,7 @@ $('#btnPrev').onclick = () => {
   }
   timerId = setInterval(() => {
     currentTimeLeft--;
-    saveProgress();
+    saveProgressDebounced();
     let m = Math.floor(currentTimeLeft / 60);
     let s = (currentTimeLeft % 60).toString().padStart(2,'0');
     $('#timer').textContent = `${m}:${s}`;
