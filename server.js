@@ -14,7 +14,6 @@ const ALLOWED_ORIGINS = [
   "http://localhost:5500",
   "http://127.0.0.1:5500",
 ];
-
 app.use(
   cors({
     origin: (origin, cb) => {
@@ -29,7 +28,6 @@ app.use(
     maxAge: 86400,
   })
 );
-
 // Preflight
 app.options("*", cors());
 
@@ -46,9 +44,7 @@ app.get("/api/health", (req, res) => {
     allowedOrigins: ALLOWED_ORIGINS,
   });
 });
-
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
-
 app.post("/api/explain", async (req, res) => {
   try {
     const {
@@ -64,12 +60,9 @@ app.post("/api/explain", async (req, res) => {
         .status(500)
         .json({ explanation: "❌ Thiếu GEMINI_API_KEY trong biến môi trường" });
     }
-
     const prompt = `
 Bạn là gia sư. Giải thích ngắn gọn nhưng sâu.
-
 Câu hỏi: ${question || ""}
-
 A/B/C/D:
 ${(choices || [])
   .map((c, i) => `${String.fromCharCode(65 + i)}. ${c}`)
@@ -94,13 +87,10 @@ Yêu cầu:
 - Có ví dụ/ghi nhớ nhanh (1-2 dòng).
 Trả lời tiếng Việt.
 `.trim();
-
     const modelName = process.env.GEMINI_MODEL || "gemini-2.5-flash";
     const model = genAI.getGenerativeModel({ model: modelName });
-
     const result = await model.generateContent(prompt);
     const text = result?.response?.text?.() || "Không có phản hồi.";
-
     // TRẢ VỀ TEXT THUẦN (frontend muốn xuống dòng thì tự replace \n -> <br>)
     res.json({ explanation: text });
   } catch (e) {
@@ -109,6 +99,5 @@ Trả lời tiếng Việt.
     });
   }
 });
-
 const PORT = process.env.PORT || 5500;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
