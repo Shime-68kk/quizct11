@@ -1579,8 +1579,8 @@ function selectChoice(choiceIndex) {
   }
 }
     function renderQuestion() {
+  const quizScreen = $('#screenQuiz');
   quizScreen.classList.add('is-switching');
-
   const q = quiz.questions[idx];
   if (!answers[idx]) answers[idx] = { value: null };
   if (q.bookmarked === undefined) q.bookmarked = false;
@@ -1627,8 +1627,6 @@ function selectChoice(choiceIndex) {
   $('#btnNext').style.visibility = (idx === quiz.questions.length - 1) ? 'hidden' : 'visible';
 
   // bookmark icon
-  $('#btnBookmark').textContent = q.bookmarked ? '🔖' : '📑';
-
   buildQuestionMapOnce();
   updateCell(idx);
   updateCurrentCell();
