@@ -412,19 +412,89 @@ window.MathJax = {
 #qText { position: relative; z-index: 1; }
 .mjx-container { position: relative; z-index: 0 !important; }
 #screenQuiz { position: relative; isolation: isolate; }
+/* ===== Header compact (mobile) ===== */
+.headerbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.brand{
+  font-weight:800;
+  font-size:1.2rem;
+  color:var(--acc);
+  white-space:nowrap;
+}
+
+.headerActions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.mobileMenuWrap{
+  display:none; /* desktop default: hide mobile menu */
+  position:relative;
+}
+
+.toolMenu{
+  position:absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 180px;
+  display:none;
+  flex-direction:column;
+  gap:8px;
+  padding:12px;
+  border-radius:14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+  z-index: 1000;
+}
+
+.toolMenu.show{ display:flex; }
+
+/* Mobile breakpoint: hide 3 buttons, show menu */
+@media (max-width: 520px){
+  .desktopActions{ display:none; }
+  .mobileMenuWrap{ display:block; }
+
+  .headerbar{ align-items:center; }
+  .brand{ font-size:1.05rem; }
+
+  /* nút gọn hơn */
+  .btn{ padding:10px 12px; border-radius:10px; font-size:14px; }
+}
+
 
   </style>
 </head>
 <body>
   <header>
-    <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;">
-      <div style="font-weight:800;font-size:1.2rem; color: var(--acc)">📘 ShimeChamhoc</div>
-      <button class="btn secondary" onclick="$('#fileInput').click()">Nạp JSON</button>
-      <button class="btn secondary" onclick="openTextbookImporter()">📄 Nạp giáo trình</button>
+    <div class="wrap headerbar">
+  <div class="brand">📘 ShimeChamhoc</div>
 
-      <button class="btn ghost" id="toggleTheme">🌙 / ☀️</button>
+  <!-- Desktop actions -->
+  <div class="headerActions desktopActions">
+    <button class="btn secondary" onclick="$('#fileInput').click()">Nạp JSON</button>
+    <button class="btn secondary" onclick="openTextbookImporter()">📄 Nạp giáo trình</button>
+    <button class="btn ghost" id="toggleTheme">🌙 / ☀️</button>
+  </div>
 
+  <!-- Mobile compact menu -->
+  <div class="mobileMenuWrap">
+    <button class="btn secondary" id="btnTools">☰ Công cụ</button>
+    <div class="toolMenu" id="toolMenu">
+      <button class="btn secondary" id="mLoadJson">Nạp JSON</button>
+      <button class="btn secondary" id="mLoadTextbook">📄 Nạp giáo trình</button>
+      <button class="btn ghost" id="mTheme">🌙 / ☀️</button>
     </div>
+  </div>
+</div>
+
   </header>
 
   <main class="wrap" style="margin-top:24px">
@@ -561,7 +631,11 @@ window.MathJax = {
       <img src="sheep.png" alt="Sheep sticker">
       <div style="font-weight:800">Cố gắng lênnn! 🐑</div>
       <p class="muted">Sai 3 câu rồi đó, bình tĩnh nhé!</p>
-      <button class="btn ok" onclick="$('#sheepPopup').style.display='none'; wrongStreak=0;">Tiếp tục</button>
+      <button class="btn ok"
+  onclick="$('#sheepPopup').style.display='none'; wrongStreak=0; sheepOpen=false; lastWrongKey='';">
+  Tiếp tục
+</button>
+
     </div>
   </div>
 
@@ -601,6 +675,38 @@ window.MathJax = {
   <script>
     const $ = (sel)=>document.querySelector(sel);
     const $$ = (sel)=>Array.from(document.querySelectorAll(sel));
+    // ===== Mobile tools menu =====
+(function setupMobileToolsMenu(){
+  const btnTools = document.getElementById('btnTools');
+  const menu = document.getElementById('toolMenu');
+  const mLoadJson = document.getElementById('mLoadJson');
+  const mLoadTextbook = document.getElementById('mLoadTextbook');
+  const mTheme = document.getElementById('mTheme');
+
+  if (!btnTools || !menu) return;
+
+  const closeMenu = () => menu.classList.remove('show');
+  const toggleMenu = () => menu.classList.toggle('show');
+
+  btnTools.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+
+  // Actions
+  mLoadJson?.addEventListener('click', () => { closeMenu(); $('#fileInput').click(); });
+  mLoadTextbook?.addEventListener('click', () => { closeMenu(); openTextbookImporter(); });
+  mTheme?.addEventListener('click', () => { closeMenu(); toggleTheme(); });
+
+  // Click outside to close
+  document.addEventListener('click', (e) => {
+    if (!menu.contains(e.target) && e.target !== btnTools) closeMenu();
+  });
+
+  // Close on resize (vd xoay màn hình)
+  window.addEventListener('resize', closeMenu);
+})();
+
 (() => {
   const box = document.getElementById('qChoices');
   if (!box) return;
@@ -1177,9 +1283,11 @@ $('#btnAIExplain').onclick = async () => {
   }
 };
     let allQuizzes = [], quiz = null, idx = 0, answers = [], timerId = null, wrongStreak = 0;
-    let questionFilter = 'all'; // all | bookmark | wrong
-    let autoNextTimer = null;
-    // ===== EXAM GENERATOR (Tạo đề thi trộn chương) =====
+let questionFilter = 'all'; // all | bookmark | wrong
+let autoNextTimer = null;
+let lastWrongKey = "";
+let sheepOpen = false;
+
 const EXAM_TITLE_PREFIX = "📝 Đề thi ngẫu nhiên";
 
 function clampInt(n, min, max) {
@@ -1619,6 +1727,34 @@ function selectChoice(choiceIndex) {
       saveProgressDebounced();
     }, delay);
   }
+    // ===== SHEEP POPUP: sai 3 câu liên tiếp =====
+  try {
+    const instant = $('#instant').checked;
+    const userVal = answers[idx].value;
+
+    if (instant && userVal !== null) {
+      const isWrong = !isAnswerCorrect(q, userVal);
+      const key = `${idx}|${Array.isArray(userVal) ? userVal.join(',') : userVal}`;
+
+      if (isWrong) {
+        // chỉ tính 1 lần cho mỗi lựa chọn ở mỗi câu
+        if (key !== lastWrongKey) {
+          wrongStreak++;
+          lastWrongKey = key;
+        }
+
+        if (wrongStreak >= 3 && !sheepOpen) {
+          sheepOpen = true;
+          $('#sheepPopup').style.display = 'flex';
+        }
+      } else {
+        // trả lời đúng → reset
+        wrongStreak = 0;
+        lastWrongKey = "";
+      }
+    }
+  } catch {}
+
 }
     function renderQuestion() {
   const quizScreen = $('#screenQuiz');
