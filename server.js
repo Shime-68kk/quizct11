@@ -29,7 +29,7 @@ app.use(
   })
 );
 // Preflight
-app.options("*", cors());
+app.options(/.*/, cors());
 
 app.use(express.json({ limit: "200kb" }));
 
